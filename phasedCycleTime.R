@@ -12,6 +12,8 @@ tsTickets <- read.csv("/Users/grovesro/Desktop/jiraR/jiraRDataset.csv", header=T
         resolutionMonth = as.numeric(format(resolutionDate, format="%Y%m"))
   )
 
+
+
 statusColours <- c("secondsInColumns.Open" = "white", 
                    "secondsInColumns.Analysis.In" = "red", "secondsInColumns.Analysis.Out" = "white",
                    
@@ -39,8 +41,23 @@ statusColours <- c("secondsInColumns.Open" = "white",
 )
 
 
-#ggplot(tsTickets, aes(x=as.POSIXct(created), y=secondsInColumns.3.Amigos.In/60/60/24/1000)) + geom_point() + geom_smooth(method="lm")
-#ggplot(tsTickets, aes(x=as.POSIXct(created), y=secondsInColumns.Implementation.In)) + geom_point() + geom_smooth()
+ggplot(filter(tsTickets, ! is.na(resolutionMonth)), aes(x=resolutionMonthDisplay)) + 
+  geom_freqpoly(stat="count", group=1) + theme(axis.text.x = element_text(angle=60, hjust=1)) +
+  ggtitle("Velocity") + xlab("Resolution Month") + ylab("Tickets Resolved")
+
+ggplot(filter(tsTickets, ! is.na(resolutionMonth)), aes(x=resolutionMonthDisplay)) + 
+  geom_bar(stat="count") + theme(axis.text.x = element_text(angle=60, hjust=1)) +
+  ggtitle("Velocity") + xlab("Resolution Month") + ylab("Tickets Resolved")
+
+burnupTickets <- tsTickets
+ggplot(burnupTickets, aes(x=createdMonthDisplay, group=!is.na(resolution), color=!is.na(resolution))) + stat_ecdf(geom="step") + scale_color_discrete("Resolved") +
+  theme(axis.text.x = element_text(angle=60, hjust=1)) + ggtitle("Burnup Percentage") + ylab("Percentage Burnup") + xlab("Month")
+
+
+ggplot(burnupTickets,aes(x=createdMonthDisplay, group=!is.na(resolution), color=!is.na(resolution))) + theme(axis.text.x = element_text(angle=60, hjust=1))+
+  stat_count(data=subset(burnupTickets,!is.na(resolution)),aes(y=cumsum(..count..)),geom="step")+
+  stat_count(data=subset(burnupTickets,is.na(resolution)),aes(y=cumsum(..count..)),geom="step") + 
+  ggtitle("Created vs Not Resolved") + scale_color_discrete("Resolved") + ylab("Number of tickets") + xlab("Month")
 
 summary <- tsTickets %>% 
   select( -created, -summary, -key, -resolution, -resolutionDate, -resolutionMonthDisplay, -resolutionMonth) %>% 
