@@ -23,8 +23,8 @@ function getTransitions(bootstrap, next) {
         },
         json: true
     }, function(err, res, body) {
-        console.log("Got %s response from jira @ %j", res.statusCode, req.uri.href);
         if (err) { console.log("ERR"); console.log(err); return next(err); }
+        console.log("Got %s response from jira @ %j", res.statusCode, req.uri.href);
         var unOrderedProjectCategories = body.transitions.map(function(cat) {
             return cat.name;
         });
@@ -55,8 +55,8 @@ function getNumberOfTickets(bootstrap, next) {
         },
         json: true
     }, function(err, res, body) {
-        console.log("Got %s response from jira @ %j", res.statusCode, req.uri.href);
         if (err) { console.log("ERR"); console.log(err); return next(err); }
+        console.log("Got %s response from jira @ %j", res.statusCode, req.uri.href);
 
         return next(err, body.total);
         })
@@ -91,8 +91,8 @@ function getIssues(bootstrap, next) {
             },
             json: true
         }, function(err, res, body) {
-            console.log("Got %s response from jira @ %j", res.statusCode, req.uri.href);
             if (err) { console.log("ERR"); console.log(err); return nextBucket(err); }
+            console.log("Got %s response from jira @ %j", res.statusCode, req.uri.href);
 //console.log(body);
 
             var issueData = body.issues.map(extractIssueData);

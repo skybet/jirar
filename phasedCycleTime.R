@@ -54,10 +54,6 @@ ggplot(burnupTickets, aes(x=createdMonthDisplay, group=!is.na(resolution), color
   theme(axis.text.x = element_text(angle=60, hjust=1)) + ggtitle("Burnup Percentage") + ylab("Percentage Burnup") + xlab("Month")
 
 
-ggplot(burnupTickets,aes(x=createdMonthDisplay, group=!is.na(resolution), color=!is.na(resolution))) + theme(axis.text.x = element_text(angle=60, hjust=1))+
-  stat_count(data=subset(burnupTickets,!is.na(resolution)),aes(y=cumsum(..count..)),geom="step")+
-  stat_count(data=subset(burnupTickets,is.na(resolution)),aes(y=cumsum(..count..)),geom="step") + 
-  ggtitle("Created vs Not Resolved") + scale_color_discrete("Resolved") + ylab("Number of tickets") + xlab("Month")
 
 summary <- tsTickets %>% 
   select( -created, -summary, -key, -resolution, -resolutionDate, -resolutionMonthDisplay, -resolutionMonth) %>% 
@@ -115,4 +111,40 @@ summaryResolvedMelt %>%
   geom_bar(stat="identity", aes(fill=variable)) + ylab("days") + xlab("month") +
   theme(legend.position = "bottom") + scale_fill_manual(values=statusColours) + coord_flip() +
   guides(fill=guide_legend(reverse=TRUE)) + ggtitle("Phased Cycle Time - Resolved Date")
+
+
+
+
+#BURNUP
+
+createdTickets <- tsTickets %>%
+  arrange(createdMonth) %>%
+  group_by(createdMonth, createdMonthDisplay) %>%
+  dplyr::summarise(created=n()) %>% ungroup() %>%
+  arrange(createdMonth) %>%
+  mutate(cum_created=cumsum(created))
+  
+
+resolvedTickets <- tsTickets %>%
+  group_by(resolutionMonth, resolutionMonthDisplay) %>%
+  dplyr::summarise(resolved=n()) %>% ungroup() %>%
+  arrange(resolutionMonth) %>%
+  mutate(cum_resolved=cumsum(resolved))
+
+burnupTickets <- full_join(createdTickets, resolvedTickets, by=c("createdMonth"="resolutionMonth", "createdMonthDisplay"="resolutionMonthDisplay"))
+
+
+
+burnupTicketsMelt <- burnupTickets %>%
+  filter(!is.na(createdMonth)) %>%
+  select(-created, -resolved) %>%
+  melt(id=c("createdMonthDisplay", "createdMonth")) %>% 
+  arrange(createdMonth)
+  
+burnupTicketsMelt$createdMonthDisplay <- factor(burnupTicketsMelt[order(burnupTicketsMelt$createdMonth), "createdMonthDisplay"], levels=unique(burnupTicketsMelt[order(burnupTicketsMelt$createdMonth), "createdMonthDisplay"]))
+
+ggplot(burnupTicketsMelt, aes(x=createdMonthDisplay, y=value, group=variable, color=variable)) + 
+  geom_line(na.rm=T) + 
+  theme(axis.text.x = element_text(angle=60, hjust=1)) + 
+  ggtitle("Burn-up (tickets created and resolved)") + scale_color_discrete("Resolved", breaks=c("cum_created", "cum_resolved"), labels=c("Created", "Resolved")) + ylab("Number of tickets") + xlab("Month")
 
