@@ -1,15 +1,17 @@
+```{r, echo=FALSE, warning=FALSE, error=FALSE}
+
 library(ggplot2)
 library(dplyr)
 library(reshape2)
 
 tsTickets <- read.csv("/Users/grovesro/Desktop/jiraR/jiraRDataset.csv", header=T, skipNul=T, na.strings="") %>%
   mutate(
-        created = as.POSIXct(created), 
-        createdMonthDisplay = format(created, format="%Y %B"),
-        createdMonth = as.numeric(format(created, format="%Y%m")),
-        resolutionDate = as.POSIXct(resolutionDate), 
-        resolutionMonthDisplay = format(resolutionDate, format="%Y %B"),
-        resolutionMonth = as.numeric(format(resolutionDate, format="%Y%m"))
+    created = as.POSIXct(created), 
+    createdMonthDisplay = format(created, format="%Y %B"),
+    createdMonth = as.numeric(format(created, format="%Y%m")),
+    resolutionDate = as.POSIXct(resolutionDate), 
+    resolutionMonthDisplay = format(resolutionDate, format="%Y %B"),
+    resolutionMonth = as.numeric(format(resolutionDate, format="%Y%m"))
   )
 
 #tsTickets$createdMonthDisplay <- factor(tsTickets[order(tsTickets$createdMonth), "createdMonthDisplay"], levels=unique(tsTickets[order(tsTickets$createdMonth), "createdMonthDisplay"]))
@@ -57,13 +59,13 @@ ggplot(filter(resolvedTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutio
 createdTickets <- tsTickets %>% arrange(createdMonth)
 createdTickets$createdMonthDisplay <- factor(tsTickets[order(tsTickets$createdMonth), "createdMonthDisplay"], levels=unique(tsTickets[order(tsTickets$createdMonth), "createdMonthDisplay"]))
 
-ggplot(tsTickets, aes(x=createdMonthDisplay, group=!is.na(resolution), color=!is.na(resolution))) + stat_ecdf(geom="line") + scale_color_discrete("Resolved") +
-  theme(axis.text.x = element_text(angle=60, hjust=1)) + ggtitle("Burnup Percentage") + ylab("Percentage Burnup") + xlab("Month")
+#ggplot(tsTickets, aes(x=createdMonthDisplay, group=!is.na(resolution), color=!is.na(resolution))) + stat_ecdf(geom="line") + scale_color_discrete("Resolved") +
+#  theme(axis.text.x = element_text(angle=60, hjust=1)) + ggtitle("Burnup Percentage") + ylab("Percentage Burnup") + xlab("Month")
 
 
 
 summary <- tsTickets %>% 
-  select( -created, -summary, -key, -resolution, -resolutionDate, -resolutionMonthDisplay, -resolutionMonth) %>% 
+  select( -created, -summary, -key, -resolution, -resolutionDate, -resolutionMonthDisplay, -resolutionMonth, -workType) %>% 
   arrange(createdMonth) %>%
   group_by(createdMonth, createdMonthDisplay) %>% 
   summarise_each(funs(mean(., na.rm = TRUE)))
@@ -130,7 +132,7 @@ createdTickets <- tsTickets %>%
   dplyr::summarise(created=n()) %>% ungroup() %>%
   arrange(createdMonth) %>%
   mutate(cum_created=cumsum(created))
-  
+
 
 resolvedTickets <- tsTickets %>%
   group_by(resolutionMonth, resolutionMonthDisplay) %>%
@@ -147,7 +149,7 @@ burnupTicketsMelt <- burnupTickets %>%
   select(-created, -resolved) %>%
   melt(id=c("createdMonthDisplay", "createdMonth")) %>% 
   arrange(createdMonth)
-  
+
 burnupTicketsMelt$createdMonthDisplay <- factor(burnupTicketsMelt[order(burnupTicketsMelt$createdMonth), "createdMonthDisplay"], levels=unique(burnupTicketsMelt[order(burnupTicketsMelt$createdMonth), "createdMonthDisplay"]))
 
 ggplot(burnupTicketsMelt, aes(x=createdMonthDisplay, y=value, group=variable, color=variable)) + 
@@ -180,3 +182,5 @@ ggplot(filter(classOfWorkTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolu
 ggplot(filter(classOfWorkTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutionMonthDisplay, fill=workType)) + 
   geom_bar(stat="count") + theme(axis.text.x = element_text(angle=90, hjust=1)) + facet_wrap(~ workType) + 
   ggtitle("Class Of Work") + xlab("Resolution Month") + ylab("Tickets Resolved")
+
+```

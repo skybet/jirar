@@ -113,7 +113,7 @@ function writeCSVOutput(bootstrap, next) {
     };
 
 //console.log(issueData[0]);
-    var fields = ["key", "summary", "created", "resolution", "resolutionDate"];
+    var fields = ["key", "summary", "created", "resolution", "resolutionDate", "workType"];
 
     var fields = fields.concat(bootstrap.getTransitions.map(function(k) {
         //if (k == "previousTime") return null;
@@ -130,6 +130,10 @@ function extractIssueData(issue) {
     var change = issue.changelog.histories
 
     var firstCreated = issue.fields.created;
+    var workType = null;
+    if (issue.fields.customfield_10905) { 
+        workType = issue.fields.customfield_10905.value;
+    }
     var timeInColumns = change.filter(function(changeHist) {
 
 //WARNING Filter modifies changeHist.items
@@ -163,6 +167,7 @@ function extractIssueData(issue) {
 //    });
 
     delete timeInColumns.previousTime
+
 process.stdout.write(".");
 
     return {
@@ -173,6 +178,7 @@ process.stdout.write(".");
         created: firstCreated,
         secondsInColumns: timeInColumns,
         //timeInColumns: formatTimeInColumns
+        workType: workType
     }
 };
 

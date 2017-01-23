@@ -19,6 +19,7 @@ describe("singleIssue", function() {
                 created: "2016-12-05T13:37:16.000+0000",
                 resolution: null,
                 resolutionDate: null,
+                workType: "Bet Tribe Roadmap",
                 secondsInColumns: { 
                     "Open": 1582000,
                     "3 Amigos In": 1280870000
