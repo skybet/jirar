@@ -9,7 +9,8 @@ tsTickets <- read.csv("/Users/grovesro/Desktop/jiraR/jiraRDataset.csv", header=T
         createdMonth = as.numeric(format(created, format="%Y%m")),
         resolutionDate = as.POSIXct(resolutionDate), 
         resolutionMonthDisplay = format(resolutionDate, format="%Y %B"),
-        resolutionMonth = as.numeric(format(resolutionDate, format="%Y%m"))
+        resolutionMonth = as.numeric(format(resolutionDate, format="%Y%m")),
+        totalTime = resolutionDate - created
   )
 
 #tsTickets$createdMonthDisplay <- factor(tsTickets[order(tsTickets$createdMonth), "createdMonthDisplay"], levels=unique(tsTickets[order(tsTickets$createdMonth), "createdMonthDisplay"]))
@@ -49,8 +50,8 @@ ggplot(filter(resolvedTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutio
   geom_freqpoly(stat="count", group=1) + theme(axis.text.x = element_text(angle=60, hjust=1)) +
   ggtitle("Velocity") + xlab("Resolution Month") + ylab("Tickets Resolved")
 
-ggplot(filter(resolvedTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutionMonthDisplay)) + 
-  geom_bar(stat="count") + theme(axis.text.x = element_text(angle=60, hjust=1)) +
+ggplot(filter(resolvedTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutionMonthDisplay, y=totalTime)) + 
+  geom_violin(scale="width") + theme(axis.text.x = element_text(angle=60, hjust=1)) +
   ggtitle("Velocity") + xlab("Resolution Month") + ylab("Tickets Resolved")
 
 #Pretty but broken
@@ -76,6 +77,7 @@ summaryMelt$createdMonthDisplay <- factor(summaryMelt[order(summaryMelt$createdM
 
 summaryMelt %>%
   filter(variable != "secondsInColumns.Open") %>%
+  filter(variable != "secondsInColumns.Backlog") %>%
   filter(variable != "secondsInColumns.Analysis.In") %>%
   filter(variable != "secondsInColumns.Analysis.Out") %>%
   filter(variable != "secondsInColumns.Elaboration.In") %>%
@@ -87,8 +89,38 @@ summaryMelt %>%
   filter(variable != "secondsInColumns.Closed") %>%
   ggplot(aes(x=createdMonthDisplay, y=value/24/60/60/1000)) + 
   geom_bar(stat="identity", aes(fill=variable)) + ylab("days") + xlab("month") +
-  theme(legend.position = "bottom") + scale_fill_manual(values=statusColours) + coord_flip() +
+  theme(legend.position = "bottom") + scale_fill_manual(values=statusColours, na.value="gray") + coord_flip() +
   guides(fill=guide_legend(reverse=TRUE)) + ggtitle("Phased Cycle Time - from ticket created date")
+
+summary <- tsTickets %>% 
+  select( -created, -summary, -key, -workType, -resolution, -resolutionDate, -resolutionMonthDisplay, -resolutionMonth) %>% 
+  arrange(createdMonth) %>%
+  group_by(createdMonth, createdMonthDisplay) %>% 
+  summarise_each(funs(median(., na.rm = TRUE)))
+
+summaryMelt <- melt(summary, id=c("createdMonthDisplay", "createdMonth")) %>% arrange(createdMonth)
+#Factorise and sort the columns in reverse, so that 3Amigos is towards the left/bottom
+summaryMelt$variable <- factor(summaryMelt$variable, levels = rev(levels(summaryMelt$variable)))
+summaryMelt$createdMonthDisplay <- factor(summaryMelt[order(summaryMelt$createdMonth), "createdMonthDisplay"], levels=unique(summaryMelt[order(summaryMelt$createdMonth), "createdMonthDisplay"]))
+
+
+summaryMelt %>%
+  filter(variable != "secondsInColumns.Open") %>%
+  filter(variable != "secondsInColumns.Backlog") %>%
+  filter(variable != "secondsInColumns.Analysis.In") %>%
+  filter(variable != "secondsInColumns.Analysis.Out") %>%
+  filter(variable != "secondsInColumns.Elaboration.In") %>%
+  filter(variable != "secondsInColumns.Elaboration.Out") %>%
+  filter(variable != "secondsInColumns.Test.Analysis.In") %>%
+  filter(variable != "secondsInColumns.Test.Analysis.Out") %>%
+  filter(variable != "secondsInColumns.Reopened") %>%
+  filter(variable != "secondsInColumns.Resolved") %>%
+  filter(variable != "secondsInColumns.Closed") %>%
+  ggplot(aes(x=createdMonthDisplay, y=value/24/60/60/1000)) + 
+  geom_bar(stat="identity", aes(fill=variable)) + ylab("days") + xlab("month") +
+  theme(legend.position = "bottom") + scale_fill_manual(values=statusColours, na.value="gray") + coord_flip() +
+  guides(fill=guide_legend(reverse=TRUE)) + ggtitle("Median Phased Cycle Time - from ticket created date")
+
 
 
 summaryResolved <- tsTickets %>% 
@@ -105,6 +137,7 @@ summaryResolvedMelt$resolutionMonthDisplay <- factor(summaryResolvedMelt[order(s
 summaryResolvedMelt %>%
   filter(! is.na(resolutionMonth)) %>% #Only show resolved tickets
   filter(variable != "secondsInColumns.Open") %>%
+  filter(variable != "secondsInColumns.Backlog") %>%
   filter(variable != "secondsInColumns.Analysis.In") %>%
   filter(variable != "secondsInColumns.Analysis.Out") %>%
   filter(variable != "secondsInColumns.Elaboration.In") %>%
@@ -116,7 +149,7 @@ summaryResolvedMelt %>%
   filter(variable != "secondsInColumns.Closed") %>%
   ggplot(aes(x=resolutionMonthDisplay, y=value/24/60/60/1000)) + 
   geom_bar(stat="identity", aes(fill=variable)) + ylab("days") + xlab("month") +
-  theme(legend.position = "bottom") + scale_fill_manual(values=statusColours) + coord_flip() +
+  theme(legend.position = "bottom") + scale_fill_manual(values=statusColours, na.value="gray") + coord_flip() +
   guides(fill=guide_legend(reverse=TRUE)) + ggtitle("Phased Cycle Time - Resolved Date")
 
 
