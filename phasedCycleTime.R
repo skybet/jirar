@@ -16,6 +16,8 @@ tsTickets <- read.csv("/Users/grovesro/Desktop/jiraR/jiraRDataset.csv", header=T
 #tsTickets$createdMonthDisplay <- factor(tsTickets[order(tsTickets$createdMonth), "createdMonthDisplay"], levels=unique(tsTickets[order(tsTickets$createdMonth), "createdMonthDisplay"]))
 #tsTickets$resolutionMonthDisplay <- factor(tsTickets[order(tsTickets$resolutionMonth), "resolutionMonthDisplay"], levels=unique(tsTickets[order(tsTickets$resolutionMonth), "resolutionMonthDisplay"]))
 
+t1038 <- tsTickets %>% filter(key=="VBS-327") %>% select( -key, -summary, -resolution, -resolutionDate, -totalTime, -created, -resolutionMonth, -createdMonth, -resolutionMonthDisplay, -createdMonthDisplay)
+sum(na.omit(melt(t1038)$value))/1000/60/60/24
 
 statusColours <- c("secondsInColumns.Open" = "white", 
                    "secondsInColumns.Analysis.In" = "red", "secondsInColumns.Analysis.Out" = "white",

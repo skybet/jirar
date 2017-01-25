@@ -1,0 +1,71 @@
+#Burnup
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE, include=F}
+
+library(ggplot2)
+library(dplyr)
+library(reshape2)
+
+```
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE}
+
+tsTickets <- read.csv("/Users/grovesro/Desktop/jiraR/jiraRDataset.csv", header=T, skipNul=T, na.strings="") %>%
+  mutate(
+    created = as.POSIXct(created), 
+    createdMonthDisplay = format(created, format="%Y %B"),
+    createdMonth = as.numeric(format(created, format="%Y%m")),
+    resolutionDate = as.POSIXct(resolutionDate), 
+    resolutionMonthDisplay = format(resolutionDate, format="%Y %B"),
+    resolutionMonth = as.numeric(format(resolutionDate, format="%Y%m")),
+    totalTime = resolutionDate - created
+  )
+
+
+#BURNUP
+
+createdTickets <- tsTickets %>%
+  arrange(createdMonth) %>%
+  group_by(createdMonth, createdMonthDisplay) %>%
+  dplyr::summarise(created=n()) %>% ungroup() %>%
+  arrange(createdMonth) %>%
+  mutate(cum_created=cumsum(created))
+
+
+resolvedTickets <- tsTickets %>%
+  group_by(resolutionMonth, resolutionMonthDisplay) %>%
+  dplyr::summarise(resolved=n()) %>% ungroup() %>%
+  arrange(resolutionMonth) %>%
+  mutate(cum_resolved=cumsum(resolved))
+
+burnupTickets <- full_join(createdTickets, resolvedTickets, by=c("createdMonth"="resolutionMonth", "createdMonthDisplay"="resolutionMonthDisplay"))
+
+
+
+burnupTicketsMelt <- burnupTickets %>%
+  filter(!is.na(createdMonth)) %>%
+  select(-created, -resolved) %>%
+  melt(id=c("createdMonthDisplay", "createdMonth")) %>% 
+  arrange(createdMonth)
+
+burnupTicketsMelt$createdMonthDisplay <- factor(burnupTicketsMelt[order(burnupTicketsMelt$createdMonth), "createdMonthDisplay"], levels=unique(burnupTicketsMelt[order(burnupTicketsMelt$createdMonth), "createdMonthDisplay"]))
+
+ggplot(burnupTicketsMelt, aes(x=createdMonthDisplay, y=value, group=variable, color=variable)) + 
+  geom_line(na.rm=T) + 
+  theme(axis.text.x = element_text(angle=60, hjust=1)) + 
+  ggtitle("Burn-up (tickets created and resolved)") + scale_color_discrete("Resolved", breaks=c("cum_created", "cum_resolved"), labels=c("Created", "Resolved")) + ylab("Number of tickets") + xlab("Month")
+
+
+burnupTicketsMelt <- burnupTickets %>%
+  filter(!is.na(createdMonth)) %>%
+  select(-cum_created, -cum_resolved) %>%
+  melt(id=c("createdMonthDisplay", "createdMonth")) %>% 
+  arrange(createdMonth)
+
+burnupTicketsMelt$createdMonthDisplay <- factor(burnupTicketsMelt[order(burnupTicketsMelt$createdMonth), "createdMonthDisplay"], levels=unique(burnupTicketsMelt[order(burnupTicketsMelt$createdMonth), "createdMonthDisplay"]))
+
+ggplot(burnupTicketsMelt, aes(x=createdMonthDisplay, y=value, group=variable, color=variable)) + 
+  geom_line(na.rm=T) + 
+  theme(axis.text.x = element_text(angle=60, hjust=1)) + 
+  ggtitle("tickets created and resolved") + scale_color_discrete("Resolved", breaks=c("created", "resolved"), labels=c("Created", "Resolved")) + ylab("Number of tickets") + xlab("Month")
+```

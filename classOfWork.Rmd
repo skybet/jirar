@@ -1,0 +1,38 @@
+# Class Of Work
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE, include=F}
+
+library(ggplot2)
+library(dplyr)
+library(reshape2)
+
+```
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE}
+
+tsTickets <- read.csv("/Users/grovesro/Desktop/jiraR/jiraRDataset.csv", header=T, skipNul=T, na.strings="") %>%
+  mutate(
+    created = as.POSIXct(created), 
+    createdMonthDisplay = format(created, format="%Y %B"),
+    createdMonth = as.numeric(format(created, format="%Y%m")),
+    resolutionDate = as.POSIXct(resolutionDate), 
+    resolutionMonthDisplay = format(resolutionDate, format="%Y %B"),
+    resolutionMonth = as.numeric(format(resolutionDate, format="%Y%m")),
+    totalTime = resolutionDate - created
+  )
+
+if ( length(unique(tsTickets$workType)) < 1) {
+  classOfWorkTickets <- tsTickets %>% arrange(resolutionMonth)
+  classOfWorkTickets$resolutionMonthDisplay <- factor(tsTickets[order(tsTickets$resolutionMonth), "resolutionMonthDisplay"], levels=unique(tsTickets[order(tsTickets$resolutionMonth), "resolutionMonthDisplay"]))
+  
+  ggplot(filter(classOfWorkTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutionMonthDisplay, fill=workType)) + 
+    geom_bar(stat="count", position="fill") + theme(axis.text.x = element_text(angle=60, hjust=1)) + 
+    ggtitle("Class Of Work Distribution") + xlab("Resolution Month") + ylab("Class Of Work %")
+  
+  ggplot(filter(classOfWorkTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutionMonthDisplay, fill=workType)) + 
+    geom_bar(stat="count") + theme(axis.text.x = element_text(angle=90, hjust=1)) + facet_wrap(~ workType) + 
+    ggtitle("Class Of Work") + xlab("Resolution Month") + ylab("Tickets Resolved")
+} else {
+  print("No Work Types are set")
+}
+```

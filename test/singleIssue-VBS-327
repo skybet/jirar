@@ -1,0 +1,1430 @@
+module.exports = 
+{
+    "changelog": {
+        "histories": [
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&ownerId=USER05&avatarId=14703",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&ownerId=USER05&avatarId=14703",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&ownerId=USER05&avatarId=14703",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?ownerId=USER05&avatarId=14703"
+                    },
+                    "displayName": "displayName5",
+                    "emailAddress": "email5@example.com",
+                    "key": "USER05",
+                    "name": "USER05",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER05",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2016-11-16T10:30:33.000+0000",
+                "id": "803409",
+                "items": [
+                    {
+                        "field": "Epic Link",
+                        "fieldtype": "custom",
+                        "from": null,
+                        "fromString": null,
+                        "to": "98439",
+                        "toString": "VBS-247"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&ownerId=USER06&avatarId=20200",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&ownerId=USER06&avatarId=20200",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&ownerId=USER06&avatarId=20200",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?ownerId=USER06&avatarId=20200"
+                    },
+                    "displayName": "displayName6",
+                    "emailAddress": "email6@example.com",
+                    "key": "USER06",
+                    "name": "USER06",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER06",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2016-11-17T16:08:51.000+0000",
+                "id": "806332",
+                "items": [
+                    {
+                        "field": "status",
+                        "fieldtype": "jira",
+                        "from": "10001",
+                        "fromString": "Backlog",
+                        "to": "10056",
+                        "toString": "Elaboration In"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&ownerId=USER06&avatarId=20200",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&ownerId=USER06&avatarId=20200",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&ownerId=USER06&avatarId=20200",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?ownerId=USER06&avatarId=20200"
+                    },
+                    "displayName": "displayName6",
+                    "emailAddress": "email6@example.com",
+                    "key": "USER06",
+                    "name": "USER06",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER06",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2016-11-17T16:09:00.000+0000",
+                "id": "806334",
+                "items": [
+                    {
+                        "field": "assignee",
+                        "fieldtype": "jira",
+                        "from": null,
+                        "fromString": null,
+                        "to": "USER06",
+                        "toString": "displayName6"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&ownerId=USER06&avatarId=20200",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&ownerId=USER06&avatarId=20200",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&ownerId=USER06&avatarId=20200",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?ownerId=USER06&avatarId=20200"
+                    },
+                    "displayName": "displayName6",
+                    "emailAddress": "email6@example.com",
+                    "key": "USER06",
+                    "name": "USER06",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER06",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2016-11-18T09:43:04.000+0000",
+                "id": "806712",
+                "items": [
+                    {
+                        "field": "description",
+                        "fieldtype": "jira",
+                        "from": null,
+                        "fromString": "secret description",
+                        "to": null,
+                        "toString": "secret description"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&ownerId=USER06&avatarId=20200",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&ownerId=USER06&avatarId=20200",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&ownerId=USER06&avatarId=20200",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?ownerId=USER06&avatarId=20200"
+                    },
+                    "displayName": "displayName6",
+                    "emailAddress": "email6@example.com",
+                    "key": "USER06",
+                    "name": "USER06",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER06",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2016-11-18T09:43:10.000+0000",
+                "id": "806713",
+                "items": [
+                    {
+                        "field": "status",
+                        "fieldtype": "jira",
+                        "from": "10056",
+                        "fromString": "Elaboration In",
+                        "to": "18783",
+                        "toString": "Elaboration  Out"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&ownerId=USER06&avatarId=20200",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&ownerId=USER06&avatarId=20200",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&ownerId=USER06&avatarId=20200",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?ownerId=USER06&avatarId=20200"
+                    },
+                    "displayName": "displayName6",
+                    "emailAddress": "email6@example.com",
+                    "key": "USER06",
+                    "name": "USER06",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER06",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2016-11-18T09:43:13.000+0000",
+                "id": "806714",
+                "items": [
+                    {
+                        "field": "status",
+                        "fieldtype": "jira",
+                        "from": "18783",
+                        "fromString": "Elaboration  Out",
+                        "to": "10085",
+                        "toString": "Implementation In"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&ownerId=USER06&avatarId=20200",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&ownerId=USER06&avatarId=20200",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&ownerId=USER06&avatarId=20200",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?ownerId=USER06&avatarId=20200"
+                    },
+                    "displayName": "displayName6",
+                    "emailAddress": "email6@example.com",
+                    "key": "USER06",
+                    "name": "USER06",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER06",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2016-11-18T13:38:33.000+0000",
+                "id": "807560",
+                "items": [
+                    {
+                        "field": "status",
+                        "fieldtype": "jira",
+                        "from": "10085",
+                        "fromString": "Implementation In",
+                        "to": "10283",
+                        "toString": "Implementation Out"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&ownerId=USER06&avatarId=20200",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&ownerId=USER06&avatarId=20200",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&ownerId=USER06&avatarId=20200",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?ownerId=USER06&avatarId=20200"
+                    },
+                    "displayName": "displayName6",
+                    "emailAddress": "email6@example.com",
+                    "key": "USER06",
+                    "name": "USER06",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER06",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2016-11-18T14:38:44.000+0000",
+                "id": "807877",
+                "items": [
+                    {
+                        "field": "status",
+                        "fieldtype": "jira",
+                        "from": "10283",
+                        "fromString": "Implementation Out",
+                        "to": "10283",
+                        "toString": "Implementation Out"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&ownerId=USER06&avatarId=20200",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&ownerId=USER06&avatarId=20200",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&ownerId=USER06&avatarId=20200",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?ownerId=USER06&avatarId=20200"
+                    },
+                    "displayName": "displayName6",
+                    "emailAddress": "email6@example.com",
+                    "key": "USER06",
+                    "name": "USER06",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER06",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2016-11-18T14:39:07.000+0000",
+                "id": "807878",
+                "items": [
+                    {
+                        "field": "assignee",
+                        "fieldtype": "jira",
+                        "from": "USER06",
+                        "fromString": "displayName6",
+                        "to": null,
+                        "toString": null
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                    },
+                    "displayName": "displayName7",
+                    "emailAddress": "email7@example.com",
+                    "key": "USER07",
+                    "name": "USER07",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER07",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2016-11-21T10:34:42.000+0000",
+                "id": "809671",
+                "items": [
+                    {
+                        "field": "status",
+                        "fieldtype": "jira",
+                        "from": "10283",
+                        "fromString": "Implementation Out",
+                        "to": "18786",
+                        "toString": "Code Review / Demo In"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&ownerId=USER06&avatarId=20200",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&ownerId=USER06&avatarId=20200",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&ownerId=USER06&avatarId=20200",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?ownerId=USER06&avatarId=20200"
+                    },
+                    "displayName": "displayName6",
+                    "emailAddress": "email6@example.com",
+                    "key": "USER06",
+                    "name": "USER06",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER06",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2016-11-21T11:45:52.000+0000",
+                "id": "809975",
+                "items": [
+                    {
+                        "field": "Link",
+                        "fieldtype": "jira",
+                        "from": null,
+                        "fromString": null,
+                        "to": "VBS-335",
+                        "toString": "This issue relates to VBS-335"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                    },
+                    "displayName": "displayName7",
+                    "emailAddress": "email7@example.com",
+                    "key": "USER07",
+                    "name": "USER07",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER07",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2016-11-21T11:46:49.000+0000",
+                "id": "809986",
+                "items": [
+                    {
+                        "field": "status",
+                        "fieldtype": "jira",
+                        "from": "18786",
+                        "fromString": "Code Review / Demo In",
+                        "to": "18787",
+                        "toString": "Code Review / Demo Out"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                    },
+                    "displayName": "displayName8",
+                    "emailAddress": "email8@example.com",
+                    "key": "USER08",
+                    "name": "USER08",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER08",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2016-11-21T16:23:26.000+0000",
+                "id": "811475",
+                "items": [
+                    {
+                        "field": "status",
+                        "fieldtype": "jira",
+                        "from": "18787",
+                        "fromString": "Code Review / Demo Out",
+                        "to": "10061",
+                        "toString": "Test In"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                    },
+                    "displayName": "displayName8",
+                    "emailAddress": "email8@example.com",
+                    "key": "USER08",
+                    "name": "USER08",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER08",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2016-11-21T16:23:40.000+0000",
+                "id": "811477",
+                "items": [
+                    {
+                        "field": "assignee",
+                        "fieldtype": "jira",
+                        "from": null,
+                        "fromString": null,
+                        "to": "USER08",
+                        "toString": "displayName8"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                    },
+                    "displayName": "displayName8",
+                    "emailAddress": "email8@example.com",
+                    "key": "USER08",
+                    "name": "USER08",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER08",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2016-11-21T16:53:11.000+0000",
+                "id": "811558",
+                "items": [
+                    {
+                        "field": "Attachment",
+                        "fieldtype": "jira",
+                        "from": null,
+                        "fromString": null,
+                        "to": "60651",
+                        "toString": "Screen Shot 2016-11-21 at 16.22.19.png"
+                    },
+                    {
+                        "field": "Attachment",
+                        "fieldtype": "jira",
+                        "from": null,
+                        "fromString": null,
+                        "to": "60652",
+                        "toString": "Screen Shot 2016-11-21 at 16.19.46.png"
+                    },
+                    {
+                        "field": "Attachment",
+                        "fieldtype": "jira",
+                        "from": null,
+                        "fromString": null,
+                        "to": "60653",
+                        "toString": "Screen Shot 2016-11-21 at 16.09.17.png"
+                    },
+                    {
+                        "field": "Attachment",
+                        "fieldtype": "jira",
+                        "from": null,
+                        "fromString": null,
+                        "to": "60654",
+                        "toString": "Screen Shot 2016-11-21 at 16.03.47.png"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                    },
+                    "displayName": "displayName8",
+                    "emailAddress": "email8@example.com",
+                    "key": "USER08",
+                    "name": "USER08",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER08",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2016-11-22T10:45:07.000+0000",
+                "id": "812308",
+                "items": [
+                    {
+                        "field": "status",
+                        "fieldtype": "jira",
+                        "from": "10061",
+                        "fromString": "Test In",
+                        "to": "10085",
+                        "toString": "Implementation In"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                    },
+                    "displayName": "displayName8",
+                    "emailAddress": "email8@example.com",
+                    "key": "USER08",
+                    "name": "USER08",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER08",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2016-11-22T10:45:33.000+0000",
+                "id": "812313",
+                "items": [
+                    {
+                        "field": "assignee",
+                        "fieldtype": "jira",
+                        "from": "USER08",
+                        "fromString": "displayName8",
+                        "to": "USER06",
+                        "toString": "displayName6"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&ownerId=USER06&avatarId=20200",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&ownerId=USER06&avatarId=20200",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&ownerId=USER06&avatarId=20200",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?ownerId=USER06&avatarId=20200"
+                    },
+                    "displayName": "displayName6",
+                    "emailAddress": "email6@example.com",
+                    "key": "USER06",
+                    "name": "USER06",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER06",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2016-11-22T11:42:08.000+0000",
+                "id": "812529",
+                "items": [
+                    {
+                        "field": "status",
+                        "fieldtype": "jira",
+                        "from": "10085",
+                        "fromString": "Implementation In",
+                        "to": "10283",
+                        "toString": "Implementation Out"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&ownerId=USER06&avatarId=20200",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&ownerId=USER06&avatarId=20200",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&ownerId=USER06&avatarId=20200",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?ownerId=USER06&avatarId=20200"
+                    },
+                    "displayName": "displayName6",
+                    "emailAddress": "email6@example.com",
+                    "key": "USER06",
+                    "name": "USER06",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER06",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2016-11-22T11:42:17.000+0000",
+                "id": "812530",
+                "items": [
+                    {
+                        "field": "assignee",
+                        "fieldtype": "jira",
+                        "from": "USER06",
+                        "fromString": "displayName6",
+                        "to": null,
+                        "toString": null
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                    },
+                    "displayName": "displayName8",
+                    "emailAddress": "email8@example.com",
+                    "key": "USER08",
+                    "name": "USER08",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER08",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2016-11-23T15:04:03.000+0000",
+                "id": "815323",
+                "items": [
+                    {
+                        "field": "status",
+                        "fieldtype": "jira",
+                        "from": "10283",
+                        "fromString": "Implementation Out",
+                        "to": "18786",
+                        "toString": "Code Review / Demo In"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                    },
+                    "displayName": "displayName7",
+                    "emailAddress": "email7@example.com",
+                    "key": "USER07",
+                    "name": "USER07",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER07",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2016-11-23T16:20:27.000+0000",
+                "id": "815572",
+                "items": [
+                    {
+                        "field": "status",
+                        "fieldtype": "jira",
+                        "from": "18786",
+                        "fromString": "Code Review / Demo In",
+                        "to": "18787",
+                        "toString": "Code Review / Demo Out"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                    },
+                    "displayName": "displayName8",
+                    "emailAddress": "email8@example.com",
+                    "key": "USER08",
+                    "name": "USER08",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER08",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2016-11-24T08:05:02.000+0000",
+                "id": "815903",
+                "items": [
+                    {
+                        "field": "status",
+                        "fieldtype": "jira",
+                        "from": "18787",
+                        "fromString": "Code Review / Demo Out",
+                        "to": "10061",
+                        "toString": "Test In"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                    },
+                    "displayName": "displayName8",
+                    "emailAddress": "email8@example.com",
+                    "key": "USER08",
+                    "name": "USER08",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER08",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2016-11-24T11:30:53.000+0000",
+                "id": "816627",
+                "items": [
+                    {
+                        "field": "status",
+                        "fieldtype": "jira",
+                        "from": "10061",
+                        "fromString": "Test In",
+                        "to": "10284",
+                        "toString": "Test Out"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                    },
+                    "displayName": "displayName10",
+                    "emailAddress": "email10@example.com",
+                    "key": "USER10",
+                    "name": "USER10",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER10",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2016-11-25T11:04:42.000+0000",
+                "id": "819181",
+                "items": [
+                    {
+                        "field": "status",
+                        "fieldtype": "jira",
+                        "from": "10284",
+                        "fromString": "Test Out",
+                        "to": "18682",
+                        "toString": "Deploy"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                    },
+                    "displayName": "displayName10",
+                    "emailAddress": "email10@example.com",
+                    "key": "USER10",
+                    "name": "USER10",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER10",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2016-11-25T16:59:01.000+0000",
+                "id": "820656",
+                "items": [
+                    {
+                        "field": "Link",
+                        "fieldtype": "jira",
+                        "from": "VBS-335",
+                        "fromString": "This issue relates to VBS-335",
+                        "to": null,
+                        "toString": null
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                    },
+                    "displayName": "displayName10",
+                    "emailAddress": "email10@example.com",
+                    "key": "USER10",
+                    "name": "USER10",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER10",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2016-11-25T16:59:56.000+0000",
+                "id": "820659",
+                "items": [
+                    {
+                        "field": "Link",
+                        "fieldtype": "jira",
+                        "from": null,
+                        "fromString": null,
+                        "to": "VBS-335",
+                        "toString": "This issue relates to VBS-335"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                    },
+                    "displayName": "displayName8",
+                    "emailAddress": "email8@example.com",
+                    "key": "USER08",
+                    "name": "USER08",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER08",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2016-11-28T11:19:56.000+0000",
+                "id": "821804",
+                "items": [
+                    {
+                        "field": "resolution",
+                        "fieldtype": "jira",
+                        "from": null,
+                        "fromString": null,
+                        "to": "6",
+                        "toString": "Done"
+                    },
+                    {
+                        "field": "status",
+                        "fieldtype": "jira",
+                        "from": "18682",
+                        "fromString": "Deploy",
+                        "to": "10096",
+                        "toString": "Done"
+                    }
+                ]
+            }
+        ],
+        "maxResults": 27,
+        "startAt": 0,
+        "total": 27
+    },
+    "expand": "renderedFields,names,schema,transitions,operations,editmeta,changelog",
+    "fields": {
+        "aggregateprogress": {
+            "progress": 0,
+            "total": 0
+        },
+        "aggregatetimeestimate": null,
+        "aggregatetimeoriginalestimate": null,
+        "aggregatetimespent": null,
+        "assignee": null,
+        "attachment": [
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                    },
+                    "displayName": "displayName8",
+                    "emailAddress": "email8@example.com",
+                    "key": "USER08",
+                    "name": "USER08",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER08",
+                    "timeZone": "Europe/London"
+                },
+                "content": "https://jira.example.com/jira/secure/attachment/60654/Screen+Shot+2016-11-21+at+16.03.47.png",
+                "created": "2016-11-21T16:42:11.000+0000",
+                "filename": "Screen Shot 2016-11-21 at 16.03.47.png",
+                "id": "60654",
+                "mimeType": "image/png",
+                "self": "https://jira.example.com/jira/rest/api/2/attachment/60654",
+                "size": 1551434,
+                "thumbnail": "https://jira.example.com/jira/secure/thumbnail/60654/_thumb_60654.png"
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                    },
+                    "displayName": "displayName8",
+                    "emailAddress": "email8@example.com",
+                    "key": "USER08",
+                    "name": "USER08",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER08",
+                    "timeZone": "Europe/London"
+                },
+                "content": "https://jira.example.com/jira/secure/attachment/60653/Screen+Shot+2016-11-21+at+16.09.17.png",
+                "created": "2016-11-21T16:42:11.000+0000",
+                "filename": "Screen Shot 2016-11-21 at 16.09.17.png",
+                "id": "60653",
+                "mimeType": "image/png",
+                "self": "https://jira.example.com/jira/rest/api/2/attachment/60653",
+                "size": 997140,
+                "thumbnail": "https://jira.example.com/jira/secure/thumbnail/60653/_thumb_60653.png"
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                    },
+                    "displayName": "displayName8",
+                    "emailAddress": "email8@example.com",
+                    "key": "USER08",
+                    "name": "USER08",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER08",
+                    "timeZone": "Europe/London"
+                },
+                "content": "https://jira.example.com/jira/secure/attachment/60652/Screen+Shot+2016-11-21+at+16.19.46.png",
+                "created": "2016-11-21T16:42:11.000+0000",
+                "filename": "Screen Shot 2016-11-21 at 16.19.46.png",
+                "id": "60652",
+                "mimeType": "image/png",
+                "self": "https://jira.example.com/jira/rest/api/2/attachment/60652",
+                "size": 979230,
+                "thumbnail": "https://jira.example.com/jira/secure/thumbnail/60652/_thumb_60652.png"
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                    },
+                    "displayName": "displayName8",
+                    "emailAddress": "email8@example.com",
+                    "key": "USER08",
+                    "name": "USER08",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER08",
+                    "timeZone": "Europe/London"
+                },
+                "content": "https://jira.example.com/jira/secure/attachment/60651/Screen+Shot+2016-11-21+at+16.22.19.png",
+                "created": "2016-11-21T16:42:11.000+0000",
+                "filename": "Screen Shot 2016-11-21 at 16.22.19.png",
+                "id": "60651",
+                "mimeType": "image/png",
+                "self": "https://jira.example.com/jira/rest/api/2/attachment/60651",
+                "size": 1683392,
+                "thumbnail": "https://jira.example.com/jira/secure/thumbnail/60651/_thumb_60651.png"
+            }
+        ],
+        "comment": {
+            "comments": [
+                {
+                    "author": {
+                        "active": true,
+                        "avatarUrls": {
+                            "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                            "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                            "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                            "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                        },
+                        "displayName": "displayName7",
+                        "emailAddress": "email7@example.com",
+                        "key": "USER07",
+                        "name": "USER07",
+                        "self": "https://jira.example.com/jira/rest/api/2/user?username=USER07",
+                        "timeZone": "Europe/London"
+                    },
+                    "body": "Secret comment",
+                    "created": "2016-11-21T10:37:03.000+0000",
+                    "id": "132856",
+                    "self": "https://jira.example.com/jira/rest/api/2/issue/108322/comment/132856",
+                    "updateAuthor": {
+                        "active": true,
+                        "avatarUrls": {
+                            "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                            "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                            "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                            "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                        },
+                        "displayName": "displayName7",
+                        "emailAddress": "email7@example.com",
+                        "key": "USER07",
+                        "name": "USER07",
+                        "self": "https://jira.example.com/jira/rest/api/2/user?username=USER07",
+                        "timeZone": "Europe/London"
+                    },
+                    "updated": "2016-11-21T10:44:11.000+0000"
+                },
+                {
+                    "author": {
+                        "active": true,
+                        "avatarUrls": {
+                            "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                            "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                            "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                            "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                        },
+                        "displayName": "displayName8",
+                        "emailAddress": "email8@example.com",
+                        "key": "USER08",
+                        "name": "USER08",
+                        "self": "https://jira.example.com/jira/rest/api/2/user?username=USER08",
+                        "timeZone": "Europe/London"
+                    },
+                    "body": "secret comment",
+                    "created": "2016-11-21T16:53:11.000+0000",
+                    "id": "133037",
+                    "self": "https://jira.example.com/jira/rest/api/2/issue/108322/comment/133037",
+                    "updateAuthor": {
+                        "active": true,
+                        "avatarUrls": {
+                            "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                            "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                            "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                            "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                        },
+                        "displayName": "displayName8",
+                        "emailAddress": "email8@example.com",
+                        "key": "USER08",
+                        "name": "USER08",
+                        "self": "https://jira.example.com/jira/rest/api/2/user?username=USER08",
+                        "timeZone": "Europe/London"
+                    },
+                    "updated": "2016-11-21T16:53:11.000+0000"
+                },
+                {
+                    "author": {
+                        "active": true,
+                        "avatarUrls": {
+                            "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                            "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                            "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                            "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                        },
+                        "displayName": "displayName8",
+                        "emailAddress": "email8@example.com",
+                        "key": "USER08",
+                        "name": "USER08",
+                        "self": "https://jira.example.com/jira/rest/api/2/user?username=USER08",
+                        "timeZone": "Europe/London"
+                    },
+                    "body": "With a combo of 327 & 355, streamamg virtual sports links are now streaming. ",
+                    "created": "2016-11-24T11:31:58.000+0000",
+                    "id": "133766",
+                    "self": "https://jira.example.com/jira/rest/api/2/issue/108322/comment/133766",
+                    "updateAuthor": {
+                        "active": true,
+                        "avatarUrls": {
+                            "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                            "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                            "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                            "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                        },
+                        "displayName": "displayName8",
+                        "emailAddress": "email8@example.com",
+                        "key": "USER08",
+                        "name": "USER08",
+                        "self": "https://jira.example.com/jira/rest/api/2/user?username=USER08",
+                        "timeZone": "Europe/London"
+                    },
+                    "updated": "2016-11-24T11:31:58.000+0000"
+                }
+            ],
+            "maxResults": 3,
+            "startAt": 0,
+            "total": 3
+        },
+        "components": [],
+        "created": "2016-11-16T10:30:33.000+0000",
+        "creator": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&ownerId=USER05&avatarId=14703",
+                "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&ownerId=USER05&avatarId=14703",
+                "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&ownerId=USER05&avatarId=14703",
+                "48x48": "https://jira.example.com/jira/secure/useravatar?ownerId=USER05&avatarId=14703"
+            },
+            "displayName": "displayName5",
+            "emailAddress": "email5@example.com",
+            "key": "USER05",
+            "name": "USER05",
+            "self": "https://jira.example.com/jira/rest/api/2/user?username=USER05",
+            "timeZone": "Europe/London"
+        },
+        "customfield_10000": null,
+        "customfield_10001": null,
+        "customfield_10002": null,
+        "customfield_10003": null,
+        "customfield_10004": "9223372036854775807",
+        "customfield_10005": null,
+        "customfield_10103": "VBS-247",
+        "customfield_10400": "2016-11-21 10:37:03.0",
+        "customfield_10401": "18682_*:*_1_*:*_260114000_*|*_10001_*:*_1_*:*_106698000_*|*_18783_*:*_1_*:*_3000_*|*_10056_*:*_1_*:*_63259000_*|*_10085_*:*_2_*:*_17541000_*|*_18786_*:*_2_*:*_8911000_*|*_10096_*:*_1_*:*_0_*|*_18787_*:*_2_*:*_73272000_*|*_10284_*:*_1_*:*_84829000_*|*_10283_*:*_3_*:*_346684000_*|*_10061_*:*_2_*:*_78452000",
+        "customfield_10600": {
+            "id": "10401",
+            "self": "https://jira.example.com/jira/rest/api/2/customFieldOption/10401",
+            "value": "3"
+        },
+        "customfield_10601": null,
+        "customfield_10602": {
+            "id": "10407",
+            "self": "https://jira.example.com/jira/rest/api/2/customFieldOption/10407",
+            "value": "3"
+        },
+        "customfield_10603": null,
+        "customfield_10607": null,
+        "customfield_10608": null,
+        "customfield_10609": null,
+        "customfield_10610": null,
+        "customfield_10611": null,
+        "customfield_10612": null,
+        "customfield_10613": null,
+        "customfield_10701": null,
+        "customfield_10801": null,
+        "customfield_10900": null,
+        "customfield_10901": null,
+        "customfield_10903": null,
+        "customfield_10904": null,
+        "customfield_10905": null,
+        "customfield_10906": null,
+        "customfield_10907": null,
+        "customfield_10908": null,
+        "customfield_11100": null,
+        "customfield_11300": null,
+        "customfield_11301": null,
+        "customfield_11302": null,
+        "customfield_11303": null,
+        "customfield_11304": null,
+        "customfield_11305": null,
+        "customfield_11500": null,
+        "customfield_11600": null,
+        "customfield_11701": null,
+        "customfield_11900": "1|i00cu7:",
+        "customfield_12000": "<Acceptance Criteria>",
+        "customfield_12001": null,
+        "customfield_12002": null,
+        "customfield_12100": null,
+        "customfield_12300": null,
+        "customfield_12400": null,
+        "customfield_12401": null,
+        "customfield_12402": null,
+        "customfield_12403": null,
+        "customfield_12404": null,
+        "customfield_12501": null,
+        "customfield_12600": null,
+        "customfield_12601": null,
+        "customfield_12700": null,
+        "customfield_12701": null,
+        "customfield_12702": null,
+        "customfield_12703": null,
+        "customfield_12704": null,
+        "customfield_12800": null,
+        "customfield_12900": null,
+        "customfield_13001": {
+            "id": "11403",
+            "self": "https://jira.example.com/jira/rest/api/2/customFieldOption/11403",
+            "value": "No"
+        },
+        "customfield_13101": null,
+        "customfield_13200": null,
+        "customfield_13300": null,
+        "customfield_13400": null,
+        "customfield_13500": null,
+        "customfield_13501": null,
+        "customfield_13600": "h3. Acceptance Criteria\r\n\r\n\r\nh3. Notes",
+        "customfield_13601": null,
+        "customfield_13700": null,
+        "customfield_13800": "<Elaboration>",
+        "customfield_13801": null,
+        "customfield_13900": null,
+        "customfield_14000": null,
+        "customfield_14100": null,
+        "customfield_14101": null,
+        "customfield_14102": null,
+        "customfield_14200": null,
+        "customfield_14300": null,
+        "customfield_14301": null,
+        "customfield_14400": null,
+        "customfield_14500": null,
+        "customfield_14600": null,
+        "customfield_14700": null,
+        "customfield_14701": null,
+        "customfield_14702": null,
+        "customfield_14703": null,
+        "customfield_14704": null,
+        "customfield_14705": null,
+        "customfield_14706": null,
+        "customfield_14707": null,
+        "customfield_14708": null,
+        "customfield_14709": null,
+        "customfield_14710": null,
+        "customfield_14711": null,
+        "customfield_14712": null,
+        "customfield_14713": null,
+        "customfield_14714": null,
+        "customfield_14800": null,
+        "customfield_14801": null,
+        "customfield_14803": null,
+        "customfield_14804": null,
+        "customfield_14805": null,
+        "customfield_14806": null,
+        "customfield_14807": null,
+        "customfield_14900": null,
+        "customfield_14901": null,
+        "customfield_15000": null,
+        "customfield_15100": null,
+        "customfield_15200": null,
+        "customfield_15300": null,
+        "customfield_15400": null,
+        "customfield_15401": null,
+        "customfield_15402": null,
+        "customfield_15403": null,
+        "customfield_15404": null,
+        "customfield_15405": null,
+        "customfield_15406": null,
+        "customfield_15407": null,
+        "customfield_15408": null,
+        "customfield_15409": null,
+        "customfield_15410": null,
+        "customfield_15411": null,
+        "customfield_15412": null,
+        "customfield_15413": null,
+        "customfield_15414": null,
+        "customfield_15415": null,
+        "customfield_15416": null,
+        "customfield_15417": null,
+        "customfield_15500": null,
+        "customfield_15501": null,
+        "customfield_15502": null,
+        "customfield_15601": null,
+        "customfield_15700": null,
+        "customfield_15701": null,
+        "customfield_15801": null,
+        "customfield_15802": null,
+        "customfield_15803": null,
+        "customfield_15804": null,
+        "customfield_15805": null,
+        "customfield_15806": null,
+        "customfield_16000": null,
+        "customfield_16001": null,
+        "customfield_16002": null,
+        "customfield_16003": null,
+        "customfield_16004": null,
+        "customfield_16005": null,
+        "customfield_16006": null,
+        "customfield_16200": null,
+        "customfield_16201": null,
+        "customfield_16300": null,
+        "description": "Secret description",
+        "duedate": null,
+        "fixVersions": [
+            {
+                "archived": false,
+                "id": "38000",
+                "name": "Virtual Sports Replatforming",
+                "released": false,
+                "self": "https://jira.example.com/jira/rest/api/2/version/38000"
+            }
+        ],
+        "issuelinks": [
+            {
+                "id": "92749",
+                "inwardIssue": {
+                    "fields": {
+                        "issuetype": {
+                            "description": "Subtask of a user story",
+                            "iconUrl": "https://jira.example.com/jira/images/icons/issuetypes/subtask.png",
+                            "id": "10213",
+                            "name": "User Story Task",
+                            "self": "https://jira.example.com/jira/rest/api/2/issuetype/10213",
+                            "subtask": true
+                        },
+                        "priority": {
+                            "iconUrl": "https://jira.example.com/jira/secure/attachment/59220/normal.png",
+                            "id": "6",
+                            "name": "Normal",
+                            "self": "https://jira.example.com/jira/rest/api/2/priority/6"
+                        },
+                        "status": {
+                            "description": "",
+                            "iconUrl": "https://jira.example.com/jira/images/icons/subtask.gif",
+                            "id": "10096",
+                            "name": "Done",
+                            "self": "https://jira.example.com/jira/rest/api/2/status/10096",
+                            "statusCategory": {
+                                "colorName": "green",
+                                "id": 3,
+                                "key": "done",
+                                "name": "Done",
+                                "self": "https://jira.example.com/jira/rest/api/2/statuscategory/3"
+                            }
+                        },
+                        "summary": "Update default virtual sports url - platformevo"
+                    },
+                    "id": "109179",
+                    "key": "VBS-335",
+                    "self": "https://jira.example.com/jira/rest/api/2/issue/109179"
+                },
+                "self": "https://jira.example.com/jira/rest/api/2/issueLink/92749",
+                "type": {
+                    "id": "10003",
+                    "inward": "relates to",
+                    "name": "Relates",
+                    "outward": "relates to",
+                    "self": "https://jira.example.com/jira/rest/api/2/issueLinkType/10003"
+                }
+            }
+        ],
+        "issuetype": {
+            "description": "Created by JIRA Agile - do not edit or delete. Issue type for a user story.",
+            "iconUrl": "https://jira.example.com/jira/images/icons/issuetypes/story.png",
+            "id": "7",
+            "name": "User Story",
+            "self": "https://jira.example.com/jira/rest/api/2/issuetype/7",
+            "subtask": false
+        },
+        "labels": [],
+        "lastViewed": null,
+        "priority": {
+            "iconUrl": "https://jira.example.com/jira/secure/attachment/59220/normal.png",
+            "id": "6",
+            "name": "Normal",
+            "self": "https://jira.example.com/jira/rest/api/2/priority/6"
+        },
+        "progress": {
+            "progress": 0,
+            "total": 0
+        },
+        "project": {
+            "avatarUrls": {
+                "16x16": "https://jira.example.com/jira/secure/projectavatar?size=xsmall&avatarId=10011",
+                "24x24": "https://jira.example.com/jira/secure/projectavatar?size=small&avatarId=10011",
+                "32x32": "https://jira.example.com/jira/secure/projectavatar?size=medium&avatarId=10011",
+                "48x48": "https://jira.example.com/jira/secure/projectavatar?avatarId=10011"
+            },
+            "id": "19400",
+            "key": "VBS",
+            "name": "Various Bits of Stability",
+            "self": "https://jira.example.com/jira/rest/api/2/project/19400"
+        },
+        "reporter": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&ownerId=USER05&avatarId=14703",
+                "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&ownerId=USER05&avatarId=14703",
+                "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&ownerId=USER05&avatarId=14703",
+                "48x48": "https://jira.example.com/jira/secure/useravatar?ownerId=USER05&avatarId=14703"
+            },
+            "displayName": "displayName5",
+            "emailAddress": "email5@example.com",
+            "key": "USER05",
+            "name": "USER05",
+            "self": "https://jira.example.com/jira/rest/api/2/user?username=USER05",
+            "timeZone": "Europe/London"
+        },
+        "resolution": {
+            "description": "GreenHopper Managed Resolution",
+            "id": "6",
+            "name": "Done",
+            "self": "https://jira.example.com/jira/rest/api/2/resolution/6"
+        },
+        "resolutiondate": "2016-11-28T11:19:56.000+0000",
+        "status": {
+            "description": "",
+            "iconUrl": "https://jira.example.com/jira/images/icons/subtask.gif",
+            "id": "10096",
+            "name": "Done",
+            "self": "https://jira.example.com/jira/rest/api/2/status/10096",
+            "statusCategory": {
+                "colorName": "green",
+                "id": 3,
+                "key": "done",
+                "name": "Done",
+                "self": "https://jira.example.com/jira/rest/api/2/statuscategory/3"
+            }
+        },
+        "subtasks": [
+            {
+                "fields": {
+                    "issuetype": {
+                        "description": "Subtask of a user story",
+                        "iconUrl": "https://jira.example.com/jira/images/icons/issuetypes/subtask.png",
+                        "id": "10213",
+                        "name": "User Story Task",
+                        "self": "https://jira.example.com/jira/rest/api/2/issuetype/10213",
+                        "subtask": true
+                    },
+                    "priority": {
+                        "iconUrl": "https://jira.example.com/jira/secure/attachment/59220/normal.png",
+                        "id": "6",
+                        "name": "Normal",
+                        "self": "https://jira.example.com/jira/rest/api/2/priority/6"
+                    },
+                    "status": {
+                        "description": "",
+                        "iconUrl": "https://jira.example.com/jira/images/icons/subtask.gif",
+                        "id": "10096",
+                        "name": "Done",
+                        "self": "https://jira.example.com/jira/rest/api/2/status/10096",
+                        "statusCategory": {
+                            "colorName": "green",
+                            "id": 3,
+                            "key": "done",
+                            "name": "Done",
+                            "self": "https://jira.example.com/jira/rest/api/2/statuscategory/3"
+                        }
+                    },
+                    "summary": "Update default virtual sports url - platformevo"
+                },
+                "id": "109179",
+                "key": "VBS-335",
+                "self": "https://jira.example.com/jira/rest/api/2/issue/109179"
+            }
+        ],
+        "summary": "Update default Virtual Sports URLs",
+        "timeestimate": null,
+        "timeoriginalestimate": null,
+        "timespent": null,
+        "timetracking": {},
+        "updated": "2016-11-28T11:19:56.000+0000",
+        "versions": [],
+        "votes": {
+            "hasVoted": false,
+            "self": "https://jira.example.com/jira/rest/api/2/issue/VBS-327/votes",
+            "votes": 0
+        },
+        "watches": {
+            "isWatching": false,
+            "self": "https://jira.example.com/jira/rest/api/2/issue/VBS-327/watchers",
+            "watchCount": 2
+        },
+        "worklog": {
+            "maxResults": 20,
+            "startAt": 0,
+            "total": 0,
+            "worklogs": []
+        },
+        "workratio": -1
+    },
+    "id": "108322",
+    "key": "VBS-327",
+    "self": "https://jira.example.com/jira/rest/api/2/issue/108322"
+}

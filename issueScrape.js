@@ -150,7 +150,17 @@ function extractIssueData(issue) {
         }
 
         var oldColumn = changeHist.items[0].fromString;
-        timeInColumns[oldColumn] = moment(changeHist.created) - moment(timeInColumns.previousTime);
+        var newDate = moment(changeHist.created);
+        var prevDate = moment(timeInColumns.previousTime);
+
+        var nonWorking = 0;
+        if (newDate.weeks() > prevDate.weeks()) { 
+            //console.log(oldColumn + " over a weekend");
+            nonWorking = 2*24*60*60*1000 ;
+        };
+
+        timeInColumns[oldColumn] = timeInColumns[oldColumn] || 0;
+        timeInColumns[oldColumn] += (newDate - prevDate - nonWorking);
 
         timeInColumns.previousTime = changeHist.created;
         return timeInColumns;
