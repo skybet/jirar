@@ -1,0 +1,546 @@
+module.exports = 
+{
+    "expand": "transitions",
+    "transitions": [
+        {
+            "id": "11",
+            "name": "Open",
+            "to": {
+                "description": "",
+                "iconUrl": "https://jira.example.com/jira/images/icons/statuses/generic.png",
+                "id": "1",
+                "name": "Open",
+                "self": "https://jira.example.com/jira/rest/api/2/status/1",
+                "statusCategory": {
+                    "colorName": "blue-gray",
+                    "id": 2,
+                    "key": "new",
+                    "name": "To Do",
+                    "self": "https://jira.example.com/jira/rest/api/2/statuscategory/2"
+                }
+            }
+        },
+        {
+            "id": "21",
+            "name": "In Progress",
+            "to": {
+                "description": "This issue is being actively worked on at the moment by the assignee.",
+                "iconUrl": "https://jira.example.com/jira/images/icons/statuses/generic.png",
+                "id": "3",
+                "name": "Prioritised",
+                "self": "https://jira.example.com/jira/rest/api/2/status/3",
+                "statusCategory": {
+                    "colorName": "yellow",
+                    "id": 4,
+                    "key": "indeterminate",
+                    "name": "In Progress",
+                    "self": "https://jira.example.com/jira/rest/api/2/statuscategory/4"
+                }
+            }
+        },
+        {
+            "id": "31",
+            "name": "Resolved",
+            "to": {
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://jira.example.com/jira/images/icons/statuses/resolved.png",
+                "id": "5",
+                "name": "Resolved",
+                "self": "https://jira.example.com/jira/rest/api/2/status/5",
+                "statusCategory": {
+                    "colorName": "green",
+                    "id": 3,
+                    "key": "done",
+                    "name": "Done",
+                    "self": "https://jira.example.com/jira/rest/api/2/statuscategory/3"
+                }
+            }
+        },
+        {
+            "id": "41",
+            "name": "Reopened",
+            "to": {
+                "description": "This issue was once resolved, but the resolution was deemed incorrect. From here issues are either marked assigned or resolved.",
+                "iconUrl": "https://jira.example.com/jira/images/icons/statuses/reopened.png",
+                "id": "4",
+                "name": "Reopened",
+                "self": "https://jira.example.com/jira/rest/api/2/status/4",
+                "statusCategory": {
+                    "colorName": "blue-gray",
+                    "id": 2,
+                    "key": "new",
+                    "name": "To Do",
+                    "self": "https://jira.example.com/jira/rest/api/2/statuscategory/2"
+                }
+            }
+        },
+        {
+            "id": "51",
+            "name": "Closed",
+            "to": {
+                "description": "The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.",
+                "iconUrl": "https://jira.example.com/jira/images/icons/statuses/closed.png",
+                "id": "6",
+                "name": "Closed",
+                "self": "https://jira.example.com/jira/rest/api/2/status/6",
+                "statusCategory": {
+                    "colorName": "green",
+                    "id": 3,
+                    "key": "done",
+                    "name": "Done",
+                    "self": "https://jira.example.com/jira/rest/api/2/statuscategory/3"
+                }
+            }
+        },
+        {
+            "id": "61",
+            "name": "Analysis In",
+            "to": {
+                "description": "This status is managed internally by JIRA Agile",
+                "iconUrl": "https://jira.example.com/jira/images/icons/subtask.gif",
+                "id": "10038",
+                "name": "Analysis In",
+                "self": "https://jira.example.com/jira/rest/api/2/status/10038",
+                "statusCategory": {
+                    "colorName": "yellow",
+                    "id": 4,
+                    "key": "indeterminate",
+                    "name": "In Progress",
+                    "self": "https://jira.example.com/jira/rest/api/2/statuscategory/4"
+                }
+            }
+        },
+        {
+            "id": "71",
+            "name": "Analysis Out",
+            "to": {
+                "description": "This status is managed internally by JIRA Agile",
+                "iconUrl": "https://jira.example.com/jira/images/icons/subtask.gif",
+                "id": "10281",
+                "name": "Analysis Out",
+                "self": "https://jira.example.com/jira/rest/api/2/status/10281",
+                "statusCategory": {
+                    "colorName": "yellow",
+                    "id": 4,
+                    "key": "indeterminate",
+                    "name": "In Progress",
+                    "self": "https://jira.example.com/jira/rest/api/2/statuscategory/4"
+                }
+            }
+        },
+        {
+            "id": "81",
+            "name": "Elaboration In",
+            "to": {
+                "description": "This status is managed internally by JIRA Agile",
+                "iconUrl": "https://jira.example.com/jira/images/icons/subtask.gif",
+                "id": "10056",
+                "name": "Elaboration In",
+                "self": "https://jira.example.com/jira/rest/api/2/status/10056",
+                "statusCategory": {
+                    "colorName": "yellow",
+                    "id": 4,
+                    "key": "indeterminate",
+                    "name": "In Progress",
+                    "self": "https://jira.example.com/jira/rest/api/2/statuscategory/4"
+                }
+            }
+        },
+        {
+            "id": "91",
+            "name": "Elaboration Out",
+            "to": {
+                "description": "This status is managed internally by JIRA Agile",
+                "iconUrl": "https://jira.example.com/jira/images/icons/subtask.gif",
+                "id": "10282",
+                "name": "Elaboration Out",
+                "self": "https://jira.example.com/jira/rest/api/2/status/10282",
+                "statusCategory": {
+                    "colorName": "yellow",
+                    "id": 4,
+                    "key": "indeterminate",
+                    "name": "In Progress",
+                    "self": "https://jira.example.com/jira/rest/api/2/statuscategory/4"
+                }
+            }
+        },
+        {
+            "id": "101",
+            "name": "Test Analysis In",
+            "to": {
+                "description": "This status is managed internally by JIRA Agile",
+                "iconUrl": "https://jira.example.com/jira/images/icons/subtask.gif",
+                "id": "10057",
+                "name": "Test Analysis In",
+                "self": "https://jira.example.com/jira/rest/api/2/status/10057",
+                "statusCategory": {
+                    "colorName": "yellow",
+                    "id": 4,
+                    "key": "indeterminate",
+                    "name": "In Progress",
+                    "self": "https://jira.example.com/jira/rest/api/2/statuscategory/4"
+                }
+            }
+        },
+        {
+            "id": "111",
+            "name": "Test Analysis Out",
+            "to": {
+                "description": "This status is managed internally by JIRA Agile",
+                "iconUrl": "https://jira.example.com/jira/images/icons/subtask.gif",
+                "id": "10290",
+                "name": "Test Analysis Out",
+                "self": "https://jira.example.com/jira/rest/api/2/status/10290",
+                "statusCategory": {
+                    "colorName": "yellow",
+                    "id": 4,
+                    "key": "indeterminate",
+                    "name": "In Progress",
+                    "self": "https://jira.example.com/jira/rest/api/2/statuscategory/4"
+                }
+            }
+        },
+        {
+            "id": "121",
+            "name": "Implementation In",
+            "to": {
+                "description": "This status is managed internally by JIRA Agile",
+                "iconUrl": "https://jira.example.com/jira/images/icons/subtask.gif",
+                "id": "10085",
+                "name": "Implementation In",
+                "self": "https://jira.example.com/jira/rest/api/2/status/10085",
+                "statusCategory": {
+                    "colorName": "yellow",
+                    "id": 4,
+                    "key": "indeterminate",
+                    "name": "In Progress",
+                    "self": "https://jira.example.com/jira/rest/api/2/statuscategory/4"
+                }
+            }
+        },
+        {
+            "id": "131",
+            "name": "Implementation Out",
+            "to": {
+                "description": "This status is managed internally by JIRA Agile",
+                "iconUrl": "https://jira.example.com/jira/images/icons/subtask.gif",
+                "id": "10283",
+                "name": "Implementation Out",
+                "self": "https://jira.example.com/jira/rest/api/2/status/10283",
+                "statusCategory": {
+                    "colorName": "yellow",
+                    "id": 4,
+                    "key": "indeterminate",
+                    "name": "In Progress",
+                    "self": "https://jira.example.com/jira/rest/api/2/statuscategory/4"
+                }
+            }
+        },
+        {
+            "id": "141",
+            "name": "Demo In",
+            "to": {
+                "description": "This status is managed internally by JIRA Agile",
+                "iconUrl": "https://jira.example.com/jira/images/icons/subtask.gif",
+                "id": "11182",
+                "name": "Demo In",
+                "self": "https://jira.example.com/jira/rest/api/2/status/11182",
+                "statusCategory": {
+                    "colorName": "yellow",
+                    "id": 4,
+                    "key": "indeterminate",
+                    "name": "In Progress",
+                    "self": "https://jira.example.com/jira/rest/api/2/statuscategory/4"
+                }
+            }
+        },
+        {
+            "id": "151",
+            "name": "Demo Out",
+            "to": {
+                "description": "This status is managed internally by JIRA Agile",
+                "iconUrl": "https://jira.example.com/jira/images/icons/subtask.gif",
+                "id": "11183",
+                "name": "Demo Out",
+                "self": "https://jira.example.com/jira/rest/api/2/status/11183",
+                "statusCategory": {
+                    "colorName": "yellow",
+                    "id": 4,
+                    "key": "indeterminate",
+                    "name": "In Progress",
+                    "self": "https://jira.example.com/jira/rest/api/2/statuscategory/4"
+                }
+            }
+        },
+        {
+            "id": "161",
+            "name": "Review In",
+            "to": {
+                "description": "This status is managed internally by JIRA Agile",
+                "iconUrl": "https://jira.example.com/jira/images/icons/subtask.gif",
+                "id": "10192",
+                "name": "Review In",
+                "self": "https://jira.example.com/jira/rest/api/2/status/10192",
+                "statusCategory": {
+                    "colorName": "yellow",
+                    "id": 4,
+                    "key": "indeterminate",
+                    "name": "In Progress",
+                    "self": "https://jira.example.com/jira/rest/api/2/statuscategory/4"
+                }
+            }
+        },
+        {
+            "id": "171",
+            "name": "Review Out",
+            "to": {
+                "description": "This status is managed internally by JIRA Agile",
+                "iconUrl": "https://jira.example.com/jira/images/icons/subtask.gif",
+                "id": "11181",
+                "name": "Review Out",
+                "self": "https://jira.example.com/jira/rest/api/2/status/11181",
+                "statusCategory": {
+                    "colorName": "yellow",
+                    "id": 4,
+                    "key": "indeterminate",
+                    "name": "In Progress",
+                    "self": "https://jira.example.com/jira/rest/api/2/statuscategory/4"
+                }
+            }
+        },
+        {
+            "id": "181",
+            "name": "Test In",
+            "to": {
+                "description": "This status is managed internally by JIRA Agile",
+                "iconUrl": "https://jira.example.com/jira/images/icons/subtask.gif",
+                "id": "10061",
+                "name": "Test In",
+                "self": "https://jira.example.com/jira/rest/api/2/status/10061",
+                "statusCategory": {
+                    "colorName": "yellow",
+                    "id": 4,
+                    "key": "indeterminate",
+                    "name": "In Progress",
+                    "self": "https://jira.example.com/jira/rest/api/2/statuscategory/4"
+                }
+            }
+        },
+        {
+            "id": "191",
+            "name": "Test Out",
+            "to": {
+                "description": "This status is managed internally by JIRA Agile",
+                "iconUrl": "https://jira.example.com/jira/images/icons/subtask.gif",
+                "id": "10284",
+                "name": "Test Out",
+                "self": "https://jira.example.com/jira/rest/api/2/status/10284",
+                "statusCategory": {
+                    "colorName": "yellow",
+                    "id": 4,
+                    "key": "indeterminate",
+                    "name": "In Progress",
+                    "self": "https://jira.example.com/jira/rest/api/2/statuscategory/4"
+                }
+            }
+        },
+        {
+            "id": "201",
+            "name": "Deploy To Test In",
+            "to": {
+                "description": "This status is managed internally by JIRA Agile",
+                "iconUrl": "https://jira.example.com/jira/images/icons/subtask.gif",
+                "id": "10089",
+                "name": "Deploy To Test In",
+                "self": "https://jira.example.com/jira/rest/api/2/status/10089",
+                "statusCategory": {
+                    "colorName": "yellow",
+                    "id": 4,
+                    "key": "indeterminate",
+                    "name": "In Progress",
+                    "self": "https://jira.example.com/jira/rest/api/2/statuscategory/4"
+                }
+            }
+        },
+        {
+            "id": "211",
+            "name": "Deploy to Test Out",
+            "to": {
+                "description": "This status is managed internally by JIRA Agile",
+                "iconUrl": "https://jira.example.com/jira/images/icons/subtask.gif",
+                "id": "10285",
+                "name": "Deploy to Test Out",
+                "self": "https://jira.example.com/jira/rest/api/2/status/10285",
+                "statusCategory": {
+                    "colorName": "yellow",
+                    "id": 4,
+                    "key": "indeterminate",
+                    "name": "In Progress",
+                    "self": "https://jira.example.com/jira/rest/api/2/statuscategory/4"
+                }
+            }
+        },
+        {
+            "id": "221",
+            "name": "UAT In",
+            "to": {
+                "description": "This status is managed internally by JIRA Agile",
+                "iconUrl": "https://jira.example.com/jira/images/icons/subtask.gif",
+                "id": "10050",
+                "name": "UAT In",
+                "self": "https://jira.example.com/jira/rest/api/2/status/10050",
+                "statusCategory": {
+                    "colorName": "yellow",
+                    "id": 4,
+                    "key": "indeterminate",
+                    "name": "In Progress",
+                    "self": "https://jira.example.com/jira/rest/api/2/statuscategory/4"
+                }
+            }
+        },
+        {
+            "id": "231",
+            "name": "UAT Out",
+            "to": {
+                "description": "This status is managed internally by JIRA Agile",
+                "iconUrl": "https://jira.example.com/jira/images/icons/subtask.gif",
+                "id": "10286",
+                "name": "UAT Out",
+                "self": "https://jira.example.com/jira/rest/api/2/status/10286",
+                "statusCategory": {
+                    "colorName": "yellow",
+                    "id": 4,
+                    "key": "indeterminate",
+                    "name": "In Progress",
+                    "self": "https://jira.example.com/jira/rest/api/2/statuscategory/4"
+                }
+            }
+        },
+        {
+            "id": "241",
+            "name": "Release",
+            "to": {
+                "description": "This status is managed internally by JIRA Agile",
+                "iconUrl": "https://jira.example.com/jira/images/icons/subtask.gif",
+                "id": "10287",
+                "name": "Release",
+                "self": "https://jira.example.com/jira/rest/api/2/status/10287",
+                "statusCategory": {
+                    "colorName": "yellow",
+                    "id": 4,
+                    "key": "indeterminate",
+                    "name": "In Progress",
+                    "self": "https://jira.example.com/jira/rest/api/2/statuscategory/4"
+                }
+            }
+        },
+        {
+            "id": "251",
+            "name": "3 Amigos In",
+            "to": {
+                "description": "This status is managed internally by JIRA Agile",
+                "iconUrl": "https://jira.example.com/jira/",
+                "id": "13285",
+                "name": "3 Amigos In",
+                "self": "https://jira.example.com/jira/rest/api/2/status/13285",
+                "statusCategory": {
+                    "colorName": "yellow",
+                    "id": 4,
+                    "key": "indeterminate",
+                    "name": "In Progress",
+                    "self": "https://jira.example.com/jira/rest/api/2/statuscategory/4"
+                }
+            }
+        },
+        {
+            "id": "261",
+            "name": "3 Amigos Out",
+            "to": {
+                "description": "This status is managed internally by JIRA Agile",
+                "iconUrl": "https://jira.example.com/jira/",
+                "id": "13286",
+                "name": "3 Amigos Out",
+                "self": "https://jira.example.com/jira/rest/api/2/status/13286",
+                "statusCategory": {
+                    "colorName": "yellow",
+                    "id": 4,
+                    "key": "indeterminate",
+                    "name": "In Progress",
+                    "self": "https://jira.example.com/jira/rest/api/2/statuscategory/4"
+                }
+            }
+        },
+        {
+            "id": "271",
+            "name": "Deployed to Test Environment",
+            "to": {
+                "description": "This status is managed internally by JIRA Agile",
+                "iconUrl": "https://jira.example.com/jira/",
+                "id": "15482",
+                "name": "Deployed to Test Environment",
+                "self": "https://jira.example.com/jira/rest/api/2/status/15482",
+                "statusCategory": {
+                    "colorName": "yellow",
+                    "id": 4,
+                    "key": "indeterminate",
+                    "name": "In Progress",
+                    "self": "https://jira.example.com/jira/rest/api/2/statuscategory/4"
+                }
+            }
+        },
+        {
+            "id": "281",
+            "name": "Deployed to Staging Environment",
+            "to": {
+                "description": "This status is managed internally by JIRA Agile",
+                "iconUrl": "https://jira.example.com/jira/",
+                "id": "15483",
+                "name": "Deployed to Staging Environment",
+                "self": "https://jira.example.com/jira/rest/api/2/status/15483",
+                "statusCategory": {
+                    "colorName": "yellow",
+                    "id": 4,
+                    "key": "indeterminate",
+                    "name": "In Progress",
+                    "self": "https://jira.example.com/jira/rest/api/2/statuscategory/4"
+                }
+            }
+        },
+        {
+            "id": "291",
+            "name": "Release Validation",
+            "to": {
+                "description": "This status is managed internally by JIRA Agile",
+                "iconUrl": "https://jira.example.com/jira/",
+                "id": "15484",
+                "name": "Release Validation",
+                "self": "https://jira.example.com/jira/rest/api/2/status/15484",
+                "statusCategory": {
+                    "colorName": "yellow",
+                    "id": 4,
+                    "key": "indeterminate",
+                    "name": "In Progress",
+                    "self": "https://jira.example.com/jira/rest/api/2/statuscategory/4"
+                }
+            }
+        },
+        {
+            "id": "301",
+            "name": "Merged",
+            "to": {
+                "description": "This status is managed internally by JIRA Agile",
+                "iconUrl": "https://jira.example.com/jira/",
+                "id": "14483",
+                "name": "Merged",
+                "self": "https://jira.example.com/jira/rest/api/2/status/14483",
+                "statusCategory": {
+                    "colorName": "yellow",
+                    "id": 4,
+                    "key": "indeterminate",
+                    "name": "In Progress",
+                    "self": "https://jira.example.com/jira/rest/api/2/statuscategory/4"
+                }
+            }
+        }
+    ]
+}

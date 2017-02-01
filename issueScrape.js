@@ -3,9 +3,68 @@ var async = require('async');
 var moment = require("moment");
 require("moment-duration-format");
 
+var util = require('util');
+
 var json2csv = require("json2csv");
 var fs = require('fs');
 
+
+function getBoardId(bootstrap, next) { 
+    //TODO get this number from JIRA - maybe request the project and look at the redirected URI?
+    // OR is there an api call?
+    var boardList = {
+        "TS": 290,
+        "PE": 357,
+        "TSI": 690,
+
+        "VBS": 507,
+        "HRS": 699,
+        "NGU": 505,
+        "SBP": 489,
+
+        "BCT": 292, // Broken??!?
+    }
+    var project = bootstrap.bootstrap.project;
+    var boardId = boardList[project];
+
+    if (!boardId) { return next(project + " Is not the boardList - Edit this file"); }
+    return next(null, boardId);
+};
+
+function getBoardColumns(bootstrap, next) { 
+    var project = bootstrap.bootstrap.project;
+    var jiraApi = bootstrap.bootstrap.jiraApi;
+    var authHeader = bootstrap.bootstrap.authHeader;
+    var boardId = bootstrap.getBoardId;
+
+    console.log("Requesting boardColumns for project: " + boardId);
+    var req = request({
+        baseUrl: jiraApi,
+        uri: "agile/1.0/board/"+boardId+"/configuration",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": authHeader
+        },
+        json: true
+    }, function(err, res, body) {
+        if (err) { console.log("ERR"); console.log(err); return next(err); }
+        var msg = util.format("Got %s response from jira @ %j", res.statusCode, req.uri.href);
+        console.log(msg);
+        if (res.statusCode != 200) { 
+            console.log("ERR");
+            console.log(body);
+            return next(msg); 
+
+        }
+ 
+        var colStatuses = body.columnConfig.columns.map(function(col) {
+            return col.statuses.map(function(st) { return st.id; })
+        });
+        colStatuses = [].concat.apply([], colStatuses); //Flatten
+
+        next(null, colStatuses);
+    });
+};
 
 function getTransitions(bootstrap, next) {
     var project = bootstrap.bootstrap.project;
@@ -16,7 +75,7 @@ function getTransitions(bootstrap, next) {
     console.log("Requesting transitions for project: " + project);
     var req = request({
         baseUrl: jiraApi,
-        uri: "issue/" + project + "-1/transitions",
+        uri: "api/2/issue/" + project + "-10/transitions",
         headers: {
             "Content-Type": "application/json",
             "Authorization": authHeader
@@ -25,19 +84,28 @@ function getTransitions(bootstrap, next) {
     }, function(err, res, body) {
         if (err) { console.log("ERR"); console.log(err); return next(err); }
         console.log("Got %s response from jira @ %j", res.statusCode, req.uri.href);
-        var unOrderedProjectCategories = body.transitions.map(function(cat) {
-            return cat.name;
+        var unOrderedProjectCategories = body.transitions.reduce(function(prev, cat) {
+            var id = cat.to.id;
+            prev[id] = { name: cat.to.name, id: id, color: cat.to.statusCategory.colorName };
+            return prev;
+        }, {});
+
+        getBoardColumns(bootstrap, function(err, columns) { 
+            //var workingProjectCategories = unOrderedProjectCategories.slice(); //Clone
+            if (err) { return next(err); }
+
+            var orderedIndexes = [4,5, 9,10,11,12,13,14, 28,29, 15,16, 19,20, 17,18, 21,22, 23,24, 25,26, 33, 30,31, 27,32,   6,7,8];
+
+            projectCategories = columns.map(function(statusId) { 
+                return unOrderedProjectCategories[statusId].name
+            });
+
+            return next(err, projectCategories);
+
+
         });
 
-        var orderedIndexes = [4,5, 9,10,11,12,13,14, 28,29, 15,16, 19,20, 17,18, 21,22, 23,24, 25,26, 33, 30,31, 27,32,   6,7,8];
-
-        projectCategories = orderedIndexes.map(function(i) {
-            return unOrderedProjectCategories[i - 4];
-        });
-
-        return next(err, projectCategories);
-
-    })
+    });
 }
 
 function getNumberOfTickets(bootstrap, next) {
@@ -48,7 +116,7 @@ function getNumberOfTickets(bootstrap, next) {
     console.log("Requesting number of tickets in project: " + project);
     var req = request({
         baseUrl: jiraApi,
-        uri: "search?jql=project=" + project + "&maxResults=1&startAt=0",
+        uri: "api/2/search?jql=project=" + project + "&maxResults=1&startAt=0",
         headers: {
             "Content-Type": "application/json",
             "Authorization": authHeader
@@ -84,7 +152,7 @@ function getIssues(bootstrap, next) {
         console.log("Requesting bucket %s of %s tickets in project: %s", bucketNum, bucketSize, project);
         var req = request({
             baseUrl: jiraApi,
-            uri: "search?jql=project=" + project + "&expand=changelog&maxResults=" + bucketSize + "&startAt=" + bucketOffset,
+            uri: "api/2/search?jql=project=" + project + "&expand=changelog&maxResults=" + bucketSize + "&startAt=" + bucketOffset,
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": authHeader
@@ -113,7 +181,7 @@ function writeCSVOutput(bootstrap, next) {
     };
 
 //console.log(issueData[0]);
-    var fields = ["key", "summary", "created", "resolution", "resolutionDate", "workType"];
+    var fields = ["key", "summary", "created", "resolution", "resolutionDate", "workType", "epicLink", "status", "ticketType"];
 
     var fields = fields.concat(bootstrap.getTransitions.map(function(k) {
         //if (k == "previousTime") return null;
@@ -153,6 +221,8 @@ function extractIssueData(issue) {
         var newDate = moment(changeHist.created);
         var prevDate = moment(timeInColumns.previousTime);
 
+        if (prevDate > newDate) { console.log("WARN"); console.log(issue.key + " had out of order changelog"); }
+
         var nonWorking = 0;
         if (newDate.weeks() > prevDate.weeks()) { 
             //console.log(oldColumn + " over a weekend");
@@ -169,26 +239,37 @@ function extractIssueData(issue) {
     {"previousTime": firstCreated}
     )
 
-//Do we want csv to include a pretty printed time? probably not
-//    var formatTimeInColumns = JSON.parse(JSON.stringify(timeInColumns));
-//    delete formatTimeInColumns.previousTime;
-//    Object.keys(formatTimeInColumns).map(function(key, index) {
-//       formatTimeInColumns[key] = moment.duration(formatTimeInColumns[key], "milliseconds").format("dd[d] hh:mm:ss", {trim: false});
-//    });
+    //Do we want csv to include a pretty printed time? probably not
+    var formatTimeInColumns = JSON.parse(JSON.stringify(timeInColumns));
+    delete formatTimeInColumns.previousTime;
+    Object.keys(formatTimeInColumns).map(function(key, index) {
+       formatTimeInColumns[key] = moment.duration(formatTimeInColumns[key], "milliseconds").format("dd[d] hh:mm:ss", {trim: false});
+    });
+
+   //console.log(formatTimeInColumns);
 
     delete timeInColumns.previousTime
 
 process.stdout.write(".");
 
+    var resolution = null;
+    var status = null;
+    var ticketType = null;
+    if (issue.fields.status) { status = issue.fields.status.name; }
+    if (issue.fields.resolution) { resolution = issue.fields.resolution.name; }
+    if (issue.fields.issuetype) { ticketType = issue.fields.issuetype.name; }
     return {
         key: issue.key,
         summary: issue.fields.summary,
-        resolution: issue.fields.resolution,
+        resolution: resolution,
         resolutionDate: issue.fields.resolutiondate,
+        ticketType: ticketType,
+        status: status,
         created: firstCreated,
         secondsInColumns: timeInColumns,
         //timeInColumns: formatTimeInColumns
-        workType: workType
+        workType: workType,
+        epicLink: issue.fields.customfield_10103
     }
 };
 
@@ -205,25 +286,32 @@ var writeCSV = function writeCSV(finalCSV, fields, next) {
     });
 }
 
+if (require.main === module) {
 async.auto({
     "bootstrap": function(next) {
         bootstrap = {
             project: process.argv[3],
-            jiraApi: "https://jira.example.com/jira/rest/api/2/",
+            jiraApi: "https://jira.example.com/jira/rest/",
             authHeader: "Basic "+ process.argv[2]
         };
         return next(null, bootstrap);
     },
-    "getTransitions": ["bootstrap", getTransitions],
+    "getBoardId": ["bootstrap", getBoardId],
+    "getTransitions": ["bootstrap", "getBoardId", getTransitions],
     "getNumberOfTickets": ["bootstrap", getNumberOfTickets],
     "getIssues": ["getNumberOfTickets", getIssues],
 
     "writeCSVOutput": ["getTransitions", "getIssues", writeCSVOutput],
 
 }, function(err, results) {
-    console.log('err = ', err);
+    if (err) {
+        console.log('err = ', err);
+        process.exit(1);
+    }
 });
+}
 
 module.exports = {
-    extractIssueData: extractIssueData
+    extractIssueData: extractIssueData,
+    getTransitions: getTransitions
 }

@@ -19,20 +19,44 @@ tsTickets <- read.csv("/Users/grovesro/Desktop/jiraR/jiraRDataset.csv", header=T
     resolutionMonthDisplay = format(resolutionDate, format="%Y %B"),
     resolutionMonth = as.numeric(format(resolutionDate, format="%Y%m")),
     totalTime = resolutionDate - created
-  )
+  ) %>% filter(status != "Closed") %>% filter(status != "to do") %>% filter(status != "open") %>% filter(ticketType != "Epic")
 
-if ( length(unique(tsTickets$workType)) < 1) {
+
+if ( length(unique(tsTickets$workType)) > 1) {
   classOfWorkTickets <- tsTickets %>% arrange(resolutionMonth)
   classOfWorkTickets$resolutionMonthDisplay <- factor(tsTickets[order(tsTickets$resolutionMonth), "resolutionMonthDisplay"], levels=unique(tsTickets[order(tsTickets$resolutionMonth), "resolutionMonthDisplay"]))
   
-  ggplot(filter(classOfWorkTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutionMonthDisplay, fill=workType)) + 
+  g1 <- ggplot(filter(classOfWorkTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutionMonthDisplay, fill=workType)) + 
     geom_bar(stat="count", position="fill") + theme(axis.text.x = element_text(angle=60, hjust=1)) + 
     ggtitle("Class Of Work Distribution") + xlab("Resolution Month") + ylab("Class Of Work %")
   
-  ggplot(filter(classOfWorkTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutionMonthDisplay, fill=workType)) + 
+  print(g1)
+  g2 <- ggplot(filter(classOfWorkTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutionMonthDisplay, fill=workType)) + 
     geom_bar(stat="count") + theme(axis.text.x = element_text(angle=90, hjust=1)) + facet_wrap(~ workType) + 
     ggtitle("Class Of Work") + xlab("Resolution Month") + ylab("Tickets Resolved")
+  print(g2)
+  
 } else {
-  print("No Work Types are set")
+  #print("No Work Types are set")
 }
 ```
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE}
+
+if ( length(unique(tsTickets$epicLink)) > 1) {
+  classOfWorkTickets <- tsTickets %>% arrange(resolutionMonth)
+  classOfWorkTickets$resolutionMonthDisplay <- factor(tsTickets[order(tsTickets$resolutionMonth), "resolutionMonthDisplay"], levels=unique(tsTickets[order(tsTickets$resolutionMonth), "resolutionMonthDisplay"]))
+  
+  g1 <- ggplot(filter(classOfWorkTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutionMonthDisplay, fill=epicLink)) + 
+    geom_bar(stat="count", position="fill") + theme(axis.text.x = element_text(angle=60, hjust=1)) + 
+    ggtitle("Class Of Epic Distribution") + xlab("Resolution Month") + ylab("Class Of Work %")
+  
+  print(g1)
+  
+  g2 <- ggplot(filter(classOfWorkTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutionMonthDisplay, fill=epicLink)) + 
+    geom_bar(stat="count") + theme(axis.text.x = element_text(angle=90, hjust=1)) + facet_wrap(~ epicLink) + 
+    ggtitle("Class Of Epic") + xlab("Resolution Month") + ylab("Tickets Resolved")
+  print(g2)
+} else {
+  print("No Epic Links are set")
+}

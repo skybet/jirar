@@ -1,0 +1,103 @@
+module.exports = 
+{
+    "columnConfig": {
+        "columns": [
+            {
+                "name": "Backlog",
+                "statuses": [
+                    {
+                        "id": "10001",
+                        "self": "https://jira.example.com/jira/rest/api/2/status/10001"
+                    }
+                ]
+            },
+            {
+                "name": "Analysed Tasks",
+                "statuses": [
+                    {
+                        "id": "10126",
+                        "self": "https://jira.example.com/jira/rest/api/2/status/10126"
+                    }
+                ]
+            },
+            {
+                "max": 5,
+                "name": "Build",
+                "statuses": [
+                    {
+                        "id": "10401",
+                        "self": "https://jira.example.com/jira/rest/api/2/status/10401"
+                    }
+                ]
+            },
+            {
+                "max": 5,
+                "name": "Review",
+                "statuses": [
+                    {
+                        "id": "10443",
+                        "self": "https://jira.example.com/jira/rest/api/2/status/10443"
+                    }
+                ]
+            },
+            {
+                "max": 5,
+                "name": "Test",
+                "statuses": [
+                    {
+                        "id": "10061",
+                        "self": "https://jira.example.com/jira/rest/api/2/status/10061"
+                    }
+                ]
+            },
+            {
+                "max": 5,
+                "name": "Test Out / Merge",
+                "statuses": [
+                    {
+                        "id": "14483",
+                        "self": "https://jira.example.com/jira/rest/api/2/status/14483"
+                    }
+                ]
+            },
+            {
+                "max": 5,
+                "name": "Integration Test",
+                "statuses": [
+                    {
+                        "id": "10023",
+                        "self": "https://jira.example.com/jira/rest/api/2/status/10023"
+                    }
+                ]
+            },
+            {
+                "max": 5,
+                "name": "Ready for Live",
+                "statuses": [
+                    {
+                        "id": "10284",
+                        "self": "https://jira.example.com/jira/rest/api/2/status/10284"
+                    }
+                ]
+            },
+            {
+                "name": "Done",
+                "statuses": [
+                    {
+                        "id": "10096",
+                        "self": "https://jira.example.com/jira/rest/api/2/status/10096"
+                    }
+                ]
+            }
+        ],
+        "constraintType": "issueCount"
+    },
+    "filter": {
+        "id": "19600",
+        "self": "https://jira.example.com/jira/rest/api/2/filter/19600"
+    },
+    "ranking": {
+        "rankCustomFieldId": 11900
+    },
+    "self": "https://jira.example.com/jira/rest/agile/1.0/board/357/configuration"
+}

@@ -1,0 +1,162 @@
+module.exports = 
+{
+    "columnConfig": {
+        "columns": [
+            {
+                "name": "To Do",
+                "statuses": [
+                    {
+                        "id": "1",
+                        "self": "https://jira.example.com/jira/rest/api/2/status/1"
+                    },
+                    {
+                        "id": "4",
+                        "self": "https://jira.example.com/jira/rest/api/2/status/4"
+                    }
+                ]
+            },
+            {
+                "max": 6,
+                "name": "3 Amigos In",
+                "statuses": [
+                    {
+                        "id": "13285",
+                        "self": "https://jira.example.com/jira/rest/api/2/status/13285"
+                    }
+                ]
+            },
+            {
+                "max": 6,
+                "name": "3 Amigos Out",
+                "statuses": [
+                    {
+                        "id": "13286",
+                        "self": "https://jira.example.com/jira/rest/api/2/status/13286"
+                    }
+                ]
+            },
+            {
+                "max": 6,
+                "name": "Implementation In",
+                "statuses": [
+                    {
+                        "id": "10085",
+                        "self": "https://jira.example.com/jira/rest/api/2/status/10085"
+                    }
+                ]
+            },
+            {
+                "max": 6,
+                "name": "Implementation Out",
+                "statuses": [
+                    {
+                        "id": "10283",
+                        "self": "https://jira.example.com/jira/rest/api/2/status/10283"
+                    }
+                ]
+            },
+            {
+                "max": 6,
+                "name": "Review In",
+                "statuses": [
+                    {
+                        "id": "10192",
+                        "self": "https://jira.example.com/jira/rest/api/2/status/10192"
+                    }
+                ]
+            },
+            {
+                "max": 6,
+                "name": "Review Out",
+                "statuses": [
+                    {
+                        "id": "11181",
+                        "self": "https://jira.example.com/jira/rest/api/2/status/11181"
+                    }
+                ]
+            },
+            {
+                "max": 6,
+                "name": "Test In",
+                "statuses": [
+                    {
+                        "id": "10061",
+                        "self": "https://jira.example.com/jira/rest/api/2/status/10061"
+                    }
+                ]
+            },
+            {
+                "max": 6,
+                "name": "Test Out",
+                "statuses": [
+                    {
+                        "id": "10284",
+                        "self": "https://jira.example.com/jira/rest/api/2/status/10284"
+                    }
+                ]
+            },
+            {
+                "max": 6,
+                "name": "Merged",
+                "statuses": [
+                    {
+                        "id": "14483",
+                        "self": "https://jira.example.com/jira/rest/api/2/status/14483"
+                    }
+                ]
+            },
+            {
+                "max": 6,
+                "name": "Deployed to Test Environment",
+                "statuses": [
+                    {
+                        "id": "15482",
+                        "self": "https://jira.example.com/jira/rest/api/2/status/15482"
+                    }
+                ]
+            },
+            {
+                "max": 6,
+                "name": "Deployed to Staging Environment",
+                "statuses": [
+                    {
+                        "id": "15483",
+                        "self": "https://jira.example.com/jira/rest/api/2/status/15483"
+                    }
+                ]
+            },
+            {
+                "max": 6,
+                "name": "Release Validation",
+                "statuses": [
+                    {
+                        "id": "15484",
+                        "self": "https://jira.example.com/jira/rest/api/2/status/15484"
+                    }
+                ]
+            },
+            {
+                "name": "Resolved",
+                "statuses": [
+                    {
+                        "id": "5",
+                        "self": "https://jira.example.com/jira/rest/api/2/status/5"
+                    },
+                    {
+                        "id": "6",
+                        "self": "https://jira.example.com/jira/rest/api/2/status/6"
+                    }
+                ]
+            }
+        ],
+        "constraintType": "issueCount"
+    },
+    "filter": {
+        "id": "16300",
+        "self": "https://jira.example.com/jira/rest/api/2/filter/16300"
+    },
+    "ranking": {
+        "rankCustomFieldId": 11900
+    },
+    "self": "https://jira.example.com/jira/rest/agile/1.0/board/290/configuration"
+}

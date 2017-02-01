@@ -16,6 +16,7 @@
     "request": "^2.79.0"
   },
   "devDependencies": {
-    "mocha": "^3.2.0"
+    "mocha": "^3.2.0",
+    "nock": "^9.0.2"
   }
 }

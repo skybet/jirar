@@ -10,7 +10,6 @@ library(reshape2)
 
 ```{r, echo=FALSE, warning=FALSE, error=FALSE}
 
-
 tsTickets <- read.csv("/Users/grovesro/Desktop/jiraR/jiraRDataset.csv", header=T, skipNul=T, na.strings="") %>%
   mutate(
     created = as.POSIXct(created), 
@@ -20,7 +19,7 @@ tsTickets <- read.csv("/Users/grovesro/Desktop/jiraR/jiraRDataset.csv", header=T
     resolutionMonthDisplay = format(resolutionDate, format="%Y %B"),
     resolutionMonth = as.numeric(format(resolutionDate, format="%Y%m")),
     totalTime = resolutionDate - created
-  )
+  ) %>% filter(status != "Closed") %>% filter(status != "to do") %>% filter(status != "open") %>% filter(ticketType != "Epic")
 
 
 resolvedTickets <- tsTickets %>% arrange(resolutionMonth)
@@ -44,3 +43,4 @@ ggplot(filter(resolvedTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutio
 #createdTickets$createdMonthDisplay <- factor(tsTickets[order(tsTickets$createdMonth), "createdMonthDisplay"], levels=unique(tsTickets[order(tsTickets$createdMonth), "createdMonthDisplay"]))
 #ggplot(tsTickets, aes(x=createdMonthDisplay, group=!is.na(resolution), color=!is.na(resolution))) + stat_ecdf(geom="line") + scale_color_discrete("Resolved") +
 #  theme(axis.text.x = element_text(angle=60, hjust=1)) + ggtitle("Burnup Percentage") + ylab("Percentage Burnup") + xlab("Month")
+```

@@ -17,8 +17,11 @@ describe("singleIssue", function() {
                 key: "TS-1020", 
                 summary: "Investigation into Double Price update messages",
                 created: "2016-12-05T13:37:16.000+0000",
+                status: "3 Amigos Out",
                 resolution: null,
                 resolutionDate: null,
+                epicLink: "TS-1019",
+                ticketType: "Spike",
                 workType: "Bet Tribe Roadmap",
                 secondsInColumns: { 
                     "Open": 1582000,
@@ -41,6 +44,9 @@ describe("singleIssue - Multiple Transitions", function() {
                 summary: "Update default Virtual Sports URLs",
                 created: "2016-11-16T10:30:33.000+0000",
                 resolutionDate: "2016-11-28T11:19:56.000+0000",
+                status: "Done",
+                epicLink: "VBS-247",
+                ticketType: "User Story",
                 workType: null,
                 secondsInColumns: {
                    "Backlog": 106698000,
