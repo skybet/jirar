@@ -6,7 +6,7 @@ SECRET=$1
 SQUAD=$2
 PUBLISH=$3
 
-DATE=`date "+%y/%m/%d %M"`
+DATE=`date "+%Y/%m/%d"`
 if [ -f jiraR-$SQUAD.html ]
 then
 
