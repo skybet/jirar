@@ -56,6 +56,8 @@ printf '</div>]]></ac:plain-text-body></ac:structured-macro>\",\"representation\
 
         fi
 
+    else 
+        echo "Not set to publish, or parent page is not set... $SQUAD parent is: $parentPage"
     fi
 
 else
