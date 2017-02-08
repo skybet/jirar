@@ -14,17 +14,17 @@ then
 parentPage=
 
 if [[ "$SQUAD" == "TS" || "$SQUAD" == "PE" || "$SQUAD" == "TSI" ]]
-then 
+then
     parentPage=26676200
 fi
 
 if [[ "$SQUAD" == "VBS" || "$SQUAD" == "HRS" || "$SQUAD" == "NGU" || "$SQUAD" == "SBP" ]]
-then 
+then
     parentPage=
 fi
 
 if [[ "$SQUAD" == "BCT" ]]
-then 
+then
     parentPage=
 fi
 
@@ -56,7 +56,7 @@ printf '</div>]]></ac:plain-text-body></ac:structured-macro>\",\"representation\
 
         fi
 
-    else 
+    else
         echo "Not set to publish, or parent page is not set... $SQUAD parent is: $parentPage"
     fi
 

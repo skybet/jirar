@@ -5,6 +5,7 @@
 library(ggplot2)
 library(dplyr)
 library(reshape2)
+library(gtools)
 
 ```
 
@@ -47,16 +48,22 @@ if ( length(unique(tsTickets$epicLink)) > 1) {
   classOfWorkTickets <- tsTickets %>% arrange(resolutionMonth)
   classOfWorkTickets$resolutionMonthDisplay <- factor(tsTickets[order(tsTickets$resolutionMonth), "resolutionMonthDisplay"], levels=unique(tsTickets[order(tsTickets$resolutionMonth), "resolutionMonthDisplay"]))
   
+  classOfWorkTickets$epicLink <- factor(classOfWorkTickets$epicLink, levels = gsub(" ", "-", mixedsort(gsub("-", " ",levels(classOfWorkTickets$epicLink)))))
+
+  
   g1 <- ggplot(filter(classOfWorkTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutionMonthDisplay, fill=epicLink)) + 
     geom_bar(stat="count", position="fill") + theme(axis.text.x = element_text(angle=60, hjust=1)) + 
     ggtitle("Class Of Epic Distribution") + xlab("Resolution Month") + ylab("Class Of Work %")
   
   print(g1)
   
+  
+  
   g2 <- ggplot(filter(classOfWorkTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutionMonthDisplay, fill=epicLink)) + 
-    geom_bar(stat="count") + theme(axis.text.x = element_text(angle=90, hjust=1)) + facet_wrap(~ epicLink) + 
+    geom_bar(stat="count") + theme(axis.text.x = element_text(angle=90, hjust=1), legend.position = "right") + facet_wrap(~ epicLink) + 
     ggtitle("Class Of Epic") + xlab("Resolution Month") + ylab("Tickets Resolved")
   print(g2)
 } else {
   print("No Epic Links are set")
 }
+```

@@ -19,7 +19,11 @@ tsTickets <- read.csv("/Users/grovesro/Desktop/jiraR/jiraRDataset.csv", header=T
     resolutionMonthDisplay = format(resolutionDate, format="%Y %B"),
     resolutionMonth = as.numeric(format(resolutionDate, format="%Y%m")),
     totalTime = resolutionDate - created
-  ) %>% filter(status != "Closed") %>% filter(status != "to do") %>% filter(status != "open") %>% filter(ticketType != "Epic")
+  ) %>% 
+  filter(status != "Closed") %>% 
+  filter(status != "to do") %>% 
+  filter(status != "open") %>%
+  filter(ticketType != "Epic")
 
 
 resolvedTickets <- tsTickets %>% arrange(resolutionMonth)
@@ -29,10 +33,25 @@ ggplot(filter(resolvedTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutio
   geom_freqpoly(stat="count", group=1) + theme(axis.text.x = element_text(angle=60, hjust=1)) +
   ggtitle("Velocity") + xlab("Resolution Month") + ylab("Tickets Resolved")
 
-ggplot(filter(resolvedTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutionMonthDisplay)) + 
+resBar <- ggplot(filter(resolvedTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutionMonthDisplay)) + 
   geom_bar(stat="count") + theme(axis.text.x = element_text(angle=60, hjust=1)) +
-  ggtitle("Velocity") + xlab("Resolution Month") + ylab("Tickets Resolved")
+  ggtitle("Velocity") + xlab("Resolution Month") + ylab("Tickets Resolved") 
 
+print(resBar)
+
+```
+
+```{r, result="asis", echo=FALSE}
+
+d <- t(ggplot_build(resBar)$data[[1]]["count"])
+colnames(d) <- levels(resolvedTickets$resolutionMonthDisplay)
+knitr::kable(
+#col.names=levels(resolvedTickets$resolutionMonthDisplay),
+x=d
+)
+```
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE}
 ggplot(filter(resolvedTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutionMonthDisplay, y=totalTime/24/60/60)) + 
   geom_violin(scale="width", draw_quantiles=c(0.5,0.75)) + #geom_jitter(height=0, size=0.2, width=0.2) +
   theme(axis.text.x = element_text(angle=60, hjust=1)) +

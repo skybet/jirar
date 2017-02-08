@@ -58,7 +58,8 @@ statusColours <- c("secondsInColumns.Open" = "white", "secondsInColumns.Backlog"
                    "secondsInColumns.Closed" = "#666666",
                    "secondsInColumns.Resolved" = "#666666"
 )
-
+statusLabels <- gsub("secondsInColumns.", "", names(statusColours))
+names(statusLabels) <- names(statusColours)
 
 summaryResolved <- tsTickets %>% 
   select(-status, -ticketType, -epicLink, -created, -createdMonth, -createdMonthDisplay, -summary, -key, -resolution, -resolutionDate) %>% 
@@ -75,7 +76,7 @@ summaryResolvedMelt %>%
   filter(! is.na(resolutionMonth)) %>% #Only show resolved tickets
   ggplot(aes(x=resolutionMonthDisplay, y=value/24/60/60/1000)) + 
   geom_bar(stat="identity", aes(fill=variable)) + ylab("days") + xlab("month") +
-  theme(legend.position = "bottom") + scale_fill_manual(values=statusColours, na.value="gray") + coord_flip() +
+  theme(legend.position = "bottom") + scale_fill_manual(values=statusColours, na.value="gray", labels=statusLabels, name="Column") + coord_flip() +
   guides(fill=guide_legend(reverse=TRUE)) + ggtitle("Phased Cycle Time - Resolved Date")
 
 
@@ -94,7 +95,7 @@ summaryResolvedMelt %>%
   filter(! is.na(resolutionMonth)) %>% #Only show resolved tickets
   ggplot(aes(x=resolutionMonthDisplay, y=value/24/60/60/1000)) + 
   geom_bar(stat="identity", aes(fill=variable)) + ylab("days") + xlab("month") +
-  theme(legend.position = "bottom") + scale_fill_manual(values=statusColours, na.value="gray") + coord_flip() +
+  theme(legend.position = "bottom") + scale_fill_manual(values=statusColours, na.value="gray", labels=statusLabels, name="Column") + coord_flip() +
   guides(fill=guide_legend(reverse=TRUE)) + ggtitle("Median Phased Cycle Time - Resolved Date")
 
 
@@ -116,7 +117,7 @@ summaryMelt$createdMonthDisplay <- factor(summaryMelt[order(summaryMelt$createdM
 summaryMelt %>%
   ggplot(aes(x=createdMonthDisplay, y=value/24/60/60/1000)) +
   geom_bar(stat="identity", aes(fill=variable)) + ylab("days") + xlab("month") +
-  theme(legend.position = "bottom") + scale_fill_manual(values=statusColours, na.value="gray") + coord_flip() +
+  theme(legend.position = "bottom") + scale_fill_manual(values=statusColours, na.value="gray", labels=statusLabels, name="Column") + coord_flip() +
   guides(fill=guide_legend(reverse=TRUE)) + ggtitle("Phased Cycle Time - from ticket created date")
 
 
@@ -135,10 +136,11 @@ summaryMelt$variable <- factor(summaryMelt$variable, levels = rev(levels(summary
 summaryMelt$createdMonthDisplay <- factor(summaryMelt[order(summaryMelt$createdMonth), "createdMonthDisplay"], levels=unique(summaryMelt[order(summaryMelt$createdMonth), "createdMonthDisplay"]))
 
 
+
 summaryMelt %>%
   ggplot(aes(x=createdMonthDisplay, y=value/24/60/60/1000)) + 
   geom_bar(stat="identity", aes(fill=variable)) + ylab("days") + xlab("month") +
-  theme(legend.position = "bottom") + scale_fill_manual(values=statusColours, na.value="gray") + coord_flip() +
+  theme(legend.position = "bottom") + scale_fill_manual(name="Column", values=statusColours, na.value="gray", labels=statusLabels ) + coord_flip() +
   guides(fill=guide_legend(reverse=TRUE)) + ggtitle("Median Phased Cycle Time - from ticket created date")
 
 ```
