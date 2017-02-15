@@ -10,8 +10,12 @@ output:
 ```{r child = 'phasedCycleTime.Rmd'}
 ```
 
+```{r child = 'classOfWork.Rmd'}
+```
+
+```{r child = 'controlChart.Rmd'}
+```
+
 ```{r child = 'burnup.Rmd'}
 ```
 
-```{r child = 'classOfWork.Rmd'}
-```

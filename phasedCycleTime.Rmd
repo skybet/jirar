@@ -98,49 +98,4 @@ summaryResolvedMelt %>%
   theme(legend.position = "bottom") + scale_fill_manual(values=statusColours, na.value="gray", labels=statusLabels, name="Column") + coord_flip() +
   guides(fill=guide_legend(reverse=TRUE)) + ggtitle("Median Phased Cycle Time - Resolved Date")
 
-
-
-
-
-summary <- tsTickets %>%
-  select(-status, -ticketType, -epicLink, -created, -summary, -key, -resolution, -resolutionDate, -resolutionMonthDisplay, -resolutionMonth, -workType) %>%
-  arrange(createdMonth) %>%
-  group_by(createdMonth, createdMonthDisplay) %>%
-  summarise_each(funs(mean(., na.rm = TRUE)))
-
-summaryMelt <- melt(summary, id=c("createdMonthDisplay", "createdMonth")) %>% arrange(createdMonth)
-#Factorise and sort the columns in reverse, so that 3Amigos is towards the left/bottom
-summaryMelt$variable <- factor(summaryMelt$variable, levels = rev(levels(summaryMelt$variable)))
-summaryMelt$createdMonthDisplay <- factor(summaryMelt[order(summaryMelt$createdMonth), "createdMonthDisplay"], levels=unique(summaryMelt[order(summaryMelt$createdMonth), "createdMonthDisplay"]))
-
-
-summaryMelt %>%
-  ggplot(aes(x=createdMonthDisplay, y=value/24/60/60/1000)) +
-  geom_bar(stat="identity", aes(fill=variable)) + ylab("days") + xlab("month") +
-  theme(legend.position = "bottom") + scale_fill_manual(values=statusColours, na.value="gray", labels=statusLabels, name="Column") + coord_flip() +
-  guides(fill=guide_legend(reverse=TRUE)) + ggtitle("Phased Cycle Time - from ticket created date")
-
-
-
-
-
-summary <- tsTickets %>% 
-  select(-status, -ticketType, -epicLink, -created, -summary, -key, -workType, -resolution, -resolutionDate, -resolutionMonthDisplay, -resolutionMonth) %>% 
-  arrange(createdMonth) %>%
-  group_by(createdMonth, createdMonthDisplay) %>% 
-  summarise_each(funs(median(., na.rm = TRUE)))
-
-summaryMelt <- melt(summary, id=c("createdMonthDisplay", "createdMonth")) %>% arrange(createdMonth)
-#Factorise and sort the columns in reverse, so that 3Amigos is towards the left/bottom
-summaryMelt$variable <- factor(summaryMelt$variable, levels = rev(levels(summaryMelt$variable)))
-summaryMelt$createdMonthDisplay <- factor(summaryMelt[order(summaryMelt$createdMonth), "createdMonthDisplay"], levels=unique(summaryMelt[order(summaryMelt$createdMonth), "createdMonthDisplay"]))
-
-
-
-summaryMelt %>%
-  ggplot(aes(x=createdMonthDisplay, y=value/24/60/60/1000)) + 
-  geom_bar(stat="identity", aes(fill=variable)) + ylab("days") + xlab("month") +
-  theme(legend.position = "bottom") + scale_fill_manual(name="Column", values=statusColours, na.value="gray", labels=statusLabels ) + coord_flip() +
-  guides(fill=guide_legend(reverse=TRUE)) + ggtitle("Median Phased Cycle Time - from ticket created date")
-
 ```

@@ -1,0 +1,135 @@
+# Control Charts
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE, include=F}
+
+library(ggplot2)
+library(dplyr)
+library(reshape2)
+library(lubridate)
+```
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE}
+
+tsTickets <- read.csv("/Users/grovesro/Desktop/jiraR/jiraRDataset.csv", header=T, skipNul=T, na.strings="") %>%
+  mutate(
+    created = as.POSIXct(created), 
+    resolutionDate = as.POSIXct(resolutionDate),
+    resolutionMonth = as.numeric(format(resolutionDate, format="%Y%m")),
+    resolutionMonthDisplay = format(resolutionDate, format="%Y %B"),
+    totalTime = resolutionDate - created
+  ) %>% 
+  filter(status != "Closed") %>% 
+  filter(status != "to do") %>% 
+  filter(status != "open") %>%
+  filter(ticketType != "Epic")
+
+#Get all "SecondsInColumns" data, then drop columns where we aren't working on it
+workedColumns <- tsTickets %>% select(starts_with("SecondsInColumn")) %>%
+  select( -one_of(c("secondsInColumns.Backlog", "secondsInColumns.Done", "secondsInColumns.Closed", "secondsInColumns.Resolved", "secondsInColumns.Open", "secondsInColumns.Reopened")))
+
+
+```
+
+Working columns are:
+
+```{r, comment="", echo=FALSE, WARN=F, message=F}
+paste(
+  gsub("secondsInColumns.", "", colnames(workedColumns)),
+  collapse=", ")
+
+#Add up time in all the working columns
+tsTickets$workTime <- apply(workedColumns, FUN="sum", MARGIN=1, na.rm=T)
+
+minMonthLim <- floor_date(min(tsTickets$resolutionDate, na.rm =T), "month")
+maxMonthLim <- ceiling_date(max(tsTickets$resolutionDate, na.rm =T), "month")
+
+
+ggplot(filter(tsTickets, ! is.na(resolutionDate)), aes(x=resolutionDate, y=totalTime/24/60/60)) + geom_point() + geom_smooth(na.rm=T, fullrange=T) + ggtitle("Cycle Time - created to resolved") + ylab("Days") + xlab("Resolution Month") + expand_limits(x=c(minMonthLim, maxMonthLim))
+
+ggplot(filter(tsTickets, ! is.na(resolutionDate)), aes(x=resolutionDate, y=workTime/24/60/60/1000)) + geom_point() + geom_smooth(na.rm=T, fullrange=T) + ggtitle("Cycle Time - Worked Time") + ylab("Days") + xlab("Resolution Month") + expand_limits(x=c(minMonthLim, maxMonthLim))
+
+```
+
+
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE}
+
+#ORDERING of months
+tsTickets$resolutionMonthDisplay <- factor(tsTickets[order(tsTickets$resolutionMonth), "resolutionMonthDisplay"], levels=unique(tsTickets[order(tsTickets$resolutionMonth), "resolutionMonthDisplay"]))
+
+
+ggplot(filter(tsTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutionMonthDisplay, y=totalTime/24/60/60)) + 
+  geom_violin(scale="width", draw_quantiles=c(0.5,0.75)) + #geom_jitter(height=0, size=0.2, width=0.2) +
+  theme(axis.text.x = element_text(angle=60, hjust=1)) +
+  ggtitle("Velocity Violin Distribution - created to resolved") + xlab("Resolution Month") + ylab("Days")
+
+ggplot(filter(tsTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutionMonthDisplay, y=workTime/24/60/60/1000)) + 
+  geom_violin(scale="width", draw_quantiles=c(0.5,0.75)) + #geom_jitter(height=0, size=0.2, width=0.2) +
+  theme(axis.text.x = element_text(angle=60, hjust=1)) +
+  ggtitle("Velocity Violin Distribution - Worked Time") + xlab("Resolution Month") + ylab("Days")
+
+```
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE, message=F, fig.height=6}
+
+statusColours <- c("secondsInColumns.Open" = "white", "secondsInColumns.Backlog" = "white",
+                   "secondsInColumns.Selected.for.Development" = "white",
+                   "secondsInColumns.Analysis.In" = "red", "secondsInColumns.Analysis.Out" = "white",
+                   "secondsInColumns.Selected" = "red",
+                   "secondsInColumns.Test.Analysis.In" = "red", "secondsInColumns.Test.Analysis.Out" = "white",
+                   "secondsInColumns.Elaboration.In" = "red", "secondsInColumns.Elaboration.Out" = "white", "secondsInColumns.Elaboration..Out" = "white",
+                   
+                   "secondsInColumns.3.Amigos.In" = "red", "secondsInColumns.3.Amigos.Out" = "white",
+                   "secondsInColumns.Implementation.In" = "orange", "secondsInColumns.Implementation.Out" = "white",
+                   "secondsInColumns.In.Progress" = "orange",
+                   
+                   "secondsInColumns.Review.In" = "#ffc966", "secondsInColumns.Review.Out" = "white",
+                   "secondsInColumns.Code.Review.In" = "#ffc966", "secondsInColumns.Code.Review.Out" = "white",
+
+                   "secondsInColumns.Code.Review...Demo.In" = "#ffc966", "secondsInColumns.Code.Review...Demo.Out" = "white",
+                   "secondsInColumns.In.Review" = "#ffc966",
+                   "secondsInColumns.Demo.In" = "#ffc966", "secondsInColumns.Demo.Out" = "white",
+                   "secondsInColumns.UAT.In" = "#ffc966", "secondsInColumns.UAT.Out" = "white",
+                   "secondsInColumns.UAT" = "#ffc966",
+                   
+                   "secondsInColumns.Test.In" = "yellow", "secondsInColumns.Test.Out" = "white",
+                   "secondsInColumns.Merged" = "green",
+                   "secondsInColumns.Deploy.To.Test.In" = "#00dd00",
+                   "secondsInColumns.Deploy" = "#00dd00",
+                   "secondsInColumns.Deploy.to.Test.Out" = "white",
+                   
+                   "secondsInColumns.Deployed.to.Test.Environment" = "#00dd00",
+                   "secondsInColumns.Deployed.to.Staging.Environment" = "#00bb00",
+                   "secondsInColumns.Deployed.to.Staging.Environmen" = "#00bb00",
+
+                   "secondsInColumns.Release" = "#55bb55",
+                   "secondsInColumns.Release.Validation" = "#229922",
+                   
+                   "secondsInColumns.Closed" = "#666666",
+                   "secondsInColumns.Resolved" = "#666666"
+)
+statusLabels <- gsub("secondsInColumns.", "", names(statusColours))
+names(statusLabels) <- names(statusColours)
+
+library(lubridate)
+
+#Join the working seconds in columns fields back with resolutionDate
+controlColumns <- bind_cols(select(tsTickets, key, resolutionDate), workedColumns) %>%
+  filter(! is.na(resolutionDate) ) %>% 
+  filter( resolutionDate > ymd(Sys.Date()) %m-% months(3) )
+
+#Melt for plotting
+workedMelt <- melt(controlColumns, id=c("key", "resolutionDate"))
+
+
+base_breaks <- function(n = 10){
+    function(x) {
+        axisTicks(log10(range(x, na.rm = TRUE)), log = TRUE, nint = n)
+    }
+}
+
+ggplot(workedMelt, aes(x=resolutionDate, y=value/1000/60/60/24, color=variable)) + geom_point() + ylab("Hours") + xlab("Resolution Date") + facet_wrap(~variable, ncol=2) +
+  scale_color_manual(values=statusColours, na.value="gray", labels=statusLabels, name="Column") + theme(legend.position="None") + geom_smooth(na.rm = T, se=T) + 
+  scale_y_continuous(labels=prettyNum)
+
+```

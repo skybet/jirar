@@ -1,4 +1,4 @@
-# Class Of Work
+# Work Type
 
 ```{r, echo=FALSE, warning=FALSE, error=FALSE, include=F}
 
@@ -27,14 +27,14 @@ if ( length(unique(tsTickets$workType)) > 1) {
   classOfWorkTickets <- tsTickets %>% arrange(resolutionMonth)
   classOfWorkTickets$resolutionMonthDisplay <- factor(tsTickets[order(tsTickets$resolutionMonth), "resolutionMonthDisplay"], levels=unique(tsTickets[order(tsTickets$resolutionMonth), "resolutionMonthDisplay"]))
   
-  g1 <- ggplot(filter(classOfWorkTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutionMonthDisplay, fill=workType)) + 
-    geom_bar(stat="count", position="fill") + theme(axis.text.x = element_text(angle=60, hjust=1)) + 
-    ggtitle("Class Of Work Distribution") + xlab("Resolution Month") + ylab("Class Of Work %")
+  g1 <- ggplot(filter(classOfWorkTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutionMonthDisplay, fill=workType)) + scale_fill_discrete(name=NULL) +
+    geom_bar(stat="count", position="fill") + theme(legend.position = "bottom", axis.text.x = element_text(angle=60, hjust=1)) + 
+    ggtitle("Work Type Distribution") + xlab("Resolution Month") + ylab("Class Of Work %")
   
   print(g1)
-  g2 <- ggplot(filter(classOfWorkTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutionMonthDisplay, fill=workType)) + 
-    geom_bar(stat="count") + theme(axis.text.x = element_text(angle=90, hjust=1)) + facet_wrap(~ workType) + 
-    ggtitle("Class Of Work") + xlab("Resolution Month") + ylab("Tickets Resolved")
+  g2 <- ggplot(filter(classOfWorkTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutionMonthDisplay, fill=workType)) + scale_fill_discrete(name=NULL) +
+    geom_bar(stat="count") + theme(legend.position="bottom", axis.text.x = element_text(angle=90, hjust=1)) + facet_wrap(~ workType) + 
+    ggtitle("Completed Tickets by Work Type") + xlab("Resolution Month") + ylab("Tickets Resolved")
   print(g2)
   
 } else {

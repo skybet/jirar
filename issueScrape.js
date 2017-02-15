@@ -47,15 +47,8 @@ function getBoardColumns(bootstrap, next) {
         },
         json: true
     }, function(err, res, body) {
-        if (err) { console.log("ERR"); console.log(err); return next(err); }
-        var msg = util.format("Got %s response from jira @ %j", res.statusCode, req.uri.href);
-        console.log(msg);
-        if (res.statusCode != 200) { 
-            console.log("ERR");
-            console.log(body);
-            return next(msg); 
 
-        }
+        dealWithJiraResponse(err, req, res, body, next);
  
         var colStatuses = body.columnConfig.columns.map(function(col) {
             return col.statuses.map(function(st) { return st.id; })
@@ -82,8 +75,8 @@ function getTransitions(bootstrap, next) {
         },
         json: true
     }, function(err, res, body) {
-        if (err) { console.log("ERR"); console.log(err); return next(err); }
-        console.log("Got %s response from jira @ %j", res.statusCode, req.uri.href);
+        dealWithJiraResponse(err, req, res, body, next);
+
         var unOrderedProjectCategories = body.transitions.reduce(function(prev, cat) {
             var id = cat.to.id;
             prev[id] = { name: cat.to.name, id: id, color: cat.to.statusCategory.colorName };
@@ -124,7 +117,7 @@ function getNumberOfTickets(bootstrap, next) {
         json: true
     }, function(err, res, body) {
         if (err) { console.log("ERR"); console.log(err); return next(err); }
-        console.log("Got %s response from jira @ %j", res.statusCode, req.uri.href);
+        dealWithJiraResponse(err, req, res, body, next);
 
         return next(err, body.total);
         })
@@ -159,15 +152,25 @@ function getIssues(bootstrap, next) {
             },
             json: true
         }, function(err, res, body) {
-            if (err) { console.log("ERR"); console.log(err); return nextBucket(err); }
-            console.log("Got %s response from jira @ %j", res.statusCode, req.uri.href);
-//console.log(body);
+            dealWithJiraResponse(err, req, res, body, next);
 
             var issueData = body.issues.map(extractIssueData);
             return nextBucket(err, issueData);
         });
     };
 
+};
+
+function dealWithJiraResponse(err, req, res, body, next) { 
+            if (err) { console.log("ERR"); console.log(err); return next(err); }
+            var msg = util.format("Got %s response from jira @ %j", res.statusCode, req.uri.href);
+            console.log(msg);
+            if (res.statusCode != 200) { 
+                console.log("ERR");
+                console.log(body);
+                return next(msg); 
+
+            }
 };
 
 function writeCSVOutput(bootstrap, next) {
