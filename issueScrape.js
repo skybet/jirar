@@ -196,15 +196,20 @@ function writeCSVOutput(bootstrap, next) {
 };
 
 
-function extractIssueData(issue) {
-
-    var change = issue.changelog.histories
-
-    var firstCreated = issue.fields.created;
-    var workType = null;
-    if (issue.fields.customfield_10905) { 
-        workType = issue.fields.customfield_10905.value;
+function lookupEpicWorkType(epicWorkTypeStore, epicKey) {
+    if ( epicKey in epicWorkTypeStore ) {
+        return epicWorkTypeStore[epicKey];
+    } else {
+        console.log("No epic found for "+epicKey);
+        //TODO request the failed epics - probably from another board
+        return null;
     }
+};
+
+function extractIssueData(issue) {
+    var change = issue.changelog.histories
+    var firstCreated = issue.fields.created;
+
     var timeInColumns = change.filter(function(changeHist) {
 
 //WARNING Filter modifies changeHist.items
@@ -254,13 +259,21 @@ function extractIssueData(issue) {
     delete timeInColumns.previousTime
 
 process.stdout.write(".");
+    var workType = null;
+    if (issue.fields.customfield_10905) {
+        workType = issue.fields.customfield_10905.value;
+    }
+
+
+    var ticketType = null;
+    if (issue.fields.issuetype) { ticketType = issue.fields.issuetype.name; }
+
+
+    var status = null;
+    if (issue.fields.status) { status = issue.fields.status.name; }
 
     var resolution = null;
-    var status = null;
-    var ticketType = null;
-    if (issue.fields.status) { status = issue.fields.status.name; }
     if (issue.fields.resolution) { resolution = issue.fields.resolution.name; }
-    if (issue.fields.issuetype) { ticketType = issue.fields.issuetype.name; }
     return {
         key: issue.key,
         summary: issue.fields.summary,
@@ -287,7 +300,34 @@ var writeCSV = function writeCSV(finalCSV, fields, next) {
         return next(err);
       });
     });
-}
+};
+
+var backfillEpicLink = function backfillEpicLink(bootstrap, next) {
+    console.log("Backfilling work type from epic linking...");
+
+    var epicList = bootstrap.getIssues.filter(
+        function(i) { return i.ticketType == "Epic" }
+    );
+
+    var epicWorkTypeStore = epicList.reduce(
+        function(pre, i) {
+            pre[i.key] = i.workType;
+            return pre;
+        }, {}
+    )
+
+
+    var issues = bootstrap.getIssues.map(function(issue) {
+        if (!issue.workType && issue.epicLink) {
+            process.stdout.write("-");
+            issue.workType = lookupEpicWorkType(epicWorkTypeStore, issue.epicLink);
+        }
+        return issue
+    });
+
+    console.log("");
+    next(null, issues);
+};
 
 if (require.main === module) {
 async.auto({
@@ -303,8 +343,9 @@ async.auto({
     "getTransitions": ["bootstrap", "getBoardId", getTransitions],
     "getNumberOfTickets": ["bootstrap", getNumberOfTickets],
     "getIssues": ["getNumberOfTickets", getIssues],
+    "backfillEpicLink": ["getIssues", backfillEpicLink],
 
-    "writeCSVOutput": ["getTransitions", "getIssues", writeCSVOutput],
+    "writeCSVOutput": ["getTransitions", "backfillEpicLink", writeCSVOutput],
 
 }, function(err, results) {
     if (err) {
