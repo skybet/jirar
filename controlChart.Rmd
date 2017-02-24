@@ -21,11 +21,11 @@ tsTickets <- read.csv("/Users/grovesro/Desktop/jiraR/jiraRDataset.csv", header=T
   filter(status != "Closed") %>% 
   filter(status != "to do") %>% 
   filter(status != "open") %>%
-  filter(ticketType != "Epic")
+  filter(ticketType != "Epic")%>% arrange(resolutionMonth)
 
 #Get all "SecondsInColumns" data, then drop columns where we aren't working on it
 workedColumns <- tsTickets %>% select(starts_with("SecondsInColumn")) %>%
-  select( -one_of(c("secondsInColumns.Backlog", "secondsInColumns.Done", "secondsInColumns.Closed", "secondsInColumns.Resolved", "secondsInColumns.Open", "secondsInColumns.Reopened")))
+  select( -one_of(c("secondsInColumns.Backlog", "secondsInColumns.New", "secondsInColumns.Done", "secondsInColumns.Closed", "secondsInColumns.Resolved", "secondsInColumns.Open", "secondsInColumns.Reopened")))
 
 
 ```
@@ -77,6 +77,7 @@ statusColours <- c("secondsInColumns.Open" = "white", "secondsInColumns.Backlog"
                    "secondsInColumns.Analysis.In" = "red", "secondsInColumns.Analysis.Out" = "white",
                    "secondsInColumns.Selected" = "red",
                    "secondsInColumns.Test.Analysis.In" = "red", "secondsInColumns.Test.Analysis.Out" = "white",
+                   "secondsInColumns.Next" = "red",
                    "secondsInColumns.Elaboration.In" = "red", "secondsInColumns.Elaboration.Out" = "white", "secondsInColumns.Elaboration..Out" = "white",
                    
                    "secondsInColumns.3.Amigos.In" = "red", "secondsInColumns.3.Amigos.Out" = "white",
@@ -85,6 +86,7 @@ statusColours <- c("secondsInColumns.Open" = "white", "secondsInColumns.Backlog"
                    
                    "secondsInColumns.Review.In" = "#ffc966", "secondsInColumns.Review.Out" = "white",
                    "secondsInColumns.Code.Review.In" = "#ffc966", "secondsInColumns.Code.Review.Out" = "white",
+                   "secondsInColumns.Awaiting.Review" = "#ffc966", "secondsInColumns.Review.Done" = "white",                   
 
                    "secondsInColumns.Code.Review...Demo.In" = "#ffc966", "secondsInColumns.Code.Review...Demo.Out" = "white",
                    "secondsInColumns.In.Review" = "#ffc966",
@@ -93,6 +95,8 @@ statusColours <- c("secondsInColumns.Open" = "white", "secondsInColumns.Backlog"
                    "secondsInColumns.UAT" = "#ffc966",
                    
                    "secondsInColumns.Test.In" = "yellow", "secondsInColumns.Test.Out" = "white",
+                   "secondsInColumns.Testing.In" = "yellow", "secondsInColumns.Testing.Done" = "white",
+                   
                    "secondsInColumns.Merged" = "green",
                    "secondsInColumns.Deploy.To.Test.In" = "#00dd00",
                    "secondsInColumns.Deploy" = "#00dd00",
@@ -101,6 +105,8 @@ statusColours <- c("secondsInColumns.Open" = "white", "secondsInColumns.Backlog"
                    "secondsInColumns.Deployed.to.Test.Environment" = "#00dd00",
                    "secondsInColumns.Deployed.to.Staging.Environment" = "#00bb00",
                    "secondsInColumns.Deployed.to.Staging.Environmen" = "#00bb00",
+                   "secondsInColumns.Staging" = "#00bb00",
+
 
                    "secondsInColumns.Release" = "#55bb55",
                    "secondsInColumns.Release.Validation" = "#229922",
@@ -117,7 +123,8 @@ library(lubridate)
 controlColumns <- bind_cols(select(tsTickets, key, resolutionDate), workedColumns) %>%
   filter(! is.na(resolutionDate) ) %>% 
   filter( resolutionDate > ymd(Sys.Date()) %m-% months(3) )
-
+nrow(controlColumns)
+if (nrow(controlColumns) > 0) {
 #Melt for plotting
 workedMelt <- melt(controlColumns, id=c("key", "resolutionDate"))
 
@@ -131,5 +138,36 @@ base_breaks <- function(n = 10){
 ggplot(workedMelt, aes(x=resolutionDate, y=value/1000/60/60/24, color=variable)) + geom_point() + ylab("Hours") + xlab("Resolution Date") + facet_wrap(~variable, ncol=2) +
   scale_color_manual(values=statusColours, na.value="gray", labels=statusLabels, name="Column") + theme(legend.position="None") + geom_smooth(na.rm = T, se=T) + 
   scale_y_continuous(labels=prettyNum)
+}
 
+```
+
+# Capex/Opex distributions
+
+```{r, echo=F}
+library(forcats)
+  classOfWorkTickets <- tsTickets %>% arrange(resolutionMonth)
+  classOfWorkTickets$resolutionMonthDisplay <- factor(tsTickets[order(tsTickets$resolutionMonth), "resolutionMonthDisplay"], levels=unique(tsTickets[order(tsTickets$resolutionMonth), "resolutionMonthDisplay"]))
+  
+  #Reorder so capex is on the bottom, NA on the top
+  classOfWorkTickets$spendDisplay <- fct_relevel(addNA(classOfWorkTickets$spend), NA, "OPEX", "CAPEX")
+  
+ 
+
+  
+  ggplot(filter(classOfWorkTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutionMonthDisplay, fill=spendDisplay)) + scale_fill_discrete(name=NULL) +
+    geom_bar(stat="count", position="fill") + theme(legend.position = "bottom", axis.text.x = element_text(angle=60, hjust=1)) + 
+    ggtitle("Spend Distribution - Completed Tickets") + xlab("Resolution Month") + ylab("Spend %")
+  
+    ggplot(filter(classOfWorkTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutionMonthDisplay, y=workTime, fill=spendDisplay)) + scale_fill_discrete(name=NULL) +
+    geom_bar(position="fill", stat="identity") + theme(legend.position = "bottom", axis.text.x = element_text(angle=60, hjust=1)) + 
+    ggtitle("Spend Distribution - Worked Time") + xlab("Resolution Month") + ylab("Spend %")
+
+```
+    
+Tickets where we could not see the CAPEX/OPEX assigned to them or their epic (or their epic is from a different project)
+
+```{r, result="asis", echo=FALSE}
+ticketsWithoutSpend <- classOfWorkTickets %>% filter(is.na(spend)) %>% filter(! is.na(resolutionMonthDisplay)) %>% select(key, epicLink)
+knitr::kable(ticketsWithoutSpend)
 ```

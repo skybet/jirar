@@ -19,22 +19,26 @@ tsTickets <- read.csv("/Users/grovesro/Desktop/jiraR/jiraRDataset.csv", header=T
     resolutionMonth = as.numeric(format(resolutionDate, format="%Y%m")),
     totalTime = resolutionDate - created
   ) %>% filter(status != "Closed") %>% filter(status != "to do") %>% filter(status != "open") %>% filter(ticketType != "Epic") %>%
-  select( -totalTime, -one_of(c("secondsInColumns.Open", "secondsInColumns.Next.Up", "secondsInColumns.Backlog", "secondsInColumns.Resolved", "secondsInColumns.Reopened", "secondsInColumns.Closed", "secondsInColumns.Done"))) 
+  select( -totalTime, -spend, -one_of(c("secondsInColumns.Open", "secondsInColumns.New", "secondsInColumns.Next.Up", "secondsInColumns.Backlog", "secondsInColumns.Resolved", "secondsInColumns.Reopened", "secondsInColumns.Closed", "secondsInColumns.Done"))) 
 
 
 statusColours <- c("secondsInColumns.Open" = "white", "secondsInColumns.Backlog" = "white",
                    "secondsInColumns.Selected.for.Development" = "white",
                    "secondsInColumns.Analysis.In" = "red", "secondsInColumns.Analysis.Out" = "white",
                    "secondsInColumns.Selected" = "red",
+                                      "secondsInColumns.Next" = "red",
+
                    "secondsInColumns.Test.Analysis.In" = "red", "secondsInColumns.Test.Analysis.Out" = "white",
                    "secondsInColumns.Elaboration.In" = "red", "secondsInColumns.Elaboration.Out" = "white", "secondsInColumns.Elaboration..Out" = "white",
                    
                    "secondsInColumns.3.Amigos.In" = "red", "secondsInColumns.3.Amigos.Out" = "white",
-                   "secondsInColumns.Implementation.In" = "orange", "secondsInColumns.Implementation.Out" = "white",
+                   "secondsInColumns.Implementation.In" = "orange",                   "secondsInColumns.Prioritised" = "orange",
+ "secondsInColumns.Implementation.Out" = "white", "secondsInColumns.Implementation.Done" = "white","secondsInColumns.Demo.d" = "white",
                    "secondsInColumns.In.Progress" = "orange",
                    
                    "secondsInColumns.Review.In" = "#ffc966", "secondsInColumns.Review.Out" = "white",
                    "secondsInColumns.Code.Review.In" = "#ffc966", "secondsInColumns.Code.Review.Out" = "white",
+                   "secondsInColumns.Awaiting.Review" = "#ffc966", "secondsInColumns.Review.Done" = "white",                   
 
                    "secondsInColumns.Code.Review...Demo.In" = "#ffc966", "secondsInColumns.Code.Review...Demo.Out" = "white",
                    "secondsInColumns.In.Review" = "#ffc966",
@@ -43,6 +47,8 @@ statusColours <- c("secondsInColumns.Open" = "white", "secondsInColumns.Backlog"
                    "secondsInColumns.UAT" = "#ffc966",
                    
                    "secondsInColumns.Test.In" = "yellow", "secondsInColumns.Test.Out" = "white",
+                   "secondsInColumns.Testing.In" = "yellow", "secondsInColumns.Testing.Done" = "white",
+                   
                    "secondsInColumns.Merged" = "green",
                    "secondsInColumns.Deploy.To.Test.In" = "#00dd00",
                    "secondsInColumns.Deploy" = "#00dd00",
@@ -51,6 +57,8 @@ statusColours <- c("secondsInColumns.Open" = "white", "secondsInColumns.Backlog"
                    "secondsInColumns.Deployed.to.Test.Environment" = "#00dd00",
                    "secondsInColumns.Deployed.to.Staging.Environment" = "#00bb00",
                    "secondsInColumns.Deployed.to.Staging.Environmen" = "#00bb00",
+                   "secondsInColumns.Staging" = "#00bb00",
+
 
                    "secondsInColumns.Release" = "#55bb55",
                    "secondsInColumns.Release.Validation" = "#229922",

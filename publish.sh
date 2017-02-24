@@ -20,12 +20,12 @@ fi
 
 if [[ "$SQUAD" == "VBS" || "$SQUAD" == "HRS" || "$SQUAD" == "NGU" || "$SQUAD" == "SBP" ]]
 then
-    parentPage=
+    parentPage=46269728
 fi
 
 if [[ "$SQUAD" == "BCT" ]]
 then
-    parentPage=
+    parentPage=46269728
 fi
 
 printf '{\"type\":\"page\",\"title\":\"' > publishTemplate.json
