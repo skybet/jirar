@@ -1,0 +1,874 @@
+module.exports = 
+{
+    "changelog": {
+        "histories": [
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                    },
+                    "displayName": "displayName2",
+                    "emailAddress": "email2@example.com",
+                    "key": "USER02",
+                    "name": "USER02",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER02",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2017-01-30T12:07:49.000+0000",
+                "id": "914917",
+                "items": [
+                    {
+                        "field": "Link",
+                        "fieldtype": "jira",
+                        "from": null,
+                        "fromString": null,
+                        "to": "TS-1019",
+                        "toString": "This issue clones TS-1019"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                    },
+                    "displayName": "displayName2",
+                    "emailAddress": "email2@example.com",
+                    "key": "USER02",
+                    "name": "USER02",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER02",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2017-01-30T12:07:54.000+0000",
+                "id": "914919",
+                "items": [
+                    {
+                        "field": "Link",
+                        "fieldtype": "jira",
+                        "from": "TS-1019",
+                        "fromString": "This issue clones TS-1019",
+                        "to": null,
+                        "toString": null
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                    },
+                    "displayName": "displayName2",
+                    "emailAddress": "email2@example.com",
+                    "key": "USER02",
+                    "name": "USER02",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER02",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2017-01-30T12:08:26.000+0000",
+                "id": "914923",
+                "items": [
+                    {
+                        "field": "Epic Child",
+                        "fieldtype": "custom",
+                        "from": null,
+                        "fromString": null,
+                        "to": "119910",
+                        "toString": "TS-1083"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                    },
+                    "displayName": "displayName2",
+                    "emailAddress": "email2@example.com",
+                    "key": "USER02",
+                    "name": "USER02",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER02",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2017-01-30T12:08:38.000+0000",
+                "id": "914925",
+                "items": [
+                    {
+                        "field": "Epic Name",
+                        "fieldtype": "custom",
+                        "from": null,
+                        "fromString": "Rep Improvement Roadmap Epic",
+                        "to": null,
+                        "toString": "Rep Improvement - Shard Rep-To-AMQP"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                    },
+                    "displayName": "displayName2",
+                    "emailAddress": "email2@example.com",
+                    "key": "USER02",
+                    "name": "USER02",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER02",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2017-01-30T12:08:58.000+0000",
+                "id": "914927",
+                "items": [
+                    {
+                        "field": "Epic Child",
+                        "fieldtype": "custom",
+                        "from": null,
+                        "fromString": null,
+                        "to": "120460",
+                        "toString": "TS-1089"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                    },
+                    "displayName": "displayName2",
+                    "emailAddress": "email2@example.com",
+                    "key": "USER02",
+                    "name": "USER02",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER02",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2017-01-30T12:11:32.000+0000",
+                "id": "914957",
+                "items": [
+                    {
+                        "field": "Epic Child",
+                        "fieldtype": "custom",
+                        "from": null,
+                        "fromString": null,
+                        "to": "120461",
+                        "toString": "TS-1090"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                    },
+                    "displayName": "displayName2",
+                    "emailAddress": "email2@example.com",
+                    "key": "USER02",
+                    "name": "USER02",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER02",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2017-01-30T12:13:29.000+0000",
+                "id": "914963",
+                "items": [
+                    {
+                        "field": "Epic Child",
+                        "fieldtype": "custom",
+                        "from": null,
+                        "fromString": null,
+                        "to": "120462",
+                        "toString": "TS-1091"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                    },
+                    "displayName": "displayName2",
+                    "emailAddress": "email2@example.com",
+                    "key": "USER02",
+                    "name": "USER02",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER02",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2017-01-30T12:14:09.000+0000",
+                "id": "914970",
+                "items": [
+                    {
+                        "field": "Epic Child",
+                        "fieldtype": "custom",
+                        "from": null,
+                        "fromString": null,
+                        "to": "120463",
+                        "toString": "TS-1092"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                    },
+                    "displayName": "displayName2",
+                    "emailAddress": "email2@example.com",
+                    "key": "USER02",
+                    "name": "USER02",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER02",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2017-01-30T12:22:15.000+0000",
+                "id": "915017",
+                "items": [
+                    {
+                        "field": "Epic Child",
+                        "fieldtype": "custom",
+                        "from": null,
+                        "fromString": null,
+                        "to": "120469",
+                        "toString": "TS-1093"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                    },
+                    "displayName": "displayName2",
+                    "emailAddress": "email2@example.com",
+                    "key": "USER02",
+                    "name": "USER02",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER02",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2017-01-30T12:23:46.000+0000",
+                "id": "915027",
+                "items": [
+                    {
+                        "field": "Epic Child",
+                        "fieldtype": "custom",
+                        "from": null,
+                        "fromString": null,
+                        "to": "120470",
+                        "toString": "TS-1094"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                    },
+                    "displayName": "displayName2",
+                    "emailAddress": "email2@example.com",
+                    "key": "USER02",
+                    "name": "USER02",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER02",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2017-01-30T12:27:02.000+0000",
+                "id": "915034",
+                "items": [
+                    {
+                        "field": "Epic Child",
+                        "fieldtype": "custom",
+                        "from": null,
+                        "fromString": null,
+                        "to": "120471",
+                        "toString": "TS-1095"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                    },
+                    "displayName": "displayName2",
+                    "emailAddress": "email2@example.com",
+                    "key": "USER02",
+                    "name": "USER02",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER02",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2017-02-10T16:07:36.000+0000",
+                "id": "938891",
+                "items": [
+                    {
+                        "field": "Epic Child",
+                        "fieldtype": "custom",
+                        "from": null,
+                        "fromString": null,
+                        "to": "120836",
+                        "toString": "TS-1106"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&ownerId=USER03&avatarId=30100",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&ownerId=USER03&avatarId=30100",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&ownerId=USER03&avatarId=30100",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?ownerId=USER03&avatarId=30100"
+                    },
+                    "displayName": "displayName3",
+                    "emailAddress": "email3@example.com",
+                    "key": "USER03",
+                    "name": "USER03",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER03",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2017-02-14T15:37:16.000+0000",
+                "id": "943464",
+                "items": [
+                    {
+                        "field": "Epic Child",
+                        "fieldtype": "custom",
+                        "from": null,
+                        "fromString": null,
+                        "to": "123220",
+                        "toString": "TS-1127"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&ownerId=USER03&avatarId=30100",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&ownerId=USER03&avatarId=30100",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&ownerId=USER03&avatarId=30100",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?ownerId=USER03&avatarId=30100"
+                    },
+                    "displayName": "displayName3",
+                    "emailAddress": "email3@example.com",
+                    "key": "USER03",
+                    "name": "USER03",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER03",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2017-02-16T08:47:41.000+0000",
+                "id": "947058",
+                "items": [
+                    {
+                        "field": "Epic Child",
+                        "fieldtype": "custom",
+                        "from": null,
+                        "fromString": null,
+                        "to": "123561",
+                        "toString": "TS-1129"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                    },
+                    "displayName": "displayName2",
+                    "emailAddress": "email2@example.com",
+                    "key": "USER02",
+                    "name": "USER02",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER02",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2017-02-17T09:24:45.000+0000",
+                "id": "949805",
+                "items": [
+                    {
+                        "field": "Epic Child",
+                        "fieldtype": "custom",
+                        "from": null,
+                        "fromString": null,
+                        "to": "123808",
+                        "toString": "TS-1134"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                    },
+                    "displayName": "displayName2",
+                    "emailAddress": "email2@example.com",
+                    "key": "USER02",
+                    "name": "USER02",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER02",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2017-02-17T09:26:00.000+0000",
+                "id": "949810",
+                "items": [
+                    {
+                        "field": "Epic Child",
+                        "fieldtype": "custom",
+                        "from": null,
+                        "fromString": null,
+                        "to": "123809",
+                        "toString": "TS-1135"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+                    },
+                    "displayName": "displayName2",
+                    "emailAddress": "email2@example.com",
+                    "key": "USER02",
+                    "name": "USER02",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER02",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2017-02-17T16:42:06.000+0000",
+                "id": "951420",
+                "items": [
+                    {
+                        "field": "CAPEX/OPEX?",
+                        "fieldtype": "custom",
+                        "from": null,
+                        "fromString": null,
+                        "to": "[10707]",
+                        "toString": "CAPEX"
+                    }
+                ]
+            },
+            {
+                "author": {
+                    "active": true,
+                    "avatarUrls": {
+                        "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&ownerId=USER03&avatarId=30100",
+                        "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&ownerId=USER03&avatarId=30100",
+                        "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&ownerId=USER03&avatarId=30100",
+                        "48x48": "https://jira.example.com/jira/secure/useravatar?ownerId=USER03&avatarId=30100"
+                    },
+                    "displayName": "displayName3",
+                    "emailAddress": "email3@example.com",
+                    "key": "USER03",
+                    "name": "USER03",
+                    "self": "https://jira.example.com/jira/rest/api/2/user?username=USER03",
+                    "timeZone": "Europe/London"
+                },
+                "created": "2017-02-21T08:12:09.000+0000",
+                "id": "953744",
+                "items": [
+                    {
+                        "field": "Epic Child",
+                        "fieldtype": "custom",
+                        "from": null,
+                        "fromString": null,
+                        "to": "124403",
+                        "toString": "TS-1139"
+                    }
+                ]
+            }
+        ],
+        "maxResults": 18,
+        "startAt": 0,
+        "total": 18
+    },
+    "expand": "renderedFields,names,schema,transitions,operations,editmeta,changelog",
+    "fields": {
+        "aggregateprogress": {
+            "progress": 0,
+            "total": 0
+        },
+        "aggregatetimeestimate": null,
+        "aggregatetimeoriginalestimate": null,
+        "aggregatetimespent": null,
+        "assignee": null,
+        "attachment": [],
+        "comment": {
+            "comments": [],
+            "maxResults": 0,
+            "startAt": 0,
+            "total": 0
+        },
+        "components": [],
+        "created": "2017-01-30T12:07:49.000+0000",
+        "creator": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+            },
+            "displayName": "displayName2",
+            "emailAddress": "email2@example.com",
+            "key": "USER02",
+            "name": "USER02",
+            "self": "https://jira.example.com/jira/rest/api/2/user?username=USER02",
+            "timeZone": "Europe/London"
+        },
+        "customfield_10000": null,
+        "customfield_10001": [
+            "Rep_Improvements"
+        ],
+        "customfield_10002": null,
+        "customfield_10003": null,
+        "customfield_10004": "9223372036854775807",
+        "customfield_10005": null,
+        "customfield_10102": null,
+        "customfield_10103": null,
+        "customfield_10104": "Rep Improvement - Shard Rep-To-AMQP",
+        "customfield_10105": {
+            "id": "10102",
+            "self": "https://jira.example.com/jira/rest/api/2/customFieldOption/10102",
+            "value": "To Do"
+        },
+        "customfield_10106": "ghx-label-1",
+        "customfield_10400": null,
+        "customfield_10401": null,
+        "customfield_10600": {
+            "id": "10401",
+            "self": "https://jira.example.com/jira/rest/api/2/customFieldOption/10401",
+            "value": "3"
+        },
+        "customfield_10601": null,
+        "customfield_10602": {
+            "id": "10407",
+            "self": "https://jira.example.com/jira/rest/api/2/customFieldOption/10407",
+            "value": "3"
+        },
+        "customfield_10603": null,
+        "customfield_10607": null,
+        "customfield_10608": null,
+        "customfield_10609": null,
+        "customfield_10610": null,
+        "customfield_10611": null,
+        "customfield_10612": null,
+        "customfield_10613": null,
+        "customfield_10701": null,
+        "customfield_10801": null,
+        "customfield_10900": null,
+        "customfield_10901": null,
+        "customfield_10903": null,
+        "customfield_10904": null,
+        "customfield_10905": {
+            "id": "10700",
+            "self": "https://jira.example.com/jira/rest/api/2/customFieldOption/10700",
+            "value": "Bet Tribe Roadmap"
+        },
+        "customfield_10906": null,
+        "customfield_10907": null,
+        "customfield_10908": null,
+        "customfield_11100": null,
+        "customfield_11300": null,
+        "customfield_11301": null,
+        "customfield_11302": null,
+        "customfield_11303": null,
+        "customfield_11304": null,
+        "customfield_11305": null,
+        "customfield_11500": null,
+        "customfield_11600": null,
+        "customfield_11701": [
+            {
+                "id": "10707",
+                "self": "https://jira.example.com/jira/rest/api/2/customFieldOption/10707",
+                "value": "CAPEX"
+            }
+        ],
+        "customfield_11900": "1|i01kun:",
+        "customfield_12000": "<Acceptance Criteria>",
+        "customfield_12001": null,
+        "customfield_12002": null,
+        "customfield_12100": null,
+        "customfield_12300": null,
+        "customfield_12400": null,
+        "customfield_12401": null,
+        "customfield_12402": null,
+        "customfield_12403": null,
+        "customfield_12404": null,
+        "customfield_12501": null,
+        "customfield_12600": null,
+        "customfield_12601": null,
+        "customfield_12700": null,
+        "customfield_12701": null,
+        "customfield_12703": null,
+        "customfield_12704": null,
+        "customfield_12800": null,
+        "customfield_12900": null,
+        "customfield_13001": {
+            "id": "11403",
+            "self": "https://jira.example.com/jira/rest/api/2/customFieldOption/11403",
+            "value": "No"
+        },
+        "customfield_13101": null,
+        "customfield_13200": null,
+        "customfield_13300": null,
+        "customfield_13400": null,
+        "customfield_13500": null,
+        "customfield_13501": null,
+        "customfield_13600": "h3. Acceptance Criteria\r\n\r\n\r\nh3. Notes",
+        "customfield_13601": null,
+        "customfield_13700": null,
+        "customfield_13800": "<Elaboration>",
+        "customfield_13801": null,
+        "customfield_13900": null,
+        "customfield_14000": null,
+        "customfield_14100": null,
+        "customfield_14101": null,
+        "customfield_14102": null,
+        "customfield_14200": null,
+        "customfield_14300": null,
+        "customfield_14301": null,
+        "customfield_14400": null,
+        "customfield_14500": null,
+        "customfield_14600": null,
+        "customfield_14700": null,
+        "customfield_14701": null,
+        "customfield_14702": null,
+        "customfield_14703": null,
+        "customfield_14704": null,
+        "customfield_14705": null,
+        "customfield_14706": null,
+        "customfield_14707": null,
+        "customfield_14708": null,
+        "customfield_14709": null,
+        "customfield_14710": null,
+        "customfield_14711": null,
+        "customfield_14712": null,
+        "customfield_14713": null,
+        "customfield_14714": null,
+        "customfield_14800": null,
+        "customfield_14801": null,
+        "customfield_14803": null,
+        "customfield_14804": null,
+        "customfield_14805": null,
+        "customfield_14806": null,
+        "customfield_14807": null,
+        "customfield_14900": null,
+        "customfield_14901": null,
+        "customfield_15000": null,
+        "customfield_15100": null,
+        "customfield_15200": null,
+        "customfield_15400": null,
+        "customfield_15401": null,
+        "customfield_15402": null,
+        "customfield_15403": null,
+        "customfield_15404": null,
+        "customfield_15405": null,
+        "customfield_15406": null,
+        "customfield_15407": null,
+        "customfield_15408": null,
+        "customfield_15409": null,
+        "customfield_15410": null,
+        "customfield_15411": null,
+        "customfield_15412": null,
+        "customfield_15413": null,
+        "customfield_15414": null,
+        "customfield_15415": null,
+        "customfield_15416": null,
+        "customfield_15417": null,
+        "customfield_15500": null,
+        "customfield_15501": null,
+        "customfield_15502": null,
+        "customfield_15601": null,
+        "customfield_15700": null,
+        "customfield_15701": null,
+        "customfield_15801": null,
+        "customfield_15802": null,
+        "customfield_15803": null,
+        "customfield_15804": null,
+        "customfield_15805": null,
+        "customfield_15806": null,
+        "customfield_15900": null,
+        "customfield_16000": null,
+        "customfield_16001": null,
+        "customfield_16002": null,
+        "customfield_16003": null,
+        "customfield_16004": null,
+        "customfield_16005": null,
+        "customfield_16006": null,
+        "customfield_16201": null,
+        "customfield_16300": null,
+        "customfield_16400": null,
+        "customfield_16401": null,
+        "customfield_16402": null,
+        "customfield_16500": null,
+        "customfield_16501": null,
+        "customfield_16600": null,
+        "customfield_16700": null,
+        "customfield_16800": null,
+        "customfield_16900": null,
+        "customfield_17002": null,
+        "customfield_17100": null,
+        "customfield_17101": null,
+        "customfield_17102": null,
+        "customfield_17103": null,
+        "customfield_17200": null,
+        "customfield_17300": null,
+        "customfield_17301": null,
+        "customfield_17302": null,
+        "customfield_17303": null,
+        "customfield_17304": null,
+        "customfield_17305": null,
+        "customfield_17306": null,
+        "customfield_17307": null,
+        "customfield_17308": null,
+        "customfield_17309": null,
+        "customfield_17310": null,
+        "customfield_17311": null,
+        "customfield_17312": null,
+        "customfield_17400": null,
+        "customfield_17401": null,
+        "description": null,
+        "duedate": null,
+        "fixVersions": [],
+        "issuelinks": [],
+        "issuetype": {
+            "description": "Created by JIRA Agile - do not edit or delete. Issue type for a big user story that needs to be broken down.",
+            "iconUrl": "https://jira.example.com/jira/images/icons/issuetypes/epic.png",
+            "id": "6",
+            "name": "Epic",
+            "self": "https://jira.example.com/jira/rest/api/2/issuetype/6",
+            "subtask": false
+        },
+        "labels": [],
+        "lastViewed": "2017-02-24T13:46:54.060+0000",
+        "priority": {
+            "iconUrl": "https://jira.example.com/jira/secure/attachment/59220/normal.png",
+            "id": "6",
+            "name": "Normal",
+            "self": "https://jira.example.com/jira/rest/api/2/priority/6"
+        },
+        "progress": {
+            "progress": 0,
+            "total": 0
+        },
+        "project": {
+            "avatarUrls": {
+                "16x16": "https://jira.example.com/jira/secure/projectavatar?size=xsmall&avatarId=10011",
+                "24x24": "https://jira.example.com/jira/secure/projectavatar?size=small&avatarId=10011",
+                "32x32": "https://jira.example.com/jira/secure/projectavatar?size=medium&avatarId=10011",
+                "48x48": "https://jira.example.com/jira/secure/projectavatar?avatarId=10011"
+            },
+            "id": "13800",
+            "key": "TS",
+            "name": "Trading Squad",
+            "self": "https://jira.example.com/jira/rest/api/2/project/13800"
+        },
+        "reporter": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://jira.example.com/jira/secure/useravatar?size=xsmall&avatarId=10122",
+                "24x24": "https://jira.example.com/jira/secure/useravatar?size=small&avatarId=10122",
+                "32x32": "https://jira.example.com/jira/secure/useravatar?size=medium&avatarId=10122",
+                "48x48": "https://jira.example.com/jira/secure/useravatar?avatarId=10122"
+            },
+            "displayName": "displayName2",
+            "emailAddress": "email2@example.com",
+            "key": "USER02",
+            "name": "USER02",
+            "self": "https://jira.example.com/jira/rest/api/2/user?username=USER02",
+            "timeZone": "Europe/London"
+        },
+        "resolution": null,
+        "resolutiondate": null,
+        "status": {
+            "description": "",
+            "iconUrl": "https://jira.example.com/jira/images/icons/statuses/generic.png",
+            "id": "1",
+            "name": "Open",
+            "self": "https://jira.example.com/jira/rest/api/2/status/1",
+            "statusCategory": {
+                "colorName": "blue-gray",
+                "id": 2,
+                "key": "new",
+                "name": "To Do",
+                "self": "https://jira.example.com/jira/rest/api/2/statuscategory/2"
+            }
+        },
+        "subtasks": [],
+        "summary": "Rep Improvement - Shard Rep-To-AMQP",
+        "timeestimate": null,
+        "timeoriginalestimate": null,
+        "timespent": null,
+        "timetracking": {},
+        "updated": "2017-02-21T08:12:09.000+0000",
+        "versions": [],
+        "votes": {
+            "hasVoted": false,
+            "self": "https://jira.example.com/jira/rest/api/2/issue/TS-1088/votes",
+            "votes": 0
+        },
+        "watches": {
+            "isWatching": false,
+            "self": "https://jira.example.com/jira/rest/api/2/issue/TS-1088/watchers",
+            "watchCount": 1
+        },
+        "worklog": {
+            "maxResults": 20,
+            "startAt": 0,
+            "total": 0,
+            "worklogs": []
+        },
+        "workratio": -1
+    },
+    "id": "120459",
+    "key": "TS-1088",
+    "self": "https://jira.example.com/jira/rest/api/2/issue/120459"
+}

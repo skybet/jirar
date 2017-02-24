@@ -18,6 +18,7 @@ describe("singleIssue", function() {
                 summary: "Investigation into Double Price update messages",
                 created: "2016-12-05T13:37:16.000+0000",
                 status: "3 Amigos Out",
+                spend: null,
                 resolution: null,
                 resolutionDate: null,
                 epicLink: "TS-1019",
@@ -45,6 +46,7 @@ describe("singleIssue - Multiple Transitions", function() {
                 created: "2016-11-16T10:30:33.000+0000",
                 resolutionDate: "2016-11-28T11:19:56.000+0000",
                 status: "Done",
+                spend: null,
                 epicLink: "VBS-247",
                 ticketType: "User Story",
                 workType: null,
@@ -64,5 +66,15 @@ describe("singleIssue - Multiple Transitions", function() {
             delete res.resolution;
             assert.deepEqual(res, exp);
         });
+    });
+});
+describe("spend", function() { 
+    var sampleIssue = require('./singleIssue-TS-1088');
+    it("works", function() { assert(true); })
+
+    it("test data has a title", function() { 
+        var res = issueScraper.extractIssueData(sampleIssue);
+console.log(res);
+        assert.equal("CAPEX", res.spend);
     });
 });

@@ -13,16 +13,37 @@ function getBoardId(bootstrap, next) {
     //TODO get this number from JIRA - maybe request the project and look at the redirected URI?
     // OR is there an api call?
     var boardList = {
+        "TR": 144, //OLD SQUAD
+        "TFS": 522, //OLD SQUAD
         "TS": 290,
         "PE": 357,
         "TSI": 690,
 
+        "BTE": 130, // OLD
+        "BTFS": 210, //OLD
+        "DOT": 123, //OLD
         "VBS": 507,
         "HRS": 699,
         "NGU": 505,
         "SBP": 489,
+        "SOD": 693,
+        "BTI": 769,
+        "WES": 291,
+        "BTPS": 211,
+        "BIT": 503,
+        "VBS": 507,
 
         "BCT": 292, // Broken??!?
+        "CT": 155, // OLD // Broken?
+        "PT": 216, // OLD
+        "BCTDR": 605, // BRoken?
+
+        "BOPS": 202,
+        "WOPS": 230,
+        "BPE": 461,
+        "MWT": 484,
+
+        "BMA": 628
     }
     var project = bootstrap.bootstrap.project;
     var boardId = boardList[project];
@@ -83,11 +104,12 @@ function getTransitions(bootstrap, next) {
             return prev;
         }, {});
 
+        // :( because BCTDR doesn't have Backlog in the transitions response
+        unOrderedProjectCategories[10001] = unOrderedProjectCategories[10001] || "Backlog"
+
         getBoardColumns(bootstrap, function(err, columns) { 
             //var workingProjectCategories = unOrderedProjectCategories.slice(); //Clone
             if (err) { return next(err); }
-
-            var orderedIndexes = [4,5, 9,10,11,12,13,14, 28,29, 15,16, 19,20, 17,18, 21,22, 23,24, 25,26, 33, 30,31, 27,32,   6,7,8];
 
             projectCategories = columns.map(function(statusId) { 
                 return unOrderedProjectCategories[statusId].name
@@ -184,7 +206,7 @@ function writeCSVOutput(bootstrap, next) {
     };
 
 //console.log(issueData[0]);
-    var fields = ["key", "summary", "created", "resolution", "resolutionDate", "workType", "epicLink", "status", "ticketType"];
+    var fields = ["key", "summary", "created", "resolution", "resolutionDate", "workType", "epicLink", "status", "ticketType", "spend"];
 
     var fields = fields.concat(bootstrap.getTransitions.map(function(k) {
         //if (k == "previousTime") return null;
@@ -196,9 +218,9 @@ function writeCSVOutput(bootstrap, next) {
 };
 
 
-function lookupEpicWorkType(epicWorkTypeStore, epicKey) {
-    if ( epicKey in epicWorkTypeStore ) {
-        return epicWorkTypeStore[epicKey];
+function lookupFromEpicStore(epicStore, epicKey) {
+    if ( epicKey in epicStore ) {
+        return epicStore[epicKey];
     } else {
         console.log("No epic found for "+epicKey);
         //TODO request the failed epics - probably from another board
@@ -207,7 +229,7 @@ function lookupEpicWorkType(epicWorkTypeStore, epicKey) {
 };
 
 function extractIssueData(issue) {
-    var change = issue.changelog.histories
+    var change = issue.changelog.histories;
     var firstCreated = issue.fields.created;
 
     var timeInColumns = change.filter(function(changeHist) {
@@ -274,6 +296,10 @@ process.stdout.write(".");
 
     var resolution = null;
     if (issue.fields.resolution) { resolution = issue.fields.resolution.name; }
+
+    var spend = null;
+    if (issue.fields.customfield_11701) { spend = issue.fields.customfield_11701[0].value; }
+
     return {
         key: issue.key,
         summary: issue.fields.summary,
@@ -285,7 +311,8 @@ process.stdout.write(".");
         secondsInColumns: timeInColumns,
         //timeInColumns: formatTimeInColumns
         workType: workType,
-        epicLink: issue.fields.customfield_10103
+        epicLink: issue.fields.customfield_10103,
+        spend: spend
     }
 };
 
@@ -315,12 +342,22 @@ var backfillEpicLink = function backfillEpicLink(bootstrap, next) {
             return pre;
         }, {}
     )
+    var epicSpendStore = epicList.reduce(
+        function(pre, i) {
+            pre[i.key] = i.spend;
+            return pre;
+        }, {}
+    )
 
 
     var issues = bootstrap.getIssues.map(function(issue) {
         if (!issue.workType && issue.epicLink) {
             process.stdout.write("-");
-            issue.workType = lookupEpicWorkType(epicWorkTypeStore, issue.epicLink);
+            issue.workType = lookupFromEpicStore(epicWorkTypeStore, issue.epicLink);
+        }
+        if (!issue.spend && issue.epicLink) {
+            process.stdout.write("/");
+            issue.spend = lookupFromEpicStore(epicSpendStore, issue.epicLink);
         }
         return issue
     });
