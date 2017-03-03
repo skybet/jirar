@@ -33,10 +33,10 @@ function getBoardId(bootstrap, next) {
         "BIT": 503,
         "VBS": 507,
 
-        "BCT": 292, // Broken??!?
-        "CT": 155, // OLD // Broken?
+        "BCT": 292,
+        "CT": 155, // OLD
         "PT": 216, // OLD
-        "BCTDR": 605, // BRoken?
+        "BCTDR": 605,
 
         "BOPS": 202,
         "WOPS": 230,
@@ -156,7 +156,7 @@ function getIssues(bootstrap, next) {
     var bucketSize = 100;
     var numBuckets = Math.ceil(totalTickets / bucketSize);
 
-    async.timesLimit(numBuckets, 10, getIssuesBucket, function(err, data) {
+    async.timesLimit(numBuckets, 8, getIssuesBucket, function(err, data) {
         // Flatten the returned array
         return next(err, [].concat.apply([], data))
     });
@@ -300,6 +300,8 @@ process.stdout.write(".");
     var spend = null;
     if (issue.fields.customfield_11701) { spend = issue.fields.customfield_11701[0].value; }
 
+    var epicLink = issue.fields.customfield_10103;
+    if (!epicLink && issue.fields.parent) { epicLink = issue.fields.parent.key; } 
     return {
         key: issue.key,
         summary: issue.fields.summary,
@@ -311,7 +313,7 @@ process.stdout.write(".");
         secondsInColumns: timeInColumns,
         //timeInColumns: formatTimeInColumns
         workType: workType,
-        epicLink: issue.fields.customfield_10103,
+        epicLink: epicLink,
         spend: spend
     }
 };
@@ -329,38 +331,53 @@ var writeCSV = function writeCSV(finalCSV, fields, next) {
     });
 };
 
+
+
 var backfillEpicLink = function backfillEpicLink(bootstrap, next) {
     console.log("Backfilling work type from epic linking...");
 
-    var epicList = bootstrap.getIssues.filter(
-        function(i) { return i.ticketType == "Epic" }
-    );
+//    var epicList = bootstrap.getIssues.filter(
+//        function(i) { return i.ticketType == "Epic" }
+//    );
 
-    var epicWorkTypeStore = epicList.reduce(
+    var epicWorkTypeStore = bootstrap.getIssues.reduce(
         function(pre, i) {
             pre[i.key] = i.workType;
             return pre;
         }, {}
     )
-    var epicSpendStore = epicList.reduce(
+    var epicSpendStore = bootstrap.getIssues.reduce(
         function(pre, i) {
             pre[i.key] = i.spend;
             return pre;
         }, {}
     )
+    var findIssueByKey = function(issueList, issueKey) { 
+        return issueList.find(function(i) { 
+            return (i.key == issueKey)
+        });
+    }
 
 
-    var issues = bootstrap.getIssues.map(function(issue) {
-        if (!issue.workType && issue.epicLink) {
-            process.stdout.write("-");
-            issue.workType = lookupFromEpicStore(epicWorkTypeStore, issue.epicLink);
-        }
-        if (!issue.spend && issue.epicLink) {
-            process.stdout.write("/");
-            issue.spend = lookupFromEpicStore(epicSpendStore, issue.epicLink);
+    var processOnce = function(issue) {
+        var tempIssue = issue;
+console.log("FIRST" + tempIssue.key + " == " + tempIssue.epicLink);
+        while (tempIssue && tempIssue.epicLink) { 
+            if (!issue.workType && tempIssue.epicLink) {
+                process.stdout.write("-");
+                issue.workType = lookupFromEpicStore(epicWorkTypeStore, tempIssue.epicLink);
+            }
+            if (!issue.spend && tempIssue.epicLink) {
+                process.stdout.write("/");
+                issue.spend = lookupFromEpicStore(epicSpendStore, tempIssue.epicLink);
+            }
+            tempIssue = findIssueByKey(bootstrap.getIssues, tempIssue.epicLink) || {};
+if (tempIssue) console.log(tempIssue.key + " == " + tempIssue.epicLink);
         }
         return issue
-    });
+    };
+
+    var issues = bootstrap.getIssues.map(processOnce).map(processOnce);
 
     console.log("");
     next(null, issues);

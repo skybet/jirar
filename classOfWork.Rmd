@@ -22,9 +22,13 @@ tsTickets <- read.csv("/Users/grovesro/Desktop/jiraR/jiraRDataset.csv", header=T
     totalTime = resolutionDate - created
   ) %>% filter(status != "Closed") %>% filter(status != "to do") %>% filter(status != "open") %>% filter(ticketType != "Epic")
 
+
 if ( length(unique(tsTickets$workType)) > 1) {
   classOfWorkTickets <- tsTickets %>% arrange(resolutionMonth)
   classOfWorkTickets$resolutionMonthDisplay <- factor(tsTickets[order(tsTickets$resolutionMonth), "resolutionMonthDisplay"], levels=unique(tsTickets[order(tsTickets$resolutionMonth), "resolutionMonthDisplay"]))
+  
+  ##Print tickets&epics without worktype
+  #classOfWorkTickets %>% filter(is.na(workType)) %>% arrange(epicLink) %>% select(key, epicLink)
   
   g1 <- ggplot(filter(classOfWorkTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutionMonthDisplay, fill=workType)) + scale_fill_discrete(name=NULL) +
     geom_bar(stat="count", position="fill") + theme(legend.position = "bottom", axis.text.x = element_text(angle=60, hjust=1)) + 
