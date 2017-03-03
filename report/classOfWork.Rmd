@@ -11,7 +11,16 @@ library(gtools)
 
 ```{r, echo=FALSE, warning=FALSE, error=FALSE}
 
-tsTickets <- read.csv("/Users/grovesro/Desktop/jiraR/jiraRDataset.csv", header=T, skipNul=T, na.strings="") %>%
+project <- Sys.getenv("PROJECT", NA)
+#project <- "TS"
+if(is.na(project)) {
+  project <- ""
+} else { 
+  project <- paste0("-", project)
+}
+datasetFile <- paste0("../jiraData/jiraRDataset", project, ".csv")
+
+tsTickets <- read.csv(datasetFile, header=T, skipNul=T, na.strings="") %>%
   mutate(
     created = as.POSIXct(created), 
     createdMonthDisplay = format(created, format="%Y %B"),

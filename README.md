@@ -17,18 +17,22 @@ sh ./RUNME.sh <randombase64hash> TS PUBLISH
 
 # Installation
 
+
+## Docker version...
+
+* docker build -t report report
+* docker build -t extract extract
+
+## Local version...
+
 1. Install R https://cran.rstudio.com/
 2. Install RStudio (Recommended) https://www.rstudio.com/products/rstudio/download/
-3. Install R Libraries - within rstudio console type E.G.: ```install.packages("ggplot2")```
-    * ggplot2
-    * lubridate
-    * dplyr
-    * forcats
-    * reshape2
-    * knitr
+3. Install R Libraries - within rstudio console type: ```install.packages(c("ggplot2", "lubridate", "dplyr", "forcats", "reshape2", "knitr", "rmarkdown", "gtools"));```
 4. Install Nodejs https://nodejs.org/en/
 5. ```npm install```
 6. Run RUNME.sh against your squad -- See Usage above
+
+ *Download an old version of the RUNME.sh script*
 
 # Todo list / Idea List
 

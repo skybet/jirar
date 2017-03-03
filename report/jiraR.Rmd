@@ -2,8 +2,9 @@
 title: JiraR Report
 output: 
   html_document:
-    toc: yes 
+    toc: yes  
 ---
+
 ```{r child = 'velocity.Rmd'}
 ```
 

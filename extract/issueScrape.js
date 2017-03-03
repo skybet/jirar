@@ -34,6 +34,7 @@ function getBoardId(bootstrap, next) {
         "VBS": 507,
 
         "BCT": 292,
+        "BCTNPS": 754,
         "CT": 155, // OLD
         "PT": 216, // OLD
         "BCTDR": 605,
@@ -48,7 +49,7 @@ function getBoardId(bootstrap, next) {
     var project = bootstrap.bootstrap.project;
     var boardId = boardList[project];
 
-    if (!boardId) { return next(project + " Is not the boardList - Edit this file"); }
+    if (!boardId) { return next("Project " + project + " is not in the boardList - Edit this file"); }
     return next(null, boardId);
 };
 
@@ -214,7 +215,7 @@ function writeCSVOutput(bootstrap, next) {
     );
     var fields = fields.filter(function(f) { return f });
 
-    writeCSV(bootstrap.getIssues, fields, next)
+    writeCSV(bootstrap.bootstrap.project, bootstrap.getIssues, fields, next)
 };
 
 
@@ -319,11 +320,11 @@ process.stdout.write(".");
 };
 
 
-var writeCSV = function writeCSV(finalCSV, fields, next) {
+var writeCSV = function writeCSV(project, finalCSV, fields, next) {
     console.log("Writing csv file...");
     json2csv({ data: finalCSV, fields: fields}, function(err, csv) {
       if (err) { console.log(err); return next(err); }
-      fs.writeFile('jiraRDataset.csv', csv + "\n", function(err) {
+      fs.writeFile('./jiraData/jiraRDataset-'+project+'.csv', csv + "\n", function(err) {
         if (err) { console.log(err); }
         console.log("Wrote csv");
         return next(err);
@@ -361,7 +362,6 @@ var backfillEpicLink = function backfillEpicLink(bootstrap, next) {
 
     var processOnce = function(issue) {
         var tempIssue = issue;
-console.log("FIRST" + tempIssue.key + " == " + tempIssue.epicLink);
         while (tempIssue && tempIssue.epicLink) { 
             if (!issue.workType && tempIssue.epicLink) {
                 process.stdout.write("-");
@@ -372,7 +372,6 @@ console.log("FIRST" + tempIssue.key + " == " + tempIssue.epicLink);
                 issue.spend = lookupFromEpicStore(epicSpendStore, tempIssue.epicLink);
             }
             tempIssue = findIssueByKey(bootstrap.getIssues, tempIssue.epicLink) || {};
-if (tempIssue) console.log(tempIssue.key + " == " + tempIssue.epicLink);
         }
         return issue
     };
@@ -387,9 +386,9 @@ if (require.main === module) {
 async.auto({
     "bootstrap": function(next) {
         bootstrap = {
-            project: process.argv[3],
+            project: process.argv[3] || process.env.PROJECT,
             jiraApi: "https://jira.example.com/jira/rest/",
-            authHeader: "Basic "+ process.argv[2]
+            authHeader: "Basic " + (process.argv[2] || process.env.SECRET)
         };
         return next(null, bootstrap);
     },

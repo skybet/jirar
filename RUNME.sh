@@ -10,22 +10,11 @@ PUBLISH=$3
 set -x
 set -e
 
-node issueScrape.js $SECRET $SQUAD
+SECRET=$SECRET PROJECT=$SQUAD docker run -e SECRET -e PROJECT -v $(pwd)/jiraData/:/usr/src/app/jiraData/ extract
 
-cp jiraRDataset.csv jiraRDataset-$SQUAD.csv
+PROJECT=$SQUAD docker run -e PROJECT -v $(pwd):/home/user/jiraR report
 
-
-
-dirname=`dirname $0`
-
-if [ -d /Applications/RStudio.app/Contents/MacOS/pandoc ]
-then
-    export RSTUDIO_PANDOC=/Applications/RStudio.app/Contents/MacOS/pandoc
-fi
-
-Rscript -e "rmarkdown::render('${dirname}/./jiraR.Rmd', params = list( ))"
-
-mv jiraR.html jiraR-$SQUAD.html
+mv report/jiraR.html jiraReport/jiraR-$SQUAD.html
 
 sh ./publish.sh $SECRET $SQUAD $PUBLISH
 

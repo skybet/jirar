@@ -7,7 +7,7 @@ SQUAD=$2
 PUBLISH=$3
 
 DATE=`date "+%Y/%m/%d"`
-if [ -f jiraR-$SQUAD.html ]
+if [ -f jiraReport/jiraR-$SQUAD.html ]
 then
 
 
@@ -33,7 +33,7 @@ printf "$SQUAD JiraR stats $DATE" >> publishTemplate.json
 printf '\", \"ancestors\":[{\"id\":' >> publishTemplate.json
 printf "$parentPage" >> publishTemplate.json
 printf '}], \"space\":{\"key\":\"TBT\"},\"body\":{\"storage\":{\"value\":\"<ac:structured-macro ac:name=\\"html\\"><ac:plain-text-body><![CDATA[<div>' >> publishTemplate.json
-sed 's/"/\\"/g' jiraR-$SQUAD.html >> publishTemplate.json
+sed 's/"/\\"/g' jiraReport/jiraR-$SQUAD.html >> publishTemplate.json
 printf '</div>]]></ac:plain-text-body></ac:structured-macro>\",\"representation\":\"storage\"}}}' >> publishTemplate.json
 
 
@@ -62,6 +62,6 @@ printf '</div>]]></ac:plain-text-body></ac:structured-macro>\",\"representation\
 
 else
 
-    echo "Report not found so cannot publish jiraR-$SQUAD.html"
+    echo "Report not found so cannot publish jiraReport/jiraR-$SQUAD.html"
     exit 1
 fi
