@@ -20,8 +20,8 @@ sh ./RUNME.sh <randombase64hash> TS PUBLISH
 
 ## Docker version...
 
-* docker build -t report report
-* docker build -t extract extract
+* docker build -t jirar-report report
+* docker build -t jirar-extract extract
 
 ## Local version...
 
