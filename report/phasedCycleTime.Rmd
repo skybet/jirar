@@ -59,18 +59,18 @@ statusColours <- c("secondsInColumns.Open" = "white", "secondsInColumns.Backlog"
                    "secondsInColumns.Testing.In" = "yellow", "secondsInColumns.Testing.Done" = "white",
                    
                    "secondsInColumns.Merged" = "green",
-                   "secondsInColumns.Deploy.To.Test.In" = "#00dd00",
-                   "secondsInColumns.Deploy" = "#00dd00",
+                   "secondsInColumns.Deploy.To.Test.In" = "#00bb00",
+                   "secondsInColumns.Deploy" = "#00bb00",
                    "secondsInColumns.Deploy.to.Test.Out" = "white",
                    
-                   "secondsInColumns.Deployed.to.Test.Environment" = "#00dd00",
-                   "secondsInColumns.Deployed.to.Staging.Environment" = "#00bb00",
-                   "secondsInColumns.Deployed.to.Staging.Environmen" = "#00bb00",
-                   "secondsInColumns.Staging" = "#00bb00",
+                   "secondsInColumns.Deployed.to.Test.Environment" = "#00bb00",
+                   "secondsInColumns.Deployed.to.Staging.Environment" = "#007700",
+                   "secondsInColumns.Deployed.to.Staging.Environmen" = "#007700",
+                   "secondsInColumns.Staging" = "#007700",
 
 
                    "secondsInColumns.Release" = "#55bb55",
-                   "secondsInColumns.Release.Validation" = "#229922",
+                   "secondsInColumns.Release.Validation" = "#ddffdd",
                    
                    "secondsInColumns.Closed" = "#666666",
                    "secondsInColumns.Resolved" = "#666666"
