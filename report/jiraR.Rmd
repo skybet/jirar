@@ -17,6 +17,9 @@ output:
 ```{r child = 'controlChart.Rmd'}
 ```
 
+```{r child = 'columnUsage.Rmd'}
+```
+
 ```{r child = 'burnup.Rmd'}
 ```
 

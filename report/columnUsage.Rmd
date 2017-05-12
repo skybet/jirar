@@ -1,0 +1,133 @@
+# Column Usage
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE, include=F}
+
+library(ggplot2)
+library(dplyr)
+library(reshape2)
+
+statusColours <- c("secondsInColumns.Open" = "white", "secondsInColumns.Backlog" = "white",
+                   "secondsInColumns.Selected.for.Development" = "white",
+                   "secondsInColumns.Analysis.In" = "red", "secondsInColumns.Analysis.Out" = "white",
+                   "secondsInColumns.Selected" = "red",
+                                      "secondsInColumns.Next" = "red",
+
+                   "secondsInColumns.Test.Analysis.In" = "red", "secondsInColumns.Test.Analysis.Out" = "white",
+                   "secondsInColumns.Elaboration.In" = "red", "secondsInColumns.Elaboration.Out" = "white", "secondsInColumns.Elaboration..Out" = "white",
+                   
+                   "secondsInColumns.3.Amigos.In" = "red", "secondsInColumns.3.Amigos.Out" = "white",
+                   "secondsInColumns.Implementation.In" = "orange",                   "secondsInColumns.Prioritised" = "orange",
+ "secondsInColumns.Implementation.Out" = "white", "secondsInColumns.Implementation.Done" = "white","secondsInColumns.Demo.d" = "white",
+                   "secondsInColumns.In.Progress" = "orange",
+                   
+                   "secondsInColumns.Review.In" = "#ffc966", "secondsInColumns.Review.Out" = "white",
+                   "secondsInColumns.Code.Review.In" = "#ffc966", "secondsInColumns.Code.Review.Out" = "white",
+                   "secondsInColumns.Awaiting.Review" = "#ffc966", "secondsInColumns.Review.Done" = "white",                   
+
+                   "secondsInColumns.Code.Review...Demo.In" = "#ffc966", "secondsInColumns.Code.Review...Demo.Out" = "white",
+                   "secondsInColumns.In.Review" = "#ffc966",
+                   "secondsInColumns.Demo.In" = "#ffc966", "secondsInColumns.Demo.Out" = "white",
+                   "secondsInColumns.UAT.In" = "#ffc966", "secondsInColumns.UAT.Out" = "white",
+                   "secondsInColumns.UAT" = "#ffc966",
+                   
+                   "secondsInColumns.Test.In" = "yellow", "secondsInColumns.Test.Out" = "white",
+                   "secondsInColumns.Testing.In" = "yellow", "secondsInColumns.Testing.Done" = "white",
+                   
+                   "secondsInColumns.Merged" = "green",
+                   "secondsInColumns.Deploy.To.Test.In" = "#00bb00",
+                   "secondsInColumns.Deploy" = "#00bb00",
+                   "secondsInColumns.Deploy.to.Test.Out" = "white",
+                   
+                   "secondsInColumns.Deployed.to.Test.Environment" = "#00bb00",
+                   "secondsInColumns.Deployed.to.Staging.Environment" = "#007700",
+                   "secondsInColumns.Deployed.to.Staging.Environmen" = "#007700",
+                   "secondsInColumns.Staging" = "#007700",
+
+
+                   "secondsInColumns.Release" = "#55bb55",
+                   "secondsInColumns.Release.Validation" = "#ddffdd",
+                   
+                   "secondsInColumns.Closed" = "#666666",
+                   "secondsInColumns.Resolved" = "#666666"
+)
+statusLabels <- gsub("secondsInColumns.", "", names(statusColours))
+names(statusLabels) <- names(statusColours)
+
+
+```
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE}
+
+project <- Sys.getenv("PROJECT", NA)
+#project <- "TS"
+if(is.na(project)) {
+  project <- ""
+} else { 
+  project <- paste0("-", project)
+}
+datasetFile <- paste0("../jiraData/jiraRDataset", project, ".csv")
+
+tsTickets <- read.csv(datasetFile, header=T, skipNul=T, na.strings="") %>%
+  mutate(
+    created = as.POSIXct(created), 
+    createdMonthDisplay = format(created, format="%Y %B"),
+    createdMonth = as.numeric(format(created, format="%Y%m")),
+    resolutionDate = as.POSIXct(resolutionDate), 
+    resolutionMonthDisplay = format(resolutionDate, format="%Y %B"),
+    resolutionMonth = as.numeric(format(resolutionDate, format="%Y%m")),
+    totalTime = resolutionDate - created
+  ) %>% 
+  filter(status != "Closed") %>% 
+  filter(status != "to do") %>% 
+  filter(status != "open") %>%
+  filter(ticketType != "Epic")
+
+
+resolvedTickets <- tsTickets %>% arrange(resolutionMonth)
+resolvedTickets$resolutionMonthDisplay <- factor(tsTickets[order(tsTickets$resolutionMonth), "resolutionMonthDisplay"], levels=unique(tsTickets[order(tsTickets$resolutionMonth), "resolutionMonthDisplay"]))
+
+count_na <- function(x) sum(!is.na(x))
+blah <- melt(as.list(resolvedTickets %>% select( contains("secondsInColumns")) %>% apply(., 2,count_na)))
+
+library(forcats)
+blah$L1 <- forcats::fct_inorder(blah$L1)
+
+
+ggplot(blah, aes(x=L1, y=value)) + geom_col() + theme(legend.position = "bottom", axis.text.x = element_text(angle=60, hjust=1)) + ggtitle("Column Usage") + xlab("Column") +ylab("Number of tickets") + scale_x_discrete(labels=statusLabels)
+```
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE}
+
+latestMonth <- max(resolvedTickets$resolutionMonth, na.rm=T)
+byMonth <- resolvedTickets %>% 
+  group_by(resolutionMonth, resolutionMonthDisplay) %>% 
+  select( resolutionMonth, resolutionMonthDisplay, contains("secondsInColumns")) %>% 
+  select(-contains("out")) %>%
+  summarise_each(funs(count_na)) %>%
+  filter(!is.na(resolutionMonth)) %>% filter(resolutionMonth != latestMonth)
+
+
+library(forcats)
+#byMonth$L1 <- forcats::fct_inorder(byMonth$L1)
+
+byMonthMelt <- melt(byMonth, id=c("resolutionMonth", "resolutionMonthDisplay"))
+
+#ggplot(byMonthMelt, aes(x=variable, y=value, group=resolutionMonth)) + geom_col(position="dodge") + theme(legend.position = "bottom", axis.text.x = element_text(angle=60, hjust=1))
+
+
+#ggplot(byMonthMelt, aes(x=variable, y=value, group=resolutionMonth)) + geom_col(position="dodge") + theme(legend.position = "bottom", axis.text.x = element_text(angle=60, hjust=1)) + facet_wrap(~resolutionMonth)
+
+naByMonthMelt <- byMonthMelt
+naByMonthMelt[naByMonthMelt == 0] <- NA
+
+ggplot(naByMonthMelt, aes(x=resolutionMonthDisplay, y=value, color=variable, group=variable))  + 
+  theme(legend.position = "bottom", axis.text.x = element_text(angle=60, hjust=1)) +
+  scale_x_discrete() + 
+  ylab("Number of tickets visiting a column") + xlab("Month") + ggtitle("Column Usage over time") +
+  scale_color_manual(values=statusColours, na.value="gray", labels=statusLabels, name="Column") +
+  geom_line(linetype="dashed", alpha=0.2) + 
+  geom_smooth(se=F, fullrange=F, span=1, method="loess")
+ # geom_point() 
+
+```
+
