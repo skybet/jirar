@@ -15,7 +15,7 @@ This R Markdown document is made interactive using Shiny.
 
 ```{r eruptions, echo=FALSE}
 
-files <- list.files(pattern="jiraRDataset-.*.csv", path="/Users/grovesro/Desktop/jiraR/")
+files <- list.files(pattern="jiraRDataset-.*.csv", path="/Users/grovesro/Desktop/jiraR/jiraData/")
 choices <- gsub(".csv", "", gsub("jiraRDataset-", "", files))
 
 inputPanel(
@@ -27,7 +27,7 @@ inputPanel(
 
 renderPlot({
   
-  tsFilename <- paste0("/Users/grovesro/Desktop/jiraR/jiraRDataset-", input$squad, ".csv")
+  tsFilename <- paste0("/Users/grovesro/Desktop/jiraR/jiraData/jiraRDataset-", input$squad, ".csv")
   tsTickets <- read.csv(tsFilename, header=T, skipNul=T, na.strings="") %>%
   mutate(
     created = as.POSIXct(created), 
@@ -58,7 +58,7 @@ ggplot(filter(resolvedTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutio
 })
 
 renderPlot({
-  tsFilename <- paste0("/Users/grovesro/Desktop/jiraR/jiraRDataset-", input$squad, ".csv")
+  tsFilename <- paste0("/Users/grovesro/Desktop/jiraR/jiraData/jiraRDataset-", input$squad, ".csv")
   
   tsTickets <- read.csv(tsFilename, header=T, skipNul=T, na.strings="") %>%
     mutate(
@@ -70,7 +70,9 @@ renderPlot({
     resolutionMonth = as.numeric(format(resolutionDate, format="%Y%m")),
     totalTime = resolutionDate - created
   ) %>% filter(status != "Closed") %>% filter(status != "to do") %>% filter(status != "open") %>% filter(ticketType != "Epic") %>%
-  select( -totalTime, -one_of(c("-spend", "secondsInColumns.Open", "secondsInColumns.New", "secondsInColumns.Next.Up", "secondsInColumns.Backlog", "secondsInColumns.Resolved", "secondsInColumns.Reopened", "secondsInColumns.Closed", "secondsInColumns.Done"))) 
+  select( -totalTime, -one_of(c("-spend", "secondsInColumns.Open", "secondsInColumns.New", "secondsInColumns.Next.Up", "secondsInColumns.Backlog", "secondsInColumns.Resolved", "secondsInColumns.Reopened", "secondsInColumns.Closed", "secondsInColumns.Done"))) %>%
+  filter(resolutionDate > as.POSIXct(input$dateRange)[1]) %>%
+  filter(resolutionDate < as.POSIXct(input$dateRange)[2])
 
 
 statusColours <- c("secondsInColumns.Open" = "white", "secondsInColumns.Backlog" = "white",
