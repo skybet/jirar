@@ -32,9 +32,9 @@ printf '{\"type\":\"page\",\"title\":\"' > publishTemplate.json
 printf "$SQUAD JiraR stats $DATE" >> publishTemplate.json
 printf '\", \"ancestors\":[{\"id\":' >> publishTemplate.json
 printf "$parentPage" >> publishTemplate.json
-printf '}], \"space\":{\"key\":\"TBT\"},\"body\":{\"storage\":{\"value\":\"<ac:structured-macro ac:name=\\"html\\"><ac:plain-text-body><![CDATA[<div>' >> publishTemplate.json
+printf '}], \"space\":{\"key\":\"TBT\"},\"body\":{\"storage\":{\"value\":\"<ac:structured-macro ac:name=\\"listlabels\\"></ac:structured-macro><ac:structured-macro ac:name=\\"html\\"><ac:plain-text-body><![CDATA[<div>' >> publishTemplate.json
 sed 's/"/\\"/g' jiraReport/jiraR-$SQUAD.html >> publishTemplate.json
-printf '</div>]]></ac:plain-text-body></ac:structured-macro>\",\"representation\":\"storage\"}}}' >> publishTemplate.json
+printf '</div>]]>ViewTracker here</ac:plain-text-body></ac:structured-macro><ac:structured-macro ac:name=\\"viewtracker\\"></ac:structured-macro>\",\"representation\":\"storage\"}}}' >> publishTemplate.json
 
 
     if [[ "$PUBLISH" == "PUBLISH" && $parentPage ]]
