@@ -46,13 +46,3 @@ print(resBar)
 
 ```
 
-```{r, result="asis", echo=FALSE}
-
-d <- t(ggplot_build(resBar)$data[[1]]["count"])
-colnames(d) <- levels(resolvedTickets$resolutionMonthDisplay)
-knitr::kable(
-#col.names=levels(resolvedTickets$resolutionMonthDisplay),
-x=d
-)
-```
-

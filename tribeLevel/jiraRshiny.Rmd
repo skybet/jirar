@@ -1,0 +1,142 @@
+---
+title: "jiraShiny"
+runtime: shiny
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(dplyr)
+library(reshape2)
+```
+
+This R Markdown document is made interactive using Shiny.
+
+```{r eruptions, echo=FALSE}
+
+files <- list.files(pattern="jiraRDataset-.*.csv", path="/Users/grovesro/Desktop/jiraR/")
+choices <- gsub(".csv", "", gsub("jiraRDataset-", "", files))
+
+inputPanel(
+  selectInput("squad", label = "Squad:",
+              choices = choices, selected = "TS"),
+  
+  dateRangeInput("dateRange", label = "Date Range:", start="2014-01-01")
+)
+
+renderPlot({
+  
+  tsFilename <- paste0("/Users/grovesro/Desktop/jiraR/jiraRDataset-", input$squad, ".csv")
+  tsTickets <- read.csv(tsFilename, header=T, skipNul=T, na.strings="") %>%
+  mutate(
+    created = as.POSIXct(created), 
+    createdMonthDisplay = format(created, format="%Y %B"),
+    createdMonth = as.numeric(format(created, format="%Y%m")),
+    resolutionDate = as.POSIXct(resolutionDate), 
+    resolutionMonthDisplay = format(resolutionDate, format="%Y %B"),
+    resolutionMonth = as.numeric(format(resolutionDate, format="%Y%m")),
+    totalTime = resolutionDate - created
+  ) %>% 
+  filter(status != "Closed") %>% 
+  filter(status != "to do") %>% 
+  filter(status != "open") %>%
+  filter(ticketType != "Epic") %>%
+  filter(resolutionDate > as.POSIXct(input$dateRange)[1]) %>%
+  filter(resolutionDate < as.POSIXct(input$dateRange)[2])
+  
+  
+  resolvedTickets <- tsTickets %>% arrange(resolutionMonth)
+resolvedTickets$resolutionMonthDisplay <- factor(tsTickets[order(tsTickets$resolutionMonth), "resolutionMonthDisplay"], levels=unique(tsTickets[order(tsTickets$resolutionMonth), "resolutionMonthDisplay"]))
+
+title <- paste0(input$squad, " - Velocity")
+ggplot(filter(resolvedTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutionMonthDisplay)) + 
+  geom_bar(stat="count") + theme(axis.text.x = element_text(angle=60, hjust=1)) +
+  ggtitle(title) + xlab("Resolution Month") + ylab("Tickets Resolved") 
+  
+
+})
+
+renderPlot({
+  tsFilename <- paste0("/Users/grovesro/Desktop/jiraR/jiraRDataset-", input$squad, ".csv")
+  
+  tsTickets <- read.csv(tsFilename, header=T, skipNul=T, na.strings="") %>%
+    mutate(
+    created = as.POSIXct(created), 
+    createdMonthDisplay = format(created, format="%Y %B"),
+    createdMonth = as.numeric(format(created, format="%Y%m")),
+    resolutionDate = as.POSIXct(resolutionDate), 
+    resolutionMonthDisplay = format(resolutionDate, format="%Y %B"),
+    resolutionMonth = as.numeric(format(resolutionDate, format="%Y%m")),
+    totalTime = resolutionDate - created
+  ) %>% filter(status != "Closed") %>% filter(status != "to do") %>% filter(status != "open") %>% filter(ticketType != "Epic") %>%
+  select( -totalTime, -one_of(c("-spend", "secondsInColumns.Open", "secondsInColumns.New", "secondsInColumns.Next.Up", "secondsInColumns.Backlog", "secondsInColumns.Resolved", "secondsInColumns.Reopened", "secondsInColumns.Closed", "secondsInColumns.Done"))) 
+
+
+statusColours <- c("secondsInColumns.Open" = "white", "secondsInColumns.Backlog" = "white",
+                   "secondsInColumns.Selected.for.Development" = "white",
+                   "secondsInColumns.Analysis.In" = "red", "secondsInColumns.Analysis.Out" = "white",
+                   "secondsInColumns.Selected" = "red",
+                                      "secondsInColumns.Next" = "red",
+
+                   "secondsInColumns.Test.Analysis.In" = "red", "secondsInColumns.Test.Analysis.Out" = "white",
+                   "secondsInColumns.Elaboration.In" = "red", "secondsInColumns.Elaboration.Out" = "white", "secondsInColumns.Elaboration..Out" = "white",
+                   
+                   "secondsInColumns.3.Amigos.In" = "red", "secondsInColumns.3.Amigos.Out" = "white",
+                   "secondsInColumns.Implementation.In" = "orange",                   "secondsInColumns.Prioritised" = "orange",
+ "secondsInColumns.Implementation.Out" = "white", "secondsInColumns.Implementation.Done" = "white","secondsInColumns.Demo.d" = "white",
+                   "secondsInColumns.In.Progress" = "orange",
+                   
+                   "secondsInColumns.Review.In" = "#ffc966", "secondsInColumns.Review.Out" = "white",
+                   "secondsInColumns.Code.Review.In" = "#ffc966", "secondsInColumns.Code.Review.Out" = "white",
+                   "secondsInColumns.Awaiting.Review" = "#ffc966", "secondsInColumns.Review.Done" = "white",                   
+
+                   "secondsInColumns.Code.Review...Demo.In" = "#ffc966", "secondsInColumns.Code.Review...Demo.Out" = "white",
+                   "secondsInColumns.In.Review" = "#ffc966",
+                   "secondsInColumns.Demo.In" = "#ffc966", "secondsInColumns.Demo.Out" = "white",
+                   "secondsInColumns.UAT.In" = "#ffc966", "secondsInColumns.UAT.Out" = "white",
+                   "secondsInColumns.UAT" = "#ffc966",
+                   
+                   "secondsInColumns.Test.In" = "yellow", "secondsInColumns.Test.Out" = "white",
+                   "secondsInColumns.Testing.In" = "yellow", "secondsInColumns.Testing.Done" = "white",
+                   
+                   "secondsInColumns.Merged" = "green",
+                   "secondsInColumns.Deploy.To.Test.In" = "#00dd00",
+                   "secondsInColumns.Deploy" = "#00dd00",
+                   "secondsInColumns.Deploy.to.Test.Out" = "white",
+                   
+                   "secondsInColumns.Deployed.to.Test.Environment" = "#00dd00",
+                   "secondsInColumns.Deployed.to.Staging.Environment" = "#00bb00",
+                   "secondsInColumns.Deployed.to.Staging.Environmen" = "#00bb00",
+                   "secondsInColumns.Staging" = "#00bb00",
+
+
+                   "secondsInColumns.Release" = "#55bb55",
+                   "secondsInColumns.Release.Validation" = "#229922",
+                   
+                   "secondsInColumns.Closed" = "#666666",
+                   "secondsInColumns.Resolved" = "#666666"
+)
+statusLabels <- gsub("secondsInColumns.", "", names(statusColours))
+names(statusLabels) <- names(statusColours)
+
+summaryResolved <- tsTickets %>% 
+  select(-status, -ticketType, -epicLink, -created, -createdMonth, -createdMonthDisplay, -summary, -key, -resolution, -resolutionDate) %>% 
+  arrange(resolutionMonth) %>%
+  group_by(resolutionMonth, resolutionMonthDisplay) %>% 
+  summarise_each(funs(mean(., na.rm = TRUE)))
+
+summaryResolvedMelt <- melt(summaryResolved, id=c("resolutionMonthDisplay", "resolutionMonth")) %>% arrange(resolutionMonth)
+#Factorise and sort the columns in reverse, so that 3Amigos is towards the left/bottom
+summaryResolvedMelt$variable <- factor(summaryResolvedMelt$variable, levels = rev(levels(summaryResolvedMelt$variable)))
+summaryResolvedMelt$resolutionMonthDisplay <- factor(summaryResolvedMelt[order(summaryResolvedMelt$resolutionMonth), "resolutionMonthDisplay"], levels=unique(summaryResolvedMelt[order(summaryResolvedMelt$resolutionMonth), "resolutionMonthDisplay"]))
+
+summaryResolvedMelt %>%
+  filter(! is.na(resolutionMonth)) %>% #Only show resolved tickets
+  ggplot(aes(x=resolutionMonthDisplay, y=value/24/60/60/1000)) + 
+  geom_bar(stat="identity", aes(fill=variable)) + ylab("days") + xlab("month") +
+  theme(legend.position = "bottom") + scale_fill_manual(values=statusColours, na.value="gray", labels=statusLabels, name="Column") + coord_flip() +
+  guides(fill=guide_legend(reverse=TRUE)) + ggtitle("Phased Cycle Time - Resolved Date")
+})
+```
+
