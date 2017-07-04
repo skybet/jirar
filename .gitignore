@@ -3,3 +3,5 @@ node_modules
 *.html
 *.csv
 publishTemplate.json
+WorkingScreenshots/
+tribeLevel/.Rapp.history

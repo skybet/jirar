@@ -67,11 +67,6 @@ ggplot(filter(tsTickets, ! is.na(resolutionDate)), aes(x=resolutionDate, y=workT
 tsTickets$resolutionMonthDisplay <- factor(tsTickets[order(tsTickets$resolutionMonth), "resolutionMonthDisplay"], levels=unique(tsTickets[order(tsTickets$resolutionMonth), "resolutionMonthDisplay"]))
 
 
-ggplot(filter(tsTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutionMonthDisplay, y=totalTime/24/60/60)) + 
-  geom_violin(scale="width", draw_quantiles=c(0.5,0.75)) + #geom_jitter(height=0, size=0.2, width=0.2) +
-  theme(axis.text.x = element_text(angle=60, hjust=1)) +
-  ggtitle("Velocity Violin Distribution - created to resolved") + xlab("Resolution Month") + ylab("Days")
-
 ggplot(filter(tsTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutionMonthDisplay, y=workTime/24/60/60/1000)) + 
   geom_violin(scale="width", draw_quantiles=c(0.5,0.75)) + #geom_jitter(height=0, size=0.2, width=0.2) +
   theme(axis.text.x = element_text(angle=60, hjust=1)) +

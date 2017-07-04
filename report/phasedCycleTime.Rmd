@@ -78,30 +78,12 @@ statusColours <- c("secondsInColumns.Open" = "white", "secondsInColumns.Backlog"
 statusLabels <- gsub("secondsInColumns.", "", names(statusColours))
 names(statusLabels) <- names(statusColours)
 
-summaryResolved <- tsTickets %>% 
-  select(-status, -ticketType, -epicLink, -created, -createdMonth, -createdMonthDisplay, -summary, -key, -resolution, -resolutionDate) %>% 
-  arrange(resolutionMonth) %>%
-  group_by(resolutionMonth, resolutionMonthDisplay) %>% 
-  summarise_each(funs(mean(., na.rm = TRUE)))
-
-summaryResolvedMelt <- melt(summaryResolved, id=c("resolutionMonthDisplay", "resolutionMonth")) %>% arrange(resolutionMonth)
-#Factorise and sort the columns in reverse, so that 3Amigos is towards the left/bottom
-summaryResolvedMelt$variable <- factor(summaryResolvedMelt$variable, levels = rev(levels(summaryResolvedMelt$variable)))
-summaryResolvedMelt$resolutionMonthDisplay <- factor(summaryResolvedMelt[order(summaryResolvedMelt$resolutionMonth), "resolutionMonthDisplay"], levels=unique(summaryResolvedMelt[order(summaryResolvedMelt$resolutionMonth), "resolutionMonthDisplay"]))
-
-summaryResolvedMelt %>%
-  filter(! is.na(resolutionMonth)) %>% #Only show resolved tickets
-  ggplot(aes(x=resolutionMonthDisplay, y=value/24/60/60/1000)) + 
-  geom_bar(stat="identity", aes(fill=variable)) + ylab("days") + xlab("month") +
-  theme(legend.position = "bottom") + scale_fill_manual(values=statusColours, na.value="gray", labels=statusLabels, name="Column") + coord_flip() +
-  guides(fill=guide_legend(reverse=TRUE)) + ggtitle("Phased Cycle Time - Resolved Date")
-
 
 summaryResolved <- tsTickets %>% 
   select(-status, -ticketType, -epicLink, -created, -createdMonth, -createdMonthDisplay, -summary, -key, -resolution, -resolutionDate, -workType) %>% 
   arrange(resolutionMonth) %>%
   group_by(resolutionMonth, resolutionMonthDisplay) %>%
-  summarise_each(funs(median(., na.rm = TRUE)))
+  summarise_all(funs(median(., na.rm = TRUE)))
 
 summaryResolvedMelt <- melt(summaryResolved, id=c("resolutionMonthDisplay", "resolutionMonth")) %>% arrange(resolutionMonth)
 #Factorise and sort the columns in reverse, so that 3Amigos is towards the left/bottom
