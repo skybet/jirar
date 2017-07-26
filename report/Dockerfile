@@ -4,7 +4,8 @@
 FROM rocker/verse
 
 # install packages
-RUN echo 'install.packages(c("ggplot2", "lubridate", "dplyr", "forcats", "reshape2", "knitr", "rmarkdown", "gtools"), repos="http://cran.us.r-project.org", dependencies=TRUE)' > /tmp/packages.R \
+RUN apt-get update && apt-get install -y libudunits2-dev 
+RUN echo 'install.packages(c("ggplot2", "lubridate", "dplyr", "forcats", "reshape2", "knitr", "rmarkdown", "gtools", "ggforce"), repos="http://cran.us.r-project.org", dependencies=TRUE)' > /tmp/packages.R \
     && Rscript /tmp/packages.R
 
 # create an R user

@@ -23,3 +23,5 @@ output:
 ```{r child = 'burnup.Rmd'}
 ```
 
+```{r child = 'jumpExperiment.Rmd'}
+```
