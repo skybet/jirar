@@ -6,6 +6,7 @@ library(ggplot2)
 library(dplyr)
 library(reshape2)
 library(lubridate)
+library(forcats)
 
 # ggforce is sometimes hard to install - the docker image installs libudunits2-dev
 if("ggforce" %in% rownames(installed.packages())) {
@@ -18,7 +19,7 @@ if("ggforce" %in% rownames(installed.packages())) {
 if("ggforce" %in% rownames(installed.packages())) {
   
   project <- Sys.getenv("PROJECT", NA)
-  #project <- "TS"
+  project <- "TS"
   if(is.na(project)) {
     project <- ""
   } else { 
@@ -69,4 +70,55 @@ if("ggforce" %in% rownames(installed.packages())) {
   
   ggplot() + geom_bezier(aes(x= x, y = y, group=group), data = beziersTime) + ylab("Worked Hours") + xlab("CreatedDate -> ResolvedDate") + ggtitle("Working Time for last 2 months") + scale_color_discrete()
 }
+```
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE}
+recentTickets <- tsTickets %>% filter(resolutionDate > "2017-05-01") %>% select(-secondsInColumns.Open, -secondsInColumns.Reopened, -secondsInColumns.Resolved, -secondsInColumns.Closed)
+
+count_na <- function(x) sum(!is.na(x))
+blah <- melt(as.list(recentTickets %>% select( contains("secondsInColumns")) %>% apply(., 2,count_na)))
+
+columnOrder <- forcats::fct_inorder(blah$L1)
+statusLabels <- gsub("secondsInColumns.", "", levels(columnOrder))
+
+ticketColumnTimes <- recentTickets %>% select( key, contains("secondsInColumns")) %>% melt(id='key', variable.name="column", value.name="secondsInColumn")
+
+
+
+ticketColumnX <- ticketColumnTimes %>% mutate(
+  X.first = as.numeric(column)-0.5,
+  X.mid = as.numeric(column),
+  X.last = as.numeric(column) + 0.5,
+  
+  Y.first = 0,
+  Y.mid = secondsInColumn,
+  Y.last = 0
+  
+)
+
+ 
+  tsJumpVector <- ticketColumnX %>% select(starts_with("X.")) %>% t() %>% as.vector()
+  
+  #Group each of the three dates for each line e.g.  c(1,1,1,2,2,2,3,3,3)
+  numGroups <- nrow(ticketColumnTimes)
+  groupKeys <- Reduce(c, seq_along(1:numGroups) %>% lapply(FUN=function(x) { rep(x, 3)}))
+  
+  # Pad the jump heights with Zeros to keep dates on the line e.g. c(0,1,0, 0,3,0, 0,2,0)
+  #jumpHeight <- Reduce(c, tsJumpHeight$jumpHeight %>% lapply(FUN = function(x) { c(0,x,0) }))
+  #jumpHeight <- Reduce(c, workTime %>% lapply(FUN = function(x) { c(0,x/1000/60/60,0) }))
+  jumpHeight <- ticketColumnX %>% select(starts_with("Y.")) %>% t() %>% as.vector()
+ # jumpHeight[is.na(jumpHeight)] <- 0
+  
+  beziersColumn <- data.frame(
+    x = tsJumpVector,
+    y = jumpHeight,
+    group = groupKeys
+  )
+  
+  
+  yZoom = round(quantile(ticketColumnTimes$secondsInColumn/1000/60/60/24, 0.9, na.rm=T), digits=2)
+  
+  ggplot() + geom_bezier(aes(x= x, y = y/1000/60/60/24, group=group), alpha=0.3, data = beziersColumn) + scale_x_continuous(breaks=seq_along(columnOrder), labels=statusLabels) + theme(axis.text.x = element_text(angle=60, hjust=1)) + ylab("Days") + ggtitle("Time each ticket spends in each column", subtitle = "Last 2 months")
+  
+  ggplot() + geom_bezier(aes(x= x, y = y/1000/60/60/24, group=group), alpha=0.3, data = beziersColumn) + scale_x_continuous(breaks=seq_along(columnOrder), labels=statusLabels) + theme(axis.text.x = element_text(angle=60, hjust=1)) + ylab("Days") + ggtitle("Time each ticket spends in each column - Zoomed", subtitle = "Last 2 months") + coord_cartesian(ylim=c(0,yZoom))
 ```
