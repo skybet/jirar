@@ -8,7 +8,7 @@ library(reshape2)
 
 ```
 
-```{r, echo=FALSE, warning=FALSE, error=FALSE}
+```{r, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
 
 project <- Sys.getenv("PROJECT", NA)
 #project <- "TS"
@@ -18,6 +18,7 @@ if(is.na(project)) {
   project <- paste0("-", project)
 }
 datasetFile <- paste0("../jiraData/jiraRDataset", project, ".csv")
+
 
 tsTickets <- read.csv(datasetFile, header=T, skipNul=T, na.strings="") %>%
   mutate(
@@ -30,6 +31,23 @@ tsTickets <- read.csv(datasetFile, header=T, skipNul=T, na.strings="") %>%
     totalTime = resolutionDate - created
   )
 
+tsMinDate <- min(tsTickets$created,tsTickets$resolutionDate, na.rm=T)
+tsMaxDate <- max(tsTickets$created,tsTickets$resolutionDate, na.rm=T)
+
+annotationsFiles <- c(
+  "../jiraData/projectAnnotations.csv",
+  paste0("../jiraData/projectAnnotations", project, ".csv")
+)
+annotationsFiles <- annotationsFiles[file.exists(annotationsFiles)]
+
+tsAnno <- lapply(annotationsFiles, readr::read_csv) %>% bind_rows() %>%
+  mutate(
+    start_date = as.POSIXct(start_date),
+    end_date = as.POSIXct(end_date)
+  )
+
+tsAnnoRect <- tsAnno %>% filter(!is.na(end_date))
+tsAnnoLine <- tsAnno %>% filter(is.na(end_date))
 
 #BURNUP
 
@@ -59,11 +77,16 @@ burnupTicketsMelt <- burnupTickets %>%
 
 burnupTicketsMelt$createdMonthDisplay <- factor(burnupTicketsMelt[order(burnupTicketsMelt$createdMonth), "createdMonthDisplay"], levels=unique(burnupTicketsMelt[order(burnupTicketsMelt$createdMonth), "createdMonthDisplay"]))
 
-ggplot(burnupTicketsMelt, aes(x=createdMonthDisplay, y=value, group=variable, color=variable)) + 
-  geom_line(na.rm=T) + 
+ggplot() + 
+  geom_line(aes(x=as.POSIXct(paste0(as.character(burnupTicketsMelt$createdMonth),"01"), format="%Y%m%d"), y=value, group=variable, color=variable), na.rm=T, data=burnupTicketsMelt) +
   theme(axis.text.x = element_text(angle=60, hjust=1)) + 
-  ggtitle("Burn-up (tickets created and resolved)") + scale_color_discrete("Resolved", breaks=c("cum_created", "cum_resolved"), labels=c("Created", "Resolved")) + ylab("Number of tickets") + xlab("Month")
+  ggtitle("Burn-up (tickets created and resolved)") + scale_color_discrete("Resolved", breaks=c("cum_created", "cum_resolved"), labels=c("Created", "Resolved")) + ylab("Number of tickets") + xlab("Month") +  geom_rect(aes(xmin=start_date, xmax=end_date, ymin=-Inf, ymax=Inf), fill="#00000011", color="#00000066", linetype="dashed", data=tsAnnoRect) + 
+   geom_vline(aes(xintercept=as.numeric(start_date)), color="#00000066", linetype="dashed", data=tsAnnoLine) + 
+  geom_text(aes(x=start_date, y=0, label=description), data=tsAnnoLine, angle=60, hjust=-0.15) + 
+  geom_text(aes(x=(start_date + (end_date - start_date)/2), y=0, label=description), data=tsAnnoRect, angle=90, hjust=-0.15) + coord_cartesian(xlim=c(tsMinDate, tsMaxDate))
+```
 
+```{r, echo=FALSE, warning=FALSE, error=FALSE}
 
 burnupTicketsMelt <- burnupTickets %>%
   filter(!is.na(createdMonth)) %>%
@@ -76,5 +99,5 @@ burnupTicketsMelt$createdMonthDisplay <- factor(burnupTicketsMelt[order(burnupTi
 ggplot(burnupTicketsMelt, aes(x=createdMonthDisplay, y=value, group=variable, color=variable)) + 
   geom_line(na.rm=T) + 
   theme(axis.text.x = element_text(angle=60, hjust=1)) + 
-  ggtitle("tickets created and resolved") + scale_color_discrete("Resolved", breaks=c("created", "resolved"), labels=c("Created", "Resolved")) + ylab("Number of tickets") + xlab("Month")
+  ggtitle("tickets created and resolved") + scale_color_discrete("Resolved", breaks=c("created", "resolved"), labels=c("Created", "Resolved")) + ylab("Number of tickets") + xlab("Month") 
 ```
