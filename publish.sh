@@ -18,12 +18,12 @@ then
     parentPage=26676200
 fi
 
-if [[ "$SQUAD" == "VBS" || "$SQUAD" == "HRS" || "$SQUAD" == "NGU" || "$SQUAD" == "SBP" ]]
+if [[ "$SQUAD" == "VBS" || "$SQUAD" == "HRS" || "$SQUAD" == "NGU" || "$SQUAD" == "SBP" || "$SQUAD" == "TE" || "$SQUAD" == "BMA" ]]
 then
     parentPage=46269728
 fi
 
-if [[ "$SQUAD" == "BCT" ]]
+if [[ "$SQUAD" == "BCT" || "$SQUAD" == "PBP"  ]]
 then
     parentPage=46269728
 fi

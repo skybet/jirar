@@ -32,19 +32,24 @@ function getBoardId(bootstrap, next) {
         "BTPS": 211,
         "BIT": 503,
         "VBS": 507,
+        "TE": 877,
 
         "BCT": 292,
         "BCTNPS": 754,
         "CT": 155, // OLD
         "PT": 216, // OLD
         "BCTDR": 605,
+        "PBP": 817,
 
         "BOPS": 202,
         "WOPS": 230,
         "BPE": 461,
         "MWT": 484,
 
-        "BMA": 628
+        "BMA": 628,
+        "BTP": 459,
+
+        "GP": 907
     }
     var project = bootstrap.bootstrap.project;
     var boardId = boardList[project];
@@ -90,7 +95,7 @@ function getTransitions(bootstrap, next) {
     console.log("Requesting transitions for project: " + project);
     var req = request({
         baseUrl: jiraApi,
-        uri: "api/2/issue/" + project + "-10/transitions",
+        uri: "api/2/issue/" + project + "-11/transitions",
         headers: {
             "Content-Type": "application/json",
             "Authorization": authHeader
@@ -157,7 +162,7 @@ function getIssues(bootstrap, next) {
     var bucketSize = 100;
     var numBuckets = Math.ceil(totalTickets / bucketSize);
 
-    async.timesLimit(numBuckets, 8, getIssuesBucket, function(err, data) {
+    async.timesLimit(numBuckets, 4, getIssuesBucket, function(err, data) {
         // Flatten the returned array
         return next(err, [].concat.apply([], data))
     });

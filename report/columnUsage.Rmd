@@ -59,7 +59,7 @@ names(statusLabels) <- names(statusColours)
 ```{r, echo=FALSE, warning=FALSE, error=FALSE}
 
 project <- Sys.getenv("PROJECT", NA)
-#project <- "TS"
+#project <- "GP"
 if(is.na(project)) {
   project <- ""
 } else { 
@@ -106,7 +106,7 @@ byMonth <- resolvedTickets %>%
   summarise_each(funs(count_na)) %>%
   filter(!is.na(resolutionMonth)) %>% filter(resolutionMonth != latestMonth)
 
-
+if (nrow(byMonth)) { 
 library(forcats)
 #byMonth$L1 <- forcats::fct_inorder(byMonth$L1)
 
@@ -128,6 +128,6 @@ ggplot(naByMonthMelt, aes(x=resolutionMonthDisplay, y=value, color=variable, gro
   geom_line(linetype="dashed", alpha=0.2) + 
   geom_smooth(se=F, fullrange=F, span=1, method="loess")
  # geom_point() 
-
+}
 ```
 

@@ -19,7 +19,7 @@ if("ggforce" %in% rownames(installed.packages())) {
 if("ggforce" %in% rownames(installed.packages())) {
   
   project <- Sys.getenv("PROJECT", NA)
-  project <- "TS"
+  #project <- "TS"
   if(is.na(project)) {
     project <- ""
   } else { 
@@ -73,7 +73,7 @@ if("ggforce" %in% rownames(installed.packages())) {
 ```
 
 ```{r, echo=FALSE, warning=FALSE, error=FALSE}
-recentTickets <- tsTickets %>% filter(resolutionDate > "2017-05-01") %>% select(-secondsInColumns.Open, -secondsInColumns.Reopened, -secondsInColumns.Resolved, -secondsInColumns.Closed)
+recentTickets <- tsTickets %>% filter(resolutionDate > "2017-05-01") %>% select(-one_of("secondsInColumns.Open", "secondsInColumns.Reopened", "secondsInColumns.Resolved", "secondsInColumns.Closed"))
 
 count_na <- function(x) sum(!is.na(x))
 blah <- melt(as.list(recentTickets %>% select( contains("secondsInColumns")) %>% apply(., 2,count_na)))
