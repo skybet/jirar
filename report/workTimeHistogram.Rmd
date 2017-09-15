@@ -1,0 +1,44 @@
+```{r}
+project <- Sys.getenv("PROJECT", NA)
+#project <- "TS"
+if(is.na(project)) {
+  project <- ""
+} else { 
+  project <- paste0("-", project)
+}
+datasetFile <- paste0("../jiraData/jiraRDataset", project, ".csv")
+datasetFile <- paste0("~/Desktop/jiraR/jiraData/jiraRDataset", project, ".csv")
+
+tsTickets <- read.csv(datasetFile, header=T, skipNul=T, na.strings="") %>%
+  mutate(
+    created = as.POSIXct(created), 
+    resolutionDate = as.POSIXct(resolutionDate),
+    resolutionMonth = as.numeric(format(resolutionDate, format="%Y%m")),
+    resolutionMonthDisplay = format(resolutionDate, format="%Y %B"),
+    totalTime = resolutionDate - created
+  ) %>% 
+  filter(status != "Closed") %>% 
+  filter(status != "to do") %>% 
+  filter(status != "open") %>%
+  filter(ticketType != "Epic") %>% arrange(resolutionMonth) %>% filter(resolution == "Done")
+
+workedColumns <- tsTickets %>% select(starts_with("SecondsInColumn")) %>%
+  select( -one_of(c("secondsInColumns.Backlog", "secondsInColumns.Next.Up", "secondsInColumns.New", "secondsInColumns.Done", "secondsInColumns.Closed", "secondsInColumns.Resolved", "secondsInColumns.Open", "secondsInColumns.Reopened")))
+tsTickets$workTime <- apply(workedColumns, FUN="sum", MARGIN=1, na.rm=T)
+
+
+last5Months <- tsTickets$resolutionMonth %>% unique() %>% tail(5)
+recentTickets <- tsTickets %>% filter(resolutionMonth %in% last5Months)
+recentTickets$resolutionMonthDisplay <- forcats::fct_rev(recentTickets$resolutionMonthDisplay)
+
+quantile(recentTickets$workTime, c(0.5))
+medianDays <- quantile(recentTickets$workTime, c(0.5))/1000/60/60/24
+
+ggplot(recentTickets, aes(x=workTime/1000/60/60/24)) + 
+  geom_histogram(binwidth=2) + 
+ # facet_wrap(~forcats::fct_rev(resolutionMonthDisplay), ncol=1) + 
+  facet_wrap(~resolutionMonthDisplay, ncol=1) + 
+  labs(title="Ticket Work Time Histograms", x="Days") + 
+  geom_vline(xintercept = medianDays ) 
+#TODO show the median for each month
+```
