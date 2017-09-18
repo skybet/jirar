@@ -8,7 +8,7 @@ describe("getTransitions", function() {
             var transitions = require("./projectTransitions-TS");
             var boardColumns = require("./boardColumns-TS");
             var nockJira = nock('http://test')
-                    .get('/api/2/issue/TS-10/transitions')
+                    .get('/api/2/issue/TS-11/transitions')
                     .reply(200, transitions)
 
                     .get('/agile/1.0/board/290/configuration')
@@ -34,7 +34,7 @@ expectedCategories = [ 'Open', 'Reopened', '3 Amigos In', '3 Amigos Out', 'Imple
             var transitions = require("./projectTransitions-PE");
             var boardColumns = require("./boardColumns-PE");
             var nockJira = nock('http://test')
-                    .get('/api/2/issue/PE-10/transitions')
+                    .get('/api/2/issue/PE-11/transitions')
                     .reply(200, transitions)
 
                     .get('/agile/1.0/board/357/configuration')
