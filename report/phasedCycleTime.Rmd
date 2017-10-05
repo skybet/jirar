@@ -10,7 +10,7 @@ library(reshape2)
 
 ```{r, echo=FALSE, warning=FALSE, error=FALSE}
 project <- Sys.getenv("PROJECT", NA)
-#project <- "BMA"
+#project <- "TS"
 if(is.na(project)) {
   project <- ""
 } else { 
@@ -109,12 +109,22 @@ summaryResolvedMelt <- melt(summaryResolved, id=c("resolutionMonthDisplay", "res
 summaryResolvedMelt$variable <- factor(summaryResolvedMelt$variable, levels = rev(levels(summaryResolvedMelt$variable)))
 summaryResolvedMelt$resolutionMonthDisplay <- factor(summaryResolvedMelt[order(summaryResolvedMelt$resolutionMonth), "resolutionMonthDisplay"], levels=unique(summaryResolvedMelt[order(summaryResolvedMelt$resolutionMonth), "resolutionMonthDisplay"]))
 
+
+dwellPerc <- summaryResolvedMelt %>% filter(!is.na(resolutionMonth)) %>% mutate( dwell = grepl(".out|release.validation", variable, ignore.case=T)) %>% 
+  group_by(resolutionMonth, resolutionMonthDisplay, dwell) %>% 
+  summarise(total=sum(value, na.rm=T)) %>% mutate( perc = round(total/sum(total)*100)) %>% filter(dwell) %>% select(resolutionMonth, resolutionMonthDisplay, perc)
+
+dateDwell <- paste0(dwellPerc$resolutionMonthDisplay, " - (", dwellPerc$perc, "% dwell)")
+names(dateDwell) <- dwellPerc$resolutionMonthDisplay
+
 summaryResolvedMelt %>%
   filter(! is.na(resolutionMonth)) %>% #Only show resolved tickets
   ggplot(aes(x=resolutionMonthDisplay, y=value/24/60/60/1000)) + 
   geom_bar(stat="identity", aes(fill=variable)) + ylab("days") + xlab("month") +
-  theme(legend.position = "bottom") + scale_fill_manual(values=statusColours, na.value="gray", labels=statusLabels, name="Column") + coord_flip() +
+  theme(legend.position = "bottom") + scale_fill_manual(values=statusColours, na.value="gray", labels=statusLabels, name="Column") + coord_flip() + scale_x_discrete(labels=dateDwell) + expand_limits(0) +
   guides(fill=guide_legend(reverse=TRUE)) + ggtitle("Median Phased Cycle Time - Resolved Date")
+
+    
 
 ```
 
@@ -131,10 +141,29 @@ summaryResolvedMelt <- melt(summaryResolved, id=c("resolutionMonthDisplay", "res
 summaryResolvedMelt$variable <- factor(summaryResolvedMelt$variable, levels = rev(levels(summaryResolvedMelt$variable)))
 summaryResolvedMelt$resolutionMonthDisplay <- factor(summaryResolvedMelt[order(summaryResolvedMelt$resolutionMonth), "resolutionMonthDisplay"], levels=unique(summaryResolvedMelt[order(summaryResolvedMelt$resolutionMonth), "resolutionMonthDisplay"]))
 
+dwellPercMean <- summaryResolvedMelt %>% filter(!is.na(resolutionMonth)) %>% mutate( dwell = grepl(".out|release.validation", variable, ignore.case=T)) %>% 
+  group_by(resolutionMonth, resolutionMonthDisplay, dwell) %>% 
+  summarise(total=sum(value, na.rm=T)) %>% mutate( perc = round(total/sum(total)*100)) %>% filter(dwell) %>% select(resolutionMonth, resolutionMonthDisplay, perc)
+
+dateDwellMean <- paste0(dwellPercMean$resolutionMonthDisplay, " - (", dwellPercMean$perc, "% dwell)")
+names(dateDwellMean) <- dwellPercMean$resolutionMonthDisplay
+
+
 summaryResolvedMelt %>%
   filter(! is.na(resolutionMonth)) %>% #Only show resolved tickets
   ggplot(aes(x=resolutionMonthDisplay, y=value/24/60/60/1000)) +
   geom_bar(stat="identity", aes(fill=variable)) + ylab("days") + xlab("month") +
-  theme(legend.position = "bottom") + scale_fill_manual(values=statusColours, na.value="gray", labels=statusLabels, name="Column") + coord_flip() +
+  theme(legend.position = "bottom") + scale_fill_manual(values=statusColours, na.value="gray", labels=statusLabels, name="Column") + coord_flip() + scale_x_discrete(labels=dateDwellMean) +
   guides(fill=guide_legend(reverse=TRUE)) + ggtitle("Mean Phased Cycle Time - Resolved Date")
+```
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE}
+
+dwellPercMeasures <- inner_join(dwellPerc, dwellPercMean, by=c("resolutionMonth", "resolutionMonthDisplay"), suffix = c(".median", ".mean"))
+
+dwellPercMelt <- dwellPercMeasures %>% melt(id=c("resolutionMonthDisplay", "resolutionMonth"), value.name="Percentage", variable.name="Measure")
+
+ 
+ggplot(dwellPercMelt, aes(x=resolutionMonthDisplay, y=Percentage, group=Measure, color=Measure)) + geom_line(linetype="dashed", alpha=0.5) + theme(axis.text.x = element_text(angle=60, hjust=1), legend.position = "bottom") + ggtitle("Percentage of time tickets spend in a 'dwell' column") + expand_limits(y=c(0,100)) + geom_smooth(se=F, method="loess")
+
 ```

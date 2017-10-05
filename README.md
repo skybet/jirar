@@ -39,7 +39,6 @@ sh ./RUNME.sh <randombase64hash> TS PUBLISH
 * When looking up spend+worktype from the epic, look at other project's boards too 
 * Shiny http://rmarkdown.rstudio.com/authoring_shiny.html
 * Extract blocked time
-* Display Dwell Percentage
 * Extract re-work time/counts
 * Integrate with stash to apply codebase metrics
 
