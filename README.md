@@ -27,14 +27,16 @@ The report container takes an especially long time to build
 
 ## Setup config
 
-The first time RUNME.sh is run, it copies two example config files.
+The first time RUNME.sh is run, it copies three example config files.
 These need updating with your details.
 
 The first: `atlassianDetails.sh` needs the url of the rest-endpoint for Jira and Confluence
 
 The second: `extract/boardList.js` is a mapping from jira project keys to boardIds. Instuctions are in the example file
 
-You may manually created these config files before the first run by removing the .example suffix from the filenames and populating them yourself
+The third: `extract/customFields.js` is to define fields to extract beyond the named jira fields. Three fields are defined from our boards and described in the Examples section below. If you have similar fields, change the link in this file.
+
+You may manually create these config files before the first run by removing the .example suffix from the filenames and populating them yourself.
 
 
 # Examples

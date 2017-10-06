@@ -9,7 +9,7 @@ var json2csv = require("json2csv");
 var fs = require('fs');
 
 
-function getBoardId(bootstrap, next) { 
+function getBoardId(bootstrap, next) {
     //TODO get this number from JIRA - maybe request the project and look at the redirected URI?
     // OR is there an api call?
     var project = bootstrap.bootstrap.project;
@@ -21,7 +21,7 @@ function getBoardId(bootstrap, next) {
     return next(null, boardId);
 };
 
-function getBoardColumns(bootstrap, next) { 
+function getBoardColumns(bootstrap, next) {
     var project = bootstrap.bootstrap.project;
     var jiraApi = bootstrap.bootstrap.jiraApi;
     var authHeader = bootstrap.bootstrap.authHeader;
@@ -38,8 +38,9 @@ function getBoardColumns(bootstrap, next) {
         json: true
     }, function(err, res, body) {
 
+        //TODO change this flow so next won't get called twice
         dealWithJiraResponse(err, req, res, body, next);
- 
+
         var colStatuses = body.columnConfig.columns.map(function(col) {
             return col.statuses.map(function(st) { return st.id; })
         });
@@ -76,11 +77,11 @@ function getTransitions(bootstrap, next) {
         // :( because BCTDR doesn't have Backlog in the transitions response
         unOrderedProjectCategories[10001] = unOrderedProjectCategories[10001] || "Backlog"
 
-        getBoardColumns(bootstrap, function(err, columns) { 
+        getBoardColumns(bootstrap, function(err, columns) {
             //var workingProjectCategories = unOrderedProjectCategories.slice(); //Clone
             if (err) { return next(err); }
 
-            projectCategories = columns.map(function(statusId) { 
+            projectCategories = columns.map(function(statusId) {
                 return unOrderedProjectCategories[statusId].name
             });
 
@@ -107,7 +108,6 @@ function getNumberOfTickets(bootstrap, next) {
         },
         json: true
     }, function(err, res, body) {
-        if (err) { console.log("ERR"); console.log(err); return next(err); }
         dealWithJiraResponse(err, req, res, body, next);
 
         return next(err, body.total);
@@ -145,21 +145,22 @@ function getIssues(bootstrap, next) {
         }, function(err, res, body) {
             dealWithJiraResponse(err, req, res, body, next);
 
-            var issueData = body.issues.map(extractIssueData);
+            var customFields = require('./customFields.js');
+            var issueData = body.issues.map(extractIssueData.bind(this, customFields));
             return nextBucket(err, issueData);
         });
     };
 
 };
 
-function dealWithJiraResponse(err, req, res, body, next) { 
+function dealWithJiraResponse(err, req, res, body, next) {
             if (err) { console.log("ERR"); console.log(err); return next(err); }
             var msg = util.format("Got %s response from jira @ %j", res.statusCode, req.uri.href);
             console.log(msg);
-            if (res.statusCode != 200) { 
+            if (res.statusCode != 200) {
                 console.log("ERR");
                 console.log(body);
-                return next(msg); 
+                return next(msg);
 
             }
 };
@@ -197,10 +198,13 @@ function lookupFromEpicStore(epicStore, epicKey) {
     }
 };
 
-function extractIssueData(issue) {
+function extractIssueData(customFields, issue) {
+
     var change = issue.changelog.histories;
     var firstCreated = issue.fields.created;
 
+    //Change in column is signified by the status field on a ChangeHistItem
+    //Pick those out then work out the time differences to add it to the 'from column'
     var timeInColumns = change.filter(function(changeHist) {
 
 //WARNING Filter modifies changeHist.items
@@ -223,7 +227,7 @@ function extractIssueData(issue) {
         if (prevDate > newDate) { console.log("WARN"); console.log(issue.key + " had out of order changelog"); }
 
         var nonWorking = 0;
-        if (newDate.weeks() > prevDate.weeks()) { 
+        if (newDate.weeks() > prevDate.weeks()) {
             //console.log(oldColumn + " over a weekend");
             nonWorking = 2*24*60*60*1000 ;
         };
@@ -250,15 +254,9 @@ function extractIssueData(issue) {
     delete timeInColumns.previousTime
 
 process.stdout.write(".");
-    var workType = null;
-    if (issue.fields.customfield_10905) {
-        workType = issue.fields.customfield_10905.value;
-    }
-
 
     var ticketType = null;
     if (issue.fields.issuetype) { ticketType = issue.fields.issuetype.name; }
-
 
     var status = null;
     if (issue.fields.status) { status = issue.fields.status.name; }
@@ -266,12 +264,8 @@ process.stdout.write(".");
     var resolution = null;
     if (issue.fields.resolution) { resolution = issue.fields.resolution.name; }
 
-    var spend = null;
-    if (issue.fields.customfield_11701) { spend = issue.fields.customfield_11701[0].value; }
 
-    var epicLink = issue.fields.customfield_10103;
-    if (!epicLink && issue.fields.parent) { epicLink = issue.fields.parent.key; } 
-    return {
+    var issueData = {
         key: issue.key,
         summary: issue.fields.summary,
         resolution: resolution,
@@ -281,10 +275,43 @@ process.stdout.write(".");
         created: firstCreated,
         secondsInColumns: timeInColumns,
         //timeInColumns: formatTimeInColumns
-        workType: workType,
-        epicLink: epicLink,
-        spend: spend
     }
+
+    var customData = extractCustomFields(customFields, issue);
+
+    //Return the merge of issueData and customData
+    var issueDataToReturn = Object.assign({}, issueData, customData)
+
+    //BLEUGH
+    if (!issueDataToReturn.epicLink && issue.fields.parent) { issueDataToReturn.epicLink = issue.fields.parent.key; }
+
+    return issueDataToReturn
+};
+
+var extractCustomFields = function extractCustomFields(customFields, issue) {
+    var customData = {};
+    Object.keys(customFields).forEach(function(customKey) {
+        var requirement = customFields[customKey];
+        var customField = requirement.field;
+        var customValue = null;
+
+        if (issue.fields[customField]) {
+            if (requirement.type == 'list') {
+                customValue = issue.fields[customField][0].value;
+            } else if (requirement.type == 'value') {
+                customValue = issue.fields[customField].value;
+            } else if (requirement.type == 'key') {
+                customValue = issue.fields[customField].key;
+            } else if (requirement.type == 'basic') {
+                customValue = issue.fields[customField];
+            }
+        }
+
+        customData[customKey] = customValue;
+
+    });
+
+    return customData;
 };
 
 
@@ -321,8 +348,8 @@ var backfillEpicLink = function backfillEpicLink(bootstrap, next) {
             return pre;
         }, {}
     )
-    var findIssueByKey = function(issueList, issueKey) { 
-        return issueList.find(function(i) { 
+    var findIssueByKey = function(issueList, issueKey) {
+        return issueList.find(function(i) {
             return (i.key == issueKey)
         });
     }
@@ -330,7 +357,7 @@ var backfillEpicLink = function backfillEpicLink(bootstrap, next) {
 
     var processOnce = function(issue) {
         var tempIssue = issue;
-        while (tempIssue && tempIssue.epicLink) { 
+        while (tempIssue && tempIssue.epicLink) {
             if (!issue.workType && tempIssue.epicLink) {
                 process.stdout.write("-");
                 issue.workType = lookupFromEpicStore(epicWorkTypeStore, tempIssue.epicLink);
@@ -378,5 +405,6 @@ async.auto({
 
 module.exports = {
     extractIssueData: extractIssueData,
+    extractCustomFields: extractCustomFields,
     getTransitions: getTransitions
 }

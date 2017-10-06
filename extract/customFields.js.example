@@ -1,0 +1,6 @@
+module.exports = {
+
+    spend: { type: 'list', field: 'customfield_11701' },
+    workType: { type: 'value', field: 'customfield_10905' },
+    epicLink: { type: 'basic', field: 'customfield_10103'  }
+}
