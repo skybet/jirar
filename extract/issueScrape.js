@@ -12,49 +12,12 @@ var fs = require('fs');
 function getBoardId(bootstrap, next) { 
     //TODO get this number from JIRA - maybe request the project and look at the redirected URI?
     // OR is there an api call?
-    var boardList = {
-        "TR": 144, //OLD SQUAD
-        "TFS": 522, //OLD SQUAD
-        "TS": 290,
-        "PE": 357,
-        "TSI": 690,
-
-        "BTE": 130, // OLD
-        "BTFS": 210, //OLD
-        "DOT": 123, //OLD
-        "VBS": 507,
-        "HRS": 699,
-        "NGU": 505,
-        "SBP": 489,
-        "SOD": 693,
-        "BTI": 769,
-        "WES": 291,
-        "BTPS": 211,
-        "BIT": 503,
-        "VBS": 507,
-        "TE": 877,
-
-        "BCT": 292,
-        "BCTNPS": 754,
-        "CT": 155, // OLD
-        "PT": 216, // OLD
-        "BCTDR": 605,
-        "PBP": 817,
-
-        "BOPS": 202,
-        "WOPS": 230,
-        "BPE": 461,
-        "MWT": 484,
-
-        "BMA": 628,
-        "BTP": 459,
-
-        "GP": 907
-    }
     var project = bootstrap.bootstrap.project;
+    var boardList = require("./boardList.js");
+
     var boardId = boardList[project];
 
-    if (!boardId) { return next("Project " + project + " is not in the boardList - Edit this file"); }
+    if (!boardId) { return next("Project " + project + " is not in the boardList - Edit extract/boardList.js"); }
     return next(null, boardId);
 };
 
@@ -391,9 +354,9 @@ if (require.main === module) {
 async.auto({
     "bootstrap": function(next) {
         bootstrap = {
-            project: process.argv[3] || process.env.PROJECT,
-            jiraApi: "https://jira.example.com/jira/rest/",
-            authHeader: "Basic " + (process.argv[2] || process.env.SECRET)
+            project: process.argv[4] || process.env.PROJECT,
+            jiraApi: process.argv[2] || process.env.JIRAREST,
+            authHeader: "Basic " + (process.argv[3] || process.env.SECRET)
         };
         return next(null, bootstrap);
     },

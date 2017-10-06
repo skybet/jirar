@@ -1,0 +1,4 @@
+#CHANGEME to be the rest endpoint of your jira and confluence
+export JIRAREST="https://jira.example.com/rest/"
+export CONFLUENCEREST="https://confluence.example.com/rest/"
+

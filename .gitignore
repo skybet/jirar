@@ -5,3 +5,5 @@ node_modules
 publishTemplate.json
 WorkingScreenshots/
 tribeLevel/.Rapp.history
+extract/boardlist.js
+atlassianDetails.sh

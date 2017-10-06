@@ -1,0 +1,12 @@
+// Add your project -> boardId here
+// The boardList.js file is mounted to the docker container on run, so updates are automatically included
+
+
+// The number can be found by loading your board in Jira and extracting the ID from the URL
+// e.g.
+// https://jira.example.com/secure/RapidBoard.jspa?rapidView=101&projectKey=PR
+//  == 'PR': 101
+
+module.exports = boardList = {
+    "PR": 101 //EXAMPLE, delete me after adding your boards
+}

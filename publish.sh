@@ -2,9 +2,10 @@
 
 set -e
 
-SECRET=$1
-SQUAD=$2
-PUBLISH=$3
+CONFLUENCEREST=$1
+SECRET=$2
+SQUAD=$3
+PUBLISH=$4
 
 DATE=`date "+%Y/%m/%d"`
 if [ -f jiraReport/jiraR-$SQUAD.html ]
@@ -42,7 +43,7 @@ printf '</div>]]>ViewTracker here</ac:plain-text-body></ac:structured-macro><ac:
         echo "WILL PUBLISH under page: $parentPage"
 
 
-        response=`curl -s -S -H "Authorization: Basic $SECRET" -X POST -H 'Content-Type: application/json' -d"@publishTemplate.json" https://confluence.example.com/confluence/rest/api/content/`
+        response=`curl -s -S -H "Authorization: Basic $SECRET" -X POST -H 'Content-Type: application/json' -d"@publishTemplate.json" ${CONFLUENCEREST}api/content/`
 
 
         pageId=`echo $response | python -c 'import sys, json; print json.load(sys.stdin)[sys.argv[1]]' id`
@@ -52,7 +53,7 @@ printf '</div>]]>ViewTracker here</ac:plain-text-body></ac:structured-macro><ac:
             #labels
             labels="jiraR"
             labelPost="[$( echo $labels | sed 's/\([^,]*\)/{"prefix": "global", "name":"\1"}/g')]"
-            curl -s -S -H "Authorization: Basic $SECRET" -X POST -H 'Content-Type: application/json' -d"$labelPost" https://confluence.example.com/confluence/rest/api/content/$pageId/label
+            curl -s -S -H "Authorization: Basic $SECRET" -X POST -H 'Content-Type: application/json' -d"$labelPost" ${CONFLUENCEREST}api/content/$pageId/label
 
         fi
 

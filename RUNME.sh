@@ -10,13 +10,30 @@ PUBLISH=$3
 set -x
 set -e
 
-SECRET=$SECRET PROJECT=$SQUAD docker run -e SECRET -e PROJECT -v $(pwd)/jiraData/:/usr/src/app/jiraData/ jirar-extract
+
+
+if [ ! -f extract/boardList.js ]
+then
+    cp extract/boardList.js.example extract/boardList.js
+    echo "Copied boardList.js.example as extract/boardList.js doesn't exist"
+fi
+if [ ! -f atlassianDetails.sh ]
+then
+    cp atlassianDetails.sh.example atlassianDetails.sh
+    echo "Copied atlassianDetails.sh.example as atlassianDetails.sh doesn't exist"
+fi
+
+
+#Source in the $JIRAREST and $CONFLUENCEREST variables
+. ./atlassianDetails.sh
+
+SECRET=$SECRET PROJECT=$SQUAD JIRAREST=$JIRAREST docker run -e SECRET -e PROJECT -e JIRAREST -v $(pwd)/jiraData/:/usr/src/app/jiraData/ -v $(pwd)/extract/boardList.js:/usr/src/app/boardList.js jirar-extract
 
 PROJECT=$SQUAD docker run -e PROJECT -v $(pwd):/home/user/jiraR jirar-report
 
 mv report/jiraR.html jiraReport/jiraR-$SQUAD.html
 
-sh ./publish.sh $SECRET $SQUAD $PUBLISH
+sh ./publish.sh $CONFLUENCEREST $SECRET $SQUAD $PUBLISH
 
 
 

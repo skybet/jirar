@@ -1,7 +1,7 @@
 # Summary
 
-This project creates some pictures based on jira data.
-These should allow squads to gain some insight into their development cycle. Hopefully provoking some discussions on improving the flow of work.
+This project creates some pictures based on jira data and uploads the resulting html report to confluence.
+These should allow squads to gain some insight into their development cycle. Hopefully provoking discussions on improving the flow of work.
 
 # Usage
 
@@ -18,21 +18,28 @@ sh ./RUNME.sh <randombase64hash> TS PUBLISH
 # Installation
 
 
-## Docker version...
+## Build docker containers
+
+The report container takes an especially long time to build
 
 * docker build -t jirar-report report
 * docker build -t jirar-extract extract
 
-## Local version...
+## Setup config
 
-1. Install R https://cran.rstudio.com/
-2. Install RStudio (Recommended) https://www.rstudio.com/products/rstudio/download/
-3. Install R Libraries - within rstudio console type: ```install.packages(c("ggplot2", "lubridate", "dplyr", "forcats", "reshape2", "knitr", "rmarkdown", "gtools"));```
-4. Install Nodejs https://nodejs.org/en/
-5. ```npm install```
-6. Run RUNME.sh against your squad -- See Usage above
+The first time RUNME.sh is run, it copies two example config files.
+These need updating with your details.
 
- *Download an old version of the RUNME.sh script*
+The first: `atlassianDetails.sh` needs the url of the rest-endpoint for Jira and Confluence
+
+The second: `extract/boardList.js` is a mapping from jira project keys to boardIds. Instuctions are in the example file
+
+You may manually created these config files before the first run by removing the .example suffix from the filenames and populating them yourself
+
+
+# Examples
+
+...
 
 # Todo list / Idea List
 
@@ -41,6 +48,7 @@ sh ./RUNME.sh <randombase64hash> TS PUBLISH
 * Extract blocked time
 * Extract re-work time/counts
 * Integrate with stash to apply codebase metrics
+* publish docker files to dockerhub
 
 * Tribe level reports
 
