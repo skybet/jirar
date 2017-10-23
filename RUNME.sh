@@ -36,6 +36,11 @@ SECRET=$SECRET PROJECT=$SQUAD JIRAREST=$JIRAREST docker run -e SECRET -e PROJECT
 
 PROJECT=$SQUAD docker run -e PROJECT -v $(pwd):/home/user/jiraR jirar-report
 
+if [ ! -d jiraReport ]
+then
+    mkdir -p jiraReport
+fi
+
 mv report/jiraR.html jiraReport/jiraR-$SQUAD.html
 
 sh ./publish.sh $CONFLUENCEREST $SECRET $SQUAD $PUBLISH
