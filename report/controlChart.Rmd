@@ -11,7 +11,7 @@ library(lubridate)
 ```{r, echo=FALSE, warning=FALSE, error=FALSE}
 
 project <- Sys.getenv("PROJECT", NA)
-#project <- "TS"
+#project <- "SKY"
 if(is.na(project)) {
   project <- ""
 } else { 
@@ -75,49 +75,8 @@ ggplot(filter(tsTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutionMonth
 ```
 
 ```{r, echo=FALSE, warning=FALSE, error=FALSE, message=F, fig.height=6}
+source("columnColours.R")
 
-statusColours <- c("secondsInColumns.Open" = "white", "secondsInColumns.Backlog" = "white",
-                   "secondsInColumns.Selected.for.Development" = "white",
-                   "secondsInColumns.Analysis.In" = "red", "secondsInColumns.Analysis.Out" = "white",
-                   "secondsInColumns.Selected" = "red",
-                   "secondsInColumns.Test.Analysis.In" = "red", "secondsInColumns.Test.Analysis.Out" = "white",
-                   "secondsInColumns.Next" = "red",
-                   "secondsInColumns.Elaboration.In" = "red", "secondsInColumns.Elaboration.Out" = "white", "secondsInColumns.Elaboration..Out" = "white",
-                   
-                   "secondsInColumns.3.Amigos.In" = "red", "secondsInColumns.3.Amigos.Out" = "white",
-                   "secondsInColumns.Implementation.In" = "orange", "secondsInColumns.Implementation.Out" = "white",
-                   "secondsInColumns.In.Progress" = "orange",
-                   
-                   "secondsInColumns.Review.In" = "#ffc966", "secondsInColumns.Review.Out" = "white",
-                   "secondsInColumns.Code.Review.In" = "#ffc966", "secondsInColumns.Code.Review.Out" = "white",
-                   "secondsInColumns.Awaiting.Review" = "#ffc966", "secondsInColumns.Review.Done" = "white",                   
-
-                   "secondsInColumns.Code.Review...Demo.In" = "#ffc966", "secondsInColumns.Code.Review...Demo.Out" = "white",
-                   "secondsInColumns.In.Review" = "#ffc966",
-                   "secondsInColumns.Demo.In" = "#ffc966", "secondsInColumns.Demo.Out" = "white",
-                   "secondsInColumns.UAT.In" = "#ffc966", "secondsInColumns.UAT.Out" = "white",
-                   "secondsInColumns.UAT" = "#ffc966",
-                   
-                   "secondsInColumns.Test.In" = "yellow", "secondsInColumns.Test.Out" = "white",
-                   "secondsInColumns.Testing.In" = "yellow", "secondsInColumns.Testing.Done" = "white",
-                   
-                   "secondsInColumns.Merged" = "green",
-                   "secondsInColumns.Deploy.To.Test.In" = "#00bb00",
-                   "secondsInColumns.Deploy" = "#00bb00",
-                   "secondsInColumns.Deploy.to.Test.Out" = "white",
-                   
-                   "secondsInColumns.Deployed.to.Test.Environment" = "#00bb00",
-                   "secondsInColumns.Deployed.to.Staging.Environment" = "#007700",
-                   "secondsInColumns.Deployed.to.Staging.Environmen" = "#007700",
-                   "secondsInColumns.Staging" = "#007700",
-
-
-                   "secondsInColumns.Release" = "#55bb55",
-                   "secondsInColumns.Release.Validation" = "#ddffdd",
-                   
-                   "secondsInColumns.Closed" = "#666666",
-                   "secondsInColumns.Resolved" = "#666666"
-)
 statusLabels <- gsub("secondsInColumns.", "", names(statusColours))
 names(statusLabels) <- names(statusColours)
 
@@ -156,16 +115,17 @@ library(forcats)
   #Reorder so capex is on the bottom, NA on the top
   classOfWorkTickets$spendDisplay <- fct_relevel(addNA(classOfWorkTickets$spend), NA, "OPEX", "CAPEX")
   
- 
+ if (levels(classOfWorkTickets$spendDisplay) %>% length() > 1) {
 
   
-  ggplot(filter(classOfWorkTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutionMonthDisplay, fill=spendDisplay)) + scale_fill_discrete(name=NULL) +
+  ggplot(filter(classOfWorkTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutionMonthDisplay, fill=NA)) + scale_fill_discrete(name=NULL) +
     geom_bar(stat="count", position="fill") + theme(legend.position = "bottom", axis.text.x = element_text(angle=60, hjust=1)) + 
     ggtitle("Spend Distribution - Completed Tickets") + xlab("Resolution Month") + ylab("Spend %")
   
     ggplot(filter(classOfWorkTickets, ! is.na(resolutionMonthDisplay)), aes(x=resolutionMonthDisplay, y=workTime, fill=spendDisplay)) + scale_fill_discrete(name=NULL) +
     geom_bar(position="fill", stat="identity") + theme(legend.position = "bottom", axis.text.x = element_text(angle=60, hjust=1)) + 
     ggtitle("Spend Distribution - Worked Time") + xlab("Resolution Month") + ylab("Spend %")
+ }
 
 ```
     
