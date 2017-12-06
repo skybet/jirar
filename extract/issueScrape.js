@@ -55,11 +55,25 @@ function getTransitions(bootstrap, next) {
     var jiraApi = bootstrap.bootstrap.jiraApi;
     var authHeader = bootstrap.bootstrap.authHeader;
 
+    console.log("Requesting first issue for transitions key for project: " + project);
+    var reqFirst = request({
+        baseUrl: jiraApi,
+        uri: "api/2/search?jql=project=" + project + "&maxResults=1&startAt=0&issueType=story",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": authHeader
+        },
+        json: true
+    }, function(err, res, body) {
+        dealWithJiraResponse(err, reqFirst, res, body, next);
+
+        key = body.issues[0].key;
+
     // https://jira.example.com/jira/rest/api/2/issue/TS-1020/transitions
     console.log("Requesting transitions for project: " + project);
     var req = request({
         baseUrl: jiraApi,
-        uri: "api/2/issue/" + project + "-11/transitions",
+        uri: "api/2/issue/" + key + "/transitions",
         headers: {
             "Content-Type": "application/json",
             "Authorization": authHeader
@@ -82,7 +96,8 @@ function getTransitions(bootstrap, next) {
             if (err) { return next(err); }
 
             projectCategories = columns.map(function(statusId) {
-                return unOrderedProjectCategories[statusId].name
+                if (!unOrderedProjectCategories[statusId]) { return }
+                else { return unOrderedProjectCategories[statusId].name } 
             });
 
             return next(err, projectCategories);
@@ -90,6 +105,7 @@ function getTransitions(bootstrap, next) {
 
         });
 
+        });
     });
 }
 
@@ -111,6 +127,7 @@ function getNumberOfTickets(bootstrap, next) {
         dealWithJiraResponse(err, req, res, body, next);
 
         return next(err, body.total);
+
         })
 }
 

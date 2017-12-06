@@ -43,6 +43,22 @@ You may manually create these config files before the first run by removing the 
 
 ...
 
+
+# Known Issues / Workarounds
+
+## 500 Error from jira greenhopper (agile board) api
+
+
+    Got 500 response from jira @ "https://tools.skybet.net/jira/rest/agile/1.0/board/793/configuration"
+    ERR
+    { 'status-code': 500,
+      'stack-trace': 'java.lang.NullPointerException\n\tat com.atlassian.greenhopper.api.rest.bean.BoardConfigBeanFactory.createRankingConfigBean(BoardConfigBeanFactory.java:102)
+        at com.atlassian.greenhopper.api.rest.bean.BoardConfigBeanFactory.toBean(BoardConfigBeanFactory.java:48)
+        at ...
+
+
+In Jira, Board admin configure the board - and append: “ORDER BY Rank ASC” to the Filter Query.
+
 # Todo list / Idea List
 
 * When looking up spend+worktype from the epic, look at other project's boards too 

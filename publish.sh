@@ -13,27 +13,40 @@ then
 
 
 parentPage=
+parentSpace=
 
 if [[ "$SQUAD" == "TS" || "$SQUAD" == "PE" || "$SQUAD" == "TSI" ]]
 then
     parentPage=26676200
+    parentSpace="TBT"
+    
 fi
 
 if [[ "$SQUAD" == "VBS" || "$SQUAD" == "HRS" || "$SQUAD" == "NGU" || "$SQUAD" == "SBP" || "$SQUAD" == "TE" || "$SQUAD" == "BMA" ]]
 then
     parentPage=46269728
+    parentSpace="TBT"
 fi
 
 if [[ "$SQUAD" == "BCT" || "$SQUAD" == "PBP"  ]]
 then
     parentPage=46269728
+    parentSpace="TBT"
+fi
+
+if [[ "$SQUAD" == "PAW" || "$SQUAD" == "GP"  ]]
+then
+    parentPage=64264072
+    parentSpace="SSP"
 fi
 
 printf '{\"type\":\"page\",\"title\":\"' > publishTemplate.json
 printf "$SQUAD JiraR stats $DATE" >> publishTemplate.json
 printf '\", \"ancestors\":[{\"id\":' >> publishTemplate.json
 printf "$parentPage" >> publishTemplate.json
-printf '}], \"space\":{\"key\":\"TBT\"},\"body\":{\"storage\":{\"value\":\"<ac:structured-macro ac:name=\\"listlabels\\"></ac:structured-macro><ac:structured-macro ac:name=\\"html\\"><ac:plain-text-body><![CDATA[<div>' >> publishTemplate.json
+printf '}], \"space\":{\"key\":\"' >> publishTemplate.json
+printf "$parentSpace" >> publishTemplate.json
+printf '\"},\"body\":{\"storage\":{\"value\":\"<ac:structured-macro ac:name=\\"listlabels\\"></ac:structured-macro><ac:structured-macro ac:name=\\"html\\"><ac:plain-text-body><![CDATA[<div>' >> publishTemplate.json
 sed 's/"/\\"/g' jiraReport/jiraR-$SQUAD.html >> publishTemplate.json
 printf '</div>]]>ViewTracker here</ac:plain-text-body></ac:structured-macro><ac:structured-macro ac:name=\\"viewtracker\\"></ac:structured-macro>\",\"representation\":\"storage\"}}}' >> publishTemplate.json
 
